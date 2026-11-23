@@ -1,0 +1,58 @@
+/* ===== صفحة التسليم ===== */
+.narrow { max-width: 720px; }
+
+.day-tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 24px; }
+.day-tab {
+  border-radius: 999px; padding: 8px 20px; font-weight: 700; font-family: var(--font-body); font-size: 16px;
+  border: 2px solid #D5DCE4; color: var(--muted); background: var(--card); cursor: pointer;
+}
+.day-tab.active { background: var(--secondary); border-color: var(--secondary); color: #fff; }
+.day-tab.soon { opacity: 0.7; font-weight: 500; cursor: default; }
+
+.submit-form { background: var(--card); border-radius: var(--radius); padding: 32px; box-shadow: var(--shadow); }
+.submit-form h2 { font-size: 22px; margin-bottom: 20px; }
+
+.form-field { margin-bottom: 18px; }
+.form-field label, .form-field .label { display: block; font-weight: 700; margin: 0 0 6px; color: var(--secondary); }
+.form-field .hint { font-weight: 400; color: var(--muted); font-size: 15px; }
+.req { color: #B03A2E; }
+.form-field input[type="text"], .form-field textarea {
+  width: 100%; padding: 12px 14px; border: 2px solid #D5DCE4; border-radius: 10px;
+  font-family: var(--font-body); font-size: 17px; background: #fff;
+}
+.form-field input[type="file"] {
+  width: 100%; padding: 10px; border: 2px dashed #C9D2DB; border-radius: 10px; background: #FAFBFC; font-size: 15px;
+}
+.form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--accent); }
+.radio { display: flex; gap: 8px; align-items: flex-start; font-weight: 500 !important; color: var(--text) !important; margin-bottom: 6px !important; cursor: pointer; }
+.radio input { margin-top: 7px; }
+
+.form-field.invalid input, .form-field.invalid textarea { border-color: #C0392B; }
+.error-msg { color: #B03A2E; font-size: 15px; margin: 6px 0 0; min-height: 1em; }
+
+.hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.progress { height: 10px; background: #E6EBF0; border-radius: 999px; overflow: hidden; margin-bottom: 14px; }
+.progress-bar { height: 100%; width: 0; background: var(--accent); transition: width 0.2s; }
+
+.form-msg { border-radius: 10px; padding: 12px 16px; font-weight: 700; margin: 0 0 16px; }
+.form-msg.success { background: #E3F2F0; color: #1E7268; }
+.form-msg.error { background: #FBE9E7; color: #B03A2E; }
+
+@media (max-width: 768px) { .submit-form { padding: 22px; } }
+
+.form-field select {
+  width: 100%; padding: 12px 14px; border: 2px solid #D5DCE4; border-radius: 10px;
+  font-family: var(--font-body); font-size: 17px; background: #fff; color: var(--text);
+}
+.form-field select:disabled { background: #F2F4F6; color: var(--muted); }
+.form-field.invalid select { border-color: #C0392B; }
+.form-field p.hint { margin: 6px 0 0; }
+.tf-link { text-align: center; margin: 0 0 18px; }
+.tf-link a { color: var(--primary); font-weight: 700; }
+.form-note { background: #FFF4E6; border-inline-start: 4px solid var(--primary-light); border-radius: 10px; padding: 10px 14px; margin: -4px 0 18px; font-weight: 700; color: var(--secondary); }
+.form-note[hidden] { display: none; }
+.form-field textarea { font-family: var(--font-body); line-height: 1.7; }
+.fb-badge { display: block; background: #EEF6F5; border: 2px solid #2A9D8F; color: #1E7268; border-radius: 12px; padding: 12px 16px; margin: 0 auto 16px; max-width: 720px; font-weight: 800; text-decoration: none; text-align: center; }
+.fb-badge.is-new { background: #FDECEA; border-color: #C0392B; color: #B03A2E; }
+.fb-badge[hidden] { display: none; }

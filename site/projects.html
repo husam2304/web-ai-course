@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المشاريع | دورة تطوير المواقع بمساعدة الذكاء الاصطناعي</title>
+  <meta name="description" content="مشاريع فرق الدورة: مواقع حقيقية بناها المشاركين، مع تصفية حسب نوع الموقع.">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/projects.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/projects.js" defer></script>
+</head>
+<body>
+  <!-- رأس الصفحة: نفسه بكل الصفحات -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">ويب <span>AI</span></a>
+      <button class="menu-btn" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="program.html">البرنامج</a></li>
+          <li><a href="projects.html" class="active">المشاريع</a></li>
+          <li><a href="trainer.html">المدرب</a></li>
+          <li><a href="resources.html">ملفات الدورة</a></li>
+          <li><a href="submit.html">التسليم</a></li>
+          <li><a href="team-files.html">ملفات فريقي</a></li>
+          <li><a href="contact.html">تواصل</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>مشاريع المشاركين</h1>
+        <p>كل فريق بيبني موقع حقيقي، والروابط بتنضاف هون يوم النشر</p>
+      </div>
+    </section>
+
+    <!-- قسم: الفلتر وبطاقات المشاريع -->
+    <section class="section">
+      <div class="container">
+        <div class="filter-bar" id="filter-bar" role="group" aria-label="تصفية حسب نوع الموقع">
+          <button class="filter-btn active" data-type="all">الكل</button>
+          <button class="filter-btn" data-type="store">متجر</button>
+          <button class="filter-btn" data-type="restaurant">مطعم وكافيه</button>
+          <button class="filter-btn" data-type="portfolio">شخصي</button>
+          <button class="filter-btn" data-type="services">خدمات</button>
+          <button class="filter-btn" data-type="education">تعليمي</button>
+        </div>
+        <div class="projects-grid" id="projects-grid">
+          <!-- البطاقات بتنبني من ملف js/projects.js -->
+        </div>
+        <p class="empty-msg" id="empty-msg" hidden>ما في مشاريع من هالنوع لسا.</p>
+
+        <!-- بيظهر لما ما يكون في ولا مشروع بقائمة js/projects.js -->
+        <div class="coming-soon" id="coming-soon" hidden>
+          <span class="soon-icon" aria-hidden="true">🚀</span>
+          <h2>قريباً</h2>
+          <p>مشاريعكم رح تكون هون.</p>
+          <p>يوم النشر، كل فريق بيضيف موقعه لهالصفحة برابط حقيقي بيقدر أي حدا يفتحه.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ذيل الصفحة: نفسه بكل الصفحات -->
+  <footer class="site-footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="program.html">البرنامج</a></li>
+        <li><a href="projects.html">المشاريع</a></li>
+        <li><a href="trainer.html">المدرب</a></li>
+        <li><a href="resources.html">ملفات الدورة</a></li>
+        <li><a href="submit.html">التسليم</a></li>
+        <li><a href="team-files.html">ملفات فريقي</a></li>
+        <li><a href="contact.html">تواصل</a></li>
+      </ul>
+      <p>دورة تطوير المواقع بمساعدة الذكاء الاصطناعي · مؤسسة ولي العهد · 2026</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>البرنامج | دورة تطوير المواقع بمساعدة الذكاء الاصطناعي</title>
+  <meta name="description" content="برنامج الأيام الخمسة: التخطيط، التصميم، البناء، الاختبار والنشر، مع مخرج واضح لكل يوم.">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/program.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/accordion.js" defer></script>
+</head>
+<body>
+  <!-- رأس الصفحة: نفسه بكل الصفحات -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">ويب <span>AI</span></a>
+      <button class="menu-btn" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="program.html" class="active">البرنامج</a></li>
+          <li><a href="projects.html">المشاريع</a></li>
+          <li><a href="trainer.html">المدرب</a></li>
+          <li><a href="resources.html">ملفات الدورة</a></li>
+          <li><a href="submit.html">التسليم</a></li>
+          <li><a href="team-files.html">ملفات فريقي</a></li>
+          <li><a href="contact.html">تواصل</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>برنامج الدورة</h1>
+        <p>5 أيام، 4 ساعات كل يوم، شرح قصير وتطبيق مباشر</p>
+      </div>
+    </section>
+
+    <!-- قسم: الأيام الخمسة -->
+    <section class="section">
+      <div class="container days-grid">
+          <article class="day-card">
+            <span class="day-num">اليوم 1</span>
+            <h3>تحليل الاحتياج وتخطيط المشروع</h3>
+            <p>أنواع المواقع، الواجهة الأمامية والخلفية، أدوات الـ AI، كتابة prompts احترافية، وأول كود: بطاقة تعريف شخصية.</p>
+            <p class="day-output"><strong>المخرج:</strong> وثيقة تخطيط + خريطة الموقع</p>
+          </article>
+          <article class="day-card">
+            <span class="day-num">اليوم 2</span>
+            <h3>تصميم الواجهة وتجربة المستخدم</h3>
+            <p>مبادئ UX/UI، الـ Wireframes، الألوان والخطوط، إمكانية الوصول، التصميم للجوال، والتصميم بـ Google Stitch.</p>
+            <p class="day-output"><strong>المخرج:</strong> تصميم ملون معتمد لكل الصفحات</p>
+          </article>
+          <article class="day-card">
+            <span class="day-num">اليوم 3</span>
+            <h3>بناء الموقع</h3>
+            <p>HTML وCSS والمتغيرات، البناء قسم قسم بالـ AI، التوافق مع الجوال، أساسيات JavaScript والميزات التفاعلية، والعمل كفريق.</p>
+            <p class="day-output"><strong>المخرج:</strong> موقع شغال على Live Server</p>
+          </article>
+          <article class="day-card">
+            <span class="day-num">اليوم 4</span>
+            <h3>الاختبار والإصلاح</h3>
+            <p>الـ Debugging بالـ AI، فحص Lighthouse، اختبار تبادلي بين الفرق، والتجهيز للنشر.</p>
+            <p class="day-output"><strong>المخرج:</strong> نسخة نهائية جاهزة للنشر</p>
+          </article>
+          <article class="day-card">
+            <span class="day-num">اليوم 5</span>
+            <h3>النشر والعرض</h3>
+            <p>نشر الموقع على الإنترنت، تجربته على الجوال، ربطه ببطاقة التعريف، وعرض المشروع.</p>
+            <p class="day-output"><strong>المخرج:</strong> رابط حقيقي + عرض المشروع</p>
+          </article>
+      </div>
+    </section>
+
+    <!-- قسم: أسئلة شائعة (accordion) -->
+    <section class="section faq">
+      <div class="container narrow">
+        <div class="section-title">
+          <h2>أسئلة شائعة</h2>
+          <p>اكبس على السؤال عشان يظهر الجواب</p>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">هل لازم يكون عندي خبرة برمجة؟<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>لأ. الدورة مصممة للمبتدئين من خلفيات غير تقنية، وبنبلش من الصفر.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">شو لازم أجيب معي؟<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>لابتوب مشحون وشاحنه، وحساب على ChatGPT أو Claude. باقي الأدوات مجانية وبنجهزها مع بعض.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">هل بشتغل لحالي ولا بفريق؟<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>بفريق صغير. كل عضو بيبني صفحات على جهازه، وبتدمجوا الشغل آخر كل يوم.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">شو بطلع معي آخر الدورة؟<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>موقع منشور برابط حقيقي، مربوط ببطاقة تعريف شخصية، وبتقدر تشرح كل سطر فيه.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">هل الموقع إله لوحة تحكم أو تسجيل دخول؟<span class="faq-icon" aria-hidden="true">+</span></button>
+            <div class="faq-answer"><p>لأ. بنبني مواقع ثابتة بدون backend، وهاد بيخليها سريعة وسهلة النشر.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ذيل الصفحة: نفسه بكل الصفحات -->
+  <footer class="site-footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="program.html">البرنامج</a></li>
+        <li><a href="projects.html">المشاريع</a></li>
+        <li><a href="trainer.html">المدرب</a></li>
+        <li><a href="resources.html">ملفات الدورة</a></li>
+        <li><a href="submit.html">التسليم</a></li>
+        <li><a href="team-files.html">ملفات فريقي</a></li>
+        <li><a href="contact.html">تواصل</a></li>
+      </ul>
+      <p>دورة تطوير المواقع بمساعدة الذكاء الاصطناعي · مؤسسة ولي العهد · 2026</p>
+    </div>
+  </footer>
+</body>
+</html>

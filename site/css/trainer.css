@@ -1,0 +1,42 @@
+/* ===== صفحة المدرب ===== */
+.trainer {
+  display: flex;
+  gap: 48px;
+  align-items: flex-start;
+}
+.trainer-photo {
+  flex-shrink: 0;
+  width: 280px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  border-bottom: 5px solid var(--primary);
+}
+.trainer-role {
+  color: var(--primary);
+  font-size: 19px;
+  font-weight: 700;
+  margin-top: -6px;
+}
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0 28px;
+}
+.skills li {
+  background: var(--card);
+  border: 1px solid #D5DCE4;
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .trainer { flex-direction: column; align-items: center; text-align: center; gap: 24px; }
+  .trainer-photo { width: 220px; height: 275px; }
+  .skills { justify-content: center; }
+}

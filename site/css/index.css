@@ -1,0 +1,86 @@
+/* ===== الصفحة الرئيسية ===== */
+
+/* قسم الـ hero: صورة خلفية مع طبقة غامقة فوقها */
+.hero {
+  background:
+    linear-gradient(90deg, rgba(19, 41, 61, 0.55), rgba(19, 41, 61, 0.92)),
+    url("../images/hero.jpg") center / cover no-repeat;
+  color: #E6ECF2;
+  padding: 110px 0 120px;
+}
+.hero-text { max-width: 640px; }
+.hero-kicker {
+  display: inline-block;
+  background: rgba(224, 122, 47, 0.18);
+  color: #FFD3B0;
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+.hero-title { color: #fff; font-size: 48px; }
+.hero-desc { font-size: 20px; margin: 0 0 28px; }
+.hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* قسم: شو رح تتعلم */
+.learn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.learn-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+.learn-icon { font-size: 34px; display: block; margin-bottom: 8px; }
+.learn-card p { margin: 0; color: var(--muted); }
+
+/* قسم: رحلة الأيام */
+.journey { background: #EFEAE2; }
+.journey-list {
+  display: flex;
+  gap: 16px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.journey-step {
+  flex: 1;
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 24px 18px;
+  text-align: center;
+  border-top: 4px solid var(--accent);
+}
+.journey-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--secondary);
+  color: #fff;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.journey-step h3 { font-size: 19px; }
+.journey-step p { margin: 0; color: var(--muted); font-size: 16px; }
+.journey-cta { text-align: center; margin-top: 36px; }
+
+/* الجوال */
+@media (max-width: 768px) {
+  .hero {
+    padding: 72px 0 80px;
+    background:
+      linear-gradient(rgba(19, 41, 61, 0.88), rgba(19, 41, 61, 0.88)),
+      url("../images/hero.jpg") center / cover no-repeat;
+  }
+  .hero-title { font-size: 32px; }
+  .hero-desc { font-size: 18px; }
+  .learn-grid { grid-template-columns: 1fr; }
+  .journey-list { flex-direction: column; }
+}

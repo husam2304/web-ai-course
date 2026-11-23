@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ملفات الدورة | دورة تطوير المواقع بمساعدة الذكاء الاصطناعي</title>
+  <meta name="description" content="كل أكواد وprompts وقوالب الدورة، جاهزة للنسخ والتحميل.">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/resources.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/copy.js" defer></script>
+  <script src="js/days.js" defer></script>
+</head>
+<body>
+  <!-- رأس الصفحة: نفسه بكل الصفحات -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">ويب <span>AI</span></a>
+      <button class="menu-btn" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="program.html">البرنامج</a></li>
+          <li><a href="projects.html">المشاريع</a></li>
+          <li><a href="trainer.html">المدرب</a></li>
+          <li><a href="resources.html" class="active">ملفات الدورة</a></li>
+          <li><a href="submit.html">التسليم</a></li>
+          <li><a href="team-files.html">ملفات فريقي</a></li>
+          <li><a href="contact.html">تواصل</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>ملفات الدورة</h1>
+        <p>كل الأكواد والـ prompts والقوالب، جاهزة للنسخ والتحميل</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <nav class="day-tabs" aria-label="أيام الدورة">
+          <a href="#day1" class="day-tab" data-day="1">اليوم 1</a>
+          <a href="#day2" class="day-tab active" data-day="2">اليوم 2</a>
+          <span class="day-tab soon">اليوم 3 · قريباً</span>
+          <span class="day-tab soon">اليوم 4 · قريباً</span>
+          <span class="day-tab soon">اليوم 5 · قريباً</span>
+        </nav>
+
+        <div class="alert">
+          <strong>شغّال على جهاز القاعة؟</strong>
+          آخر اليوم ابعت مجلد <code>my-card</code> لنفسك (إيميل أو WhatsApp)، لأن أجهزة القاعة ممكن تنمسح. ورح نرجعله يوم 5.
+        </div>
+        <div class="alert">
+          <strong>بدك ملفات فريقك؟</strong>
+          كل شي رفعتوه بصفحة التسليم موجود بـ <a href="team-files.html">ملفات فريقي</a>: اختار فريقك ونزّل.
+        </div>
+
+        <div class="day-panel" data-day="1">
+        <h2 class="day-title" id="day1">اليوم الأول: تحليل الاحتياج وتخطيط المشروع</h2>
+        <ol class="toc">
+          <li><a href="#setup">تجهيز الجهاز</a></li>
+          <li><a href="#card">كود بطاقة التعريف</a></li>
+          <li><a href="#template">قالب الـ Prompt</a></li>
+          <li><a href="#prompts">الـ Prompts</a></li>
+          <li><a href="#ideas">بنك الأفكار</a></li>
+          <li><a href="#requirements">وثيقة المتطلبات</a></li>
+        </ol>
+
+        <!-- 1. التجهيز -->
+        <article class="res-card" id="setup">
+          <p class="res-when">الافتتاح</p>
+          <h3>1. تجهيز الجهاز</h3>
+          <div class="tools">
+            <a class="tool-link" href="https://www.google.com/chrome/" target="_blank" rel="noopener"><strong>Google Chrome</strong><span>المتصفح</span></a>
+            <a class="tool-link" href="https://code.visualstudio.com/" target="_blank" rel="noopener"><strong>VS Code</strong><span>محرر الكود</span></a>
+            <a class="tool-link" href="https://chatgpt.com/" target="_blank" rel="noopener"><strong>ChatGPT</strong><span>أداة AI</span></a>
+            <a class="tool-link" href="https://claude.ai/" target="_blank" rel="noopener"><strong>Claude</strong><span>أداة AI</span></a>
+            <a class="tool-link" href="https://gemini.google.com/" target="_blank" rel="noopener"><strong>Gemini</strong><span>أداة AI</span></a>
+          </div>
+          <ol class="steps">
+            <li>ثبّت Chrome وVS Code (إذا مش موجودين).</li>
+            <li>إضافة Live Server: افتح VS Code ← أيقونة Extensions على الجنب ← ابحث عن <strong>Live Server</strong> ← اختار اللي من Ritwick Dey ← Install.</li>
+            <li>سجّل دخول على أداة AI وحدة على الأقل، وخليها مفتوحة بتبويب.</li>
+          </ol>
+        </article>
+
+        <!-- 2. البطاقة -->
+        <article class="res-card" id="card">
+          <p class="res-when">الدورة 3: أول صفحة ويب</p>
+          <h3>2. كود بطاقة التعريف</h3>
+          <ol class="steps">
+            <li>اعمل مجلد اسمه <code>my-card</code> على سطح المكتب، وافتحه بـ VS Code من File ← Open Folder.</li>
+            <li>اعمل ملف جديد من جوا VS Code اسمه <code>index.html</code>.</li>
+            <li>انسخ الكود والصقه، واحفظ بـ Ctrl + S. (أو نزّل الملف جاهز وحطه بالمجلد.)</li>
+            <li>كليك يمين على الملف ← Open with Live Server.</li>
+          </ol>
+          <a class="btn" href="files/day1/index.html" download="index.html">تحميل index.html</a>
+          <div class="code-block">
+            <div class="code-head">
+              <span>index.html</span>
+              <button class="copy-btn" data-target="card-code">نسخ</button>
+            </div>
+            <pre id="card-code" dir="auto">&lt;!DOCTYPE html&gt;
+&lt;html lang="ar" dir="rtl"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;بطاقتي&lt;/title&gt;
+  &lt;style&gt;
+    /* CSS: شكل الصفحة */
+    body { font-family: Tahoma, sans-serif; background: #f4f1ea;
+           display: flex; justify-content: center; align-items: center;
+           min-height: 100vh; margin: 0; }
+    .card { background: white; padding: 32px; border-radius: 16px; width: 320px;
+            text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .avatar { font-size: 64px; }
+    h1 { color: #13293d; margin: 8px 0; }
+    p { color: #555; }
+    button { background: #e07a2f; color: white; border: none;
+             padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+    hr { border: none; border-top: 1px solid #eee; margin: 24px 0; }
+    .badge { background: #13293d; color: white; padding: 4px 12px;
+             border-radius: 999px; font-size: 14px; }
+    .project-link { display: inline-block; margin-top: 12px; color: #999;
+                    pointer-events: none; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- HTML: محتوى الصفحة --&gt;
+  &lt;div class="card"&gt;
+    &lt;div class="avatar"&gt;😊&lt;/div&gt;
+    &lt;h1&gt;اسمي هنا&lt;/h1&gt;
+    &lt;p&gt;بحب: القراءة والرياضة&lt;/p&gt;
+
+    &lt;!-- JavaScript: تفاعل الزر --&gt;
+    &lt;button onclick="alert('أهلاً وسهلاً!')"&gt;سلّم علي&lt;/button&gt;
+
+    &lt;hr&gt;
+    &lt;p&gt;مشروعي القادم&lt;/p&gt;
+    &lt;h2&gt;اسم المشروع&lt;/h2&gt;
+    &lt;span class="badge"&gt;قريباً&lt;/span&gt;
+    &lt;br&gt;
+    &lt;!-- يوم 5: حط رابط موقعك بدل # واحذف شارة قريباً --&gt;
+    &lt;a href="#" class="project-link"&gt;زور الموقع ←&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre>
+          </div>
+        </article>
+
+        <!-- 3. القالب -->
+        <article class="res-card" id="template">
+          <p class="res-when">الدورة 5: فن الـ Prompt</p>
+          <h3>3. قالب الـ Prompt الثابت</h3>
+          <table class="tpl">
+            <tr><th scope="row">الدور</th><td>مين بدك الـ AI يكون؟</td><td class="ex">«أنت مطور مواقع بتساعد مبتدئ»</td></tr>
+            <tr><th scope="row">السياق</th><td>الفكرة والجمهور</td><td class="ex">«مخبز عائلي صغير في عمّان، زبائنه العائلات بالحي»</td></tr>
+            <tr><th scope="row">المطلوب</th><td>شو بدك بالضبط، بجملة واضحة</td><td class="ex">«اعملي الصفحة الرئيسية فيها عنوان وصور 3 منتجات وزر اطلب الآن»</td></tr>
+            <tr><th scope="row">الشكل</th><td>الألوان، الخط، الترتيب</td><td class="ex">«ألوان دافئة، والزر واضح فوق»</td></tr>
+            <tr><th scope="row">القيود</th><td>الحدود اللي لازم يلتزم فيها</td><td class="ex">«بالعربي، مناسب للجوال، بدون تسجيل دخول»</td></tr>
+            <tr><th scope="row">النتيجة</th><td>شو بدك يرجعلك</td><td class="ex">«كود كامل» أو «تعديل محدد بس» أو «شرح بجملتين»</td></tr>
+          </table>
+          <p class="note"><strong>3 تقنيات أعلى مستوى:</strong> «اسألني قبل ما تجاوب» · أعطِه مثال · قسّم المهمة خطوة خطوة. وأول جواب مسودة: اطلب تعديلات لحد ما يناسبك.</p>
+        </article>
+
+        <!-- 4. الـ Prompts -->
+        <h2 class="block-title" id="prompts">4. الـ Prompts</h2>
+        <p class="block-sub">اكبس «نسخ»، الصق بالمحادثة، وعبّي اللي بين [ ] بس.</p>
+        <div class="prompts-grid">
+        <article class="res-card">
+          <p class="res-when">الدورة 3: أول صفحة ويب</p>
+          <h3>① تعديل البطاقة</h3>
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="p-card">نسخ</button>
+            </div>
+            <pre id="p-card" dir="auto">هاد كود صفحة بطاقة تعريف: [الصق الكود]
+بدي [التعديل]. قلي بالضبط أي سطر أغيّر، واشرحلي ليش بجملة وحدة.</pre>
+          </div>
+          <p class="note">أفكار: غيّر لون الزر · غيّر رسالة الترحيب · أضف سطر «مدينتي: ...» · اسأله شو بيعمل border-radius. واطلب تعديل محدد، مش الملف كله.</p>
+        </article>
+        <article class="res-card">
+          <p class="res-when">الدورة 5: فن الـ Prompt</p>
+          <h3>② الجمهور والأهداف</h3>
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="p-audience">نسخ</button>
+            </div>
+            <pre id="p-audience" dir="auto">أنت مستشار مواقع بتساعد فريق مبتدئين.
+فكرتنا: [الفكرة بجملة].
+قبل ما تقترح أي شي، اسألنا 5 أسئلة، سؤال سؤال، عشان تفهم مشروعنا.
+بعد ما نجاوب، لخّصلنا:
+1) الفئة المستهدفة وليش بتزور الموقع
+2) هدفين أو ثلاثة للموقع، زي هاد المثال: «زيادة الطلبات من سكان الحي»
+3) الإجراء الرئيسي اللي بدنا الزائر يعمله
+الموقع بدون تسجيل دخول أو قاعدة بيانات.</pre>
+          </div>
+          <p class="note">جاوبوا على أسئلة الـ AI سؤال سؤال، واكتبوا النتيجة بأول قسمين من وثيقة المتطلبات.</p>
+        </article>
+        <article class="res-card">
+          <p class="res-when">الدورة 6: تخطيط الموقع</p>
+          <h3>③ الصفحات والأقسام</h3>
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="p-pages">نسخ</button>
+            </div>
+            <pre id="p-pages" dir="auto">موقعنا فيه 3 صفحات أساسية: الرئيسية، من نحن، تواصل معنا.
+وممكن نضيف صفحات حسب الفكرة، بحيث المجموع ما يزيد عن 6.
+الفكرة: [الفكرة]. الجمهور: [الجمهور]. الإجراء الرئيسي: [الإجراء].
+اقترح الصفحات الإضافية اللي بتفيد مشروعنا (إذا في)، مع سبب كل صفحة.
+بعدين اقترح الأقسام اللي بتحتاجها كل صفحة، مرتبة حسب الأهمية،
+مع سطر واحد بيوصف محتوى كل قسم.</pre>
+          </div>
+          <p class="note">المجموع من 3 لـ 6 صفحات. احذفوا أي قسم ما بيخدم الهدف.</p>
+        </article>
+        <article class="res-card">
+          <p class="res-when">الدورة 6: تخطيط الموقع</p>
+          <h3>④ الأولويات</h3>
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="p-priority">نسخ</button>
+            </div>
+            <pre id="p-priority" dir="auto">صنّف هاي الميزات لثلاث مجموعات:
+ضروري (بنقدر نبنيه بالوقت المتاح بـ HTML وCSS وJavaScript، بدون Backend)، مهم، لاحقاً.
+اشرح بجملة ليش حطيت كل ميزة بمجموعتها.
+بعدين اقترح علينا 4 ميزات تفاعلية بسيطة بتناسب فكرتنا، عشان نختار منها اثنتين على الأقل.
+الميزات: [الصق القائمة].</pre>
+          </div>
+          <p class="note">اختاروا ميزتين تفاعليتين على الأقل بـ «ضروري». تسجيل الدخول والدفع بيروحوا لـ «لاحقاً».</p>
+        </article>
+        </div>
+
+        <!-- 5. بنك الأفكار -->
+        <h2 class="block-title" id="ideas">5. بنك الأفكار</h2>
+        <p class="block-sub">كل فكرة من 3 لـ 6 صفحات وفيها ميزتين تفاعليتين على الأقل، بدون Backend. اختار وعدّل براحتك، أو جيب فكرتك.</p>
+        <div class="ideas-grid">
+          <article class="idea-card">
+            <span class="idea-num">1</span>
+            <h3>مخبز عائلي</h3>
+            <p class="idea-type">تعريفي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، المنيو، من نحن، تواصل</p>
+            <p><strong>الميزات:</strong> فلترة المنيو حسب النوع، قائمة جوال</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">2</span>
+            <h3>مطعم شعبي</h3>
+            <p class="idea-type">تعريفي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، المنيو، معرض الصور، من نحن، تواصل</p>
+            <p><strong>الميزات:</strong> تبويبات المنيو (فطور وغداء)، معرض صور بيكبر</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">3</span>
+            <h3>نادي رياضي (جيم)</h3>
+            <p class="idea-type">تعريفي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الاشتراكات، المدربين، جدول الحصص، تواصل</p>
+            <p><strong>الميزات:</strong> جدول حصص بتبويبات حسب اليوم، حاسبة سعر الاشتراك</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">4</span>
+            <h3>عيادة أسنان</h3>
+            <p class="idea-type">تعريفي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الخدمات، الأطباء، أسئلة شائعة، تواصل</p>
+            <p><strong>الميزات:</strong> أكورديون الأسئلة، قائمة جوال</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">5</span>
+            <h3>صالون</h3>
+            <p class="idea-type">تعريفي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الخدمات والأسعار، معرض الأعمال، تواصل</p>
+            <p><strong>الميزات:</strong> فلترة الخدمات، معرض صور بيكبر</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">6</span>
+            <h3>مبادرة تطوعية</h3>
+            <p class="idea-type">منظمة أو مبادرة</p>
+            <p><strong>الصفحات:</strong> الرئيسية، عن المبادرة، الأنشطة، تطوع معنا، تواصل</p>
+            <p><strong>الميزات:</strong> عداد إنجازات متحرك، نموذج تطوع مع تحقق من الحقول</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">7</span>
+            <h3>حملة توعية (مثلاً توفير المياه)</h3>
+            <p class="idea-type">حملة</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الحقائق، النصائح، شارك</p>
+            <p><strong>الميزات:</strong> اختبار معلومات قصير (Quiz)، أكورديون</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">8</span>
+            <h3>ملف أعمال مصوّر</h3>
+            <p class="idea-type">Portfolio</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الأعمال، عني، تواصل</p>
+            <p><strong>الميزات:</strong> معرض بيكبر الصورة، فلترة حسب نوع التصوير</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">9</span>
+            <h3>ملف أعمال مصمم</h3>
+            <p class="idea-type">Portfolio</p>
+            <p><strong>الصفحات:</strong> الرئيسية، المشاريع، الخدمات، عني، تواصل</p>
+            <p><strong>الميزات:</strong> فلترة المشاريع، وضع ليلي</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">10</span>
+            <h3>سيرة ذاتية إلكترونية</h3>
+            <p class="idea-type">Online CV</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الخبرات، المهارات، المشاريع، تواصل</p>
+            <p><strong>الميزات:</strong> أشرطة مهارات متحركة، وضع ليلي</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">11</span>
+            <h3>مؤتمر أو فعالية شبابية</h3>
+            <p class="idea-type">فعالية</p>
+            <p><strong>الصفحات:</strong> الرئيسية، البرنامج، المتحدثين، أسئلة شائعة، تواصل</p>
+            <p><strong>الميزات:</strong> عداد تنازلي، تبويبات البرنامج حسب اليوم</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">12</span>
+            <h3>بطولة رياضية بالحي</h3>
+            <p class="idea-type">فعالية</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الفرق، الجدول، النتائج، تواصل</p>
+            <p><strong>الميزات:</strong> فلترة المباريات حسب الفريق، تبويبات</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">13</span>
+            <h3>مشروع منزلي (حلويات أو إكسسوارات) (متجر</h3>
+            <p class="idea-type">نسخة تعريفية</p>
+            <p><strong>الصفحات:</strong> الرئيسية، المنتجات، عن المشروع، تواصل</p>
+            <p><strong>الميزات:</strong> فلترة المنتجات، نافذة تفاصيل المنتج (Modal)</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">14</span>
+            <h3>مركز تعليمي</h3>
+            <p class="idea-type">تعليمي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الدورات، المدربين، أسئلة شائعة، تواصل</p>
+            <p><strong>الميزات:</strong> فلترة الدورات، أكورديون</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">15</span>
+            <h3>نادي قراءة أو مكتبة</h3>
+            <p class="idea-type">تعريفي</p>
+            <p><strong>الصفحات:</strong> الرئيسية، الكتب المقترحة، الفعاليات، انضم إلينا، تواصل</p>
+            <p><strong>الميزات:</strong> بحث بالكتب، فلترة حسب التصنيف</p>
+          </article>
+          <article class="idea-card">
+            <span class="idea-num">16</span>
+            <h3>فكرة تطبيق جوال</h3>
+            <p class="idea-type">صفحة منتج</p>
+            <p><strong>الصفحات:</strong> الرئيسية، المميزات، الأسعار، أسئلة شائعة، تواصل</p>
+            <p><strong>الميزات:</strong> تبويبات المميزات، أكورديون</p>
+          </article>
+        </div>
+
+        <!-- 6. وثيقة المتطلبات -->
+        <article class="res-card" id="requirements">
+          <p class="res-when">الدورات 5 و6 والختام</p>
+          <h3>6. وثيقة المتطلبات</h3>
+          <p>انسخ القالب لـ Word أو Google Docs وعبّيه مع فريقك، أو نزّل نسخة PDF للطباعة.</p>
+          <a class="btn" href="files/day1/requirements-template.pdf" download>تحميل القالب PDF</a>
+          <div class="code-block">
+            <div class="code-head">
+              <span>قالب الوثيقة</span>
+              <button class="copy-btn" data-target="req-text">نسخ</button>
+            </div>
+            <pre id="req-text" dir="auto">وثيقة متطلبات المشروع
+رقم الفريق:
+أسماء الأعضاء:
+اسم المشروع:
+
+1. الفكرة (شو الموقع ونوعه):
+
+2. الجمهور (فئة وحدة محددة، وليش بيزوروا الموقع):
+
+3. الأهداف (هدفين أو ثلاثة):
+
+4. الإجراء الرئيسي (CTA):
+
+5. الصفحات والأقسام (من 3 لـ 6 صفحات):
+   - الرئيسية:
+   - صفحة ثانية:
+   - (صفحات إضافية حسب الفكرة):
+   - تواصل معنا:
+
+6. الميزات والأولويات:
+   ضروري:
+   مهم:
+   لاحقاً:
+
+7. الميزتين التفاعليتين:
+   1.
+   2.
+
+8. خريطة الموقع والرسم الأولي: (صور مرفقة)</pre>
+          </div>
+        </article>
+
+        </div>
+
+        <div class="day-panel" data-day="2">
+        <h2 class="day-title" id="day2">اليوم الثاني: تصميم الواجهة وتجربة المستخدم</h2>
+        <ol class="toc">
+          <li><a href="#plan">خطة الفريق</a></li>
+          <li><a href="#tools2">أدوات اليوم</a></li>
+          <li><a href="#stitch">Prompt الـ Stitch</a></li>
+          <li><a href="#submit2">التسليم</a></li>
+        </ol>
+
+        <article class="res-card" id="plan">
+          <p class="res-when">أول اليوم · 25 دقيقة</p>
+          <h3>1. خطة الفريق</h3>
+          <ol class="steps">
+            <li>انسخ الـ prompt والصقه بالـ AI، ومعه تقرير الجمهور والأهداف تبع امبارح.</li>
+            <li>جاوب على أسئلته، وعدّل بإيدك اللي مش عاجبك. القالب تحت إذا بدكم تعبّوه بإيدكم.</li>
+            <li>ورّوا المدرب الخطة قبل ما تبلشوا الـ Wireframes.</li>
+            <li>انسخ الخطة <strong>بزر النسخ تبع الـ AI</strong> (مش بالتظليل) والصقها بخانة «خطة الفريق» بصفحة التسليم، عشان يضل تنسيقها. واحد من الفريق بكفي.</li>
+          </ol>
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt خطة الفريق</span>
+              <button class="copy-btn" data-target="plan-prompt">نسخ</button>
+            </div>
+            <pre id="plan-prompt" dir="auto">أنا بفريق ببني موقع بسيط (Frontend فقط، بدون Backend) بدورة للمبتدئين.
+هاي فكرتنا وتقرير الجمهور والأهداف اللي طلع معنا امبارح:
+[الصق التقرير هون، أو اكتب الفكرة بجملتين إذا ما عندكم تقرير]
+
+عبّيلي «خطة الفريق» بالعربي، بنقاط قصيرة، وبهالترتيب:
+1. الفكرة بجملة وحدة.
+2. الجمهور (فئة وحدة محددة، مش «كل الناس») و3 أهداف للموقع.
+3. الإجراء الرئيسي: الزر الأهم بالموقع.
+4. الصفحات: من 3 لـ 6 صفحات، ولكل صفحة أقسامها بالترتيب.
+5. ضروري ولاحقاً: شو بيدخل بالنسخة الأولى، وشو بيتأجل.
+6. ميزتين تفاعليتين على الأقل بـ JavaScript. أي ميزة بدها Backend (تسجيل دخول، حجز، دفع، حفظ تقييمات) اكتب جنبها «واجهة عرض فقط».
+7. خريطة الموقع كشجرة نصية.
+8. الإحساس العام للتصميم: 3 كلمات بتوصف الأسلوب (مثلاً: هادئ، عصري، دافئ) واقتراح ألوان.
+
+قبل ما تكتب: إذا في شي ناقص أو مش واضح، اسألني 3 أسئلة بالكثير.</pre>
+          </div>
+          <div class="code-block">
+            <div class="code-head">
+              <span>قالب الخطة (نص)</span>
+              <button class="copy-btn" data-target="plan-template">نسخ</button>
+            </div>
+            <pre id="plan-template" dir="auto">خطة الفريق
+اسم الفريق: ............
+
+1. الفكرة بجملة:
+2. الجمهور: ............
+   الأهداف: (1) ............ (2) ............ (3) ............
+3. الإجراء الرئيسي (الزر الأهم):
+4. الصفحات (3 لـ 6) وأقسام كل صفحة:
+   - الرئيسية: ............
+   - ............: ............
+   - ............: ............
+5. ضروري (النسخة الأولى): ............
+   لاحقاً: ............
+6. الميزات التفاعلية (اثنتين على الأقل):
+   - ............
+   - ............
+   واجهة عرض فقط (بدها Backend): ............
+7. خريطة الموقع:
+   الرئيسية
+   ├── ............
+   └── ............
+8. الإحساس العام للتصميم: ............ (3 كلمات + ألوان مقترحة)</pre>
+          </div>
+        </article>
+
+        <article class="res-card" id="tools2">
+          <p class="res-when">الدورات 1 و3 و4 و6</p>
+          <h3>2. أدوات اليوم</h3>
+          <div class="tools">
+            <a class="tool-link" href="https://stitch.withgoogle.com/" target="_blank" rel="noopener"><strong>Google Stitch</strong><span>التصميم</span></a>
+            <a class="tool-link" href="https://webaim.org/resources/contrastchecker/" target="_blank" rel="noopener"><strong>WebAIM Contrast</strong><span>فحص التباين</span></a>
+            <a class="tool-link" href="https://fonts.google.com/?subset=arabic" target="_blank" rel="noopener"><strong>Google Fonts</strong><span>خطوط عربية</span></a>
+            <a class="tool-link" href="https://lawsofux.com/" target="_blank" rel="noopener"><strong>Laws of UX</strong><span>مبادئ UX</span></a>
+          </div>
+        </article>
+
+        <article class="res-card" id="stitch">
+          <p class="res-when">الدورة 6: Google Stitch</p>
+          <h3>3. Prompt الـ Stitch</h3>
+          <p>الصقه بـ ChatGPT أو Claude وعبّي اللي بين [ ]، وخذ الـ prompt الإنجليزي اللي بيطلع وحطه بـ Stitch مع صور الـ wireframes.</p>
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt لـ ChatGPT</span>
+              <button class="copy-btn" data-target="stitch-prompt">نسخ</button>
+            </div>
+            <pre id="stitch-prompt" dir="auto">أنا بدي أصمم موقع باستخدام Google Stitch.
+اكتبلي prompt بالإنجليزي لـ Stitch بناءً على هاي المعلومات:
+- الفكرة والجمهور والإجراء الرئيسي: [من خطة الفريق]
+- الصفحات وأقسام كل صفحة بالترتيب: [من الـ wireframes]
+- الميزات التفاعلية ومكانها: [الميزتين أو أكثر]
+- دليل التصميم: الألوان [HEX]، الخطوط [أسماء الخطوط]، شكل الزر [الوصف]
+- قواعد الوصول: تباين ناجح، كل حقل إله عنوان ظاهر، نص الأزرار واضح
+الموقع لازم يكون كل نصوصه بالعربي، واتجاهه من اليمين لليسار (RTL)، ومتوافق مع الجوال، وكل الصفحات بنفس الـ Header والـ Footer.
+اطلب تصميم كل صفحة كشاشة Desktop منفصلة.
+خلي الـ prompt واضح ومرتب بنقاط.</pre>
+          </div>
+          <div class="code-block">
+            <div class="code-head">
+              <span>طلبات تحسين جاهزة داخل Stitch (طلب واحد بكل مرة)</span>
+              <button class="copy-btn" data-target="stitch-fixes">نسخ</button>
+            </div>
+            <pre id="stitch-fixes" dir="auto">Make the CTA button bigger and use the accent color.
+Use the same header and footer on all pages.
+All text must be in Arabic, right-to-left.
+Show the mobile version of the home page with a hamburger menu.</pre>
+          </div>
+        </article>
+
+        <article class="res-card" id="submit2">
+          <p class="res-when">الختام</p>
+          <h3>4. التسليم</h3>
+          <ul class="steps">
+            <li>اختار فريقك واسمك من القائمة.</li>
+            <li>شغل الفريق (الخطة كنص، صور الـ wireframes، تصميم Stitch): أي حد بالفريق بيرفعه، مرة وحدة بكفي.</li>
+            <li>كل واحد بيجاوب سؤال الفهم بكلماته وباسمه.</li>
+            <li>عملت شغل زيادة لحالك أو موقع جانبي؟ في خانة «شغل إضافي».</li>
+            <li>لا تحط ملفات عشوائية، الملفات مش إجبارية.</li>
+          </ul>
+          <a class="btn" href="submit.html">صفحة التسليم</a>
+        </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ذيل الصفحة: نفسه بكل الصفحات -->
+  <footer class="site-footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="program.html">البرنامج</a></li>
+        <li><a href="projects.html">المشاريع</a></li>
+        <li><a href="trainer.html">المدرب</a></li>
+        <li><a href="resources.html">ملفات الدورة</a></li>
+        <li><a href="submit.html">التسليم</a></li>
+        <li><a href="team-files.html">ملفات فريقي</a></li>
+        <li><a href="contact.html">تواصل</a></li>
+      </ul>
+      <p>دورة تطوير المواقع بمساعدة الذكاء الاصطناعي · مؤسسة ولي العهد · 2026</p>
+    </div>
+  </footer>
+</body>
+</html>

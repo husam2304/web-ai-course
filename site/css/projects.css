@@ -1,0 +1,87 @@
+/* ===== صفحة المشاريع ===== */
+
+/* أزرار الفلتر */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+.filter-btn {
+  background: var(--card);
+  border: 2px solid #D5DCE4;
+  border-radius: 999px;
+  padding: 8px 20px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--secondary);
+  cursor: pointer;
+}
+.filter-btn:hover { border-color: var(--primary); }
+.filter-btn.active {
+  background: var(--secondary);
+  border-color: var(--secondary);
+  color: #fff;
+}
+
+/* بطاقات المشاريع */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+}
+.project-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 26px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.project-card.hidden { display: none; }
+.project-type {
+  align-self: flex-start;
+  background: #E3F2F0;
+  color: #1E7268;
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.project-card h3 { margin: 0; }
+.project-team { margin: 0; color: var(--muted); }
+.project-link { margin-top: auto; font-weight: 700; }
+.badge-soon {
+  margin-top: auto;
+  align-self: flex-start;
+  background: #FDEBDD;
+  color: #A3501A;
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.empty-msg { text-align: center; color: var(--muted); }
+
+/* رسالة «قريباً» لما ما يكون في مشاريع */
+.coming-soon {
+  text-align: center;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 64px 24px;
+  max-width: 720px;
+  margin-inline: auto;
+}
+.soon-icon { font-size: 56px; display: block; }
+.coming-soon h2 {
+  font-size: 56px;
+  color: var(--primary);
+  margin: 8px 0 4px;
+}
+.coming-soon p { color: var(--muted); margin: 0 0 6px; font-size: 20px; }
+.coming-soon p:first-of-type { color: var(--secondary); font-weight: 700; font-size: 24px; }
+.filter-bar[hidden], .coming-soon[hidden] { display: none; }

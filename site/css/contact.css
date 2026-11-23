@@ -1,0 +1,76 @@
+/* ===== صفحة التواصل ===== */
+.narrow { max-width: 680px; }
+.contact-form {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 36px;
+  box-shadow: var(--shadow);
+}
+.form-field { margin-bottom: 18px; }
+.form-field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--secondary);
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 2px solid #D5DCE4;
+  border-radius: 10px;
+  font-family: var(--font-body);
+  font-size: 17px;
+  background: #fff;
+}
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* لما ينضاف الكلاس invalid من الـ JavaScript */
+.form-field.invalid input,
+.form-field.invalid textarea { border-color: #C0392B; }
+.error-msg {
+  color: #B03A2E;
+  font-size: 15px;
+  margin: 6px 0 0;
+  min-height: 1em;
+}
+.success-msg {
+  background: #E3F2F0;
+  color: #1E7268;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin: 20px 0 0;
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .contact-form { padding: 24px; }
+}
+
+.form-field select {
+  width: 100%; padding: 12px 14px; border: 2px solid #D5DCE4; border-radius: 10px;
+  font-family: var(--font-body); font-size: 17px; background: #fff; color: var(--text);
+}
+.optional { font-weight: 400; color: var(--muted); font-size: 14px; }
+.anon { display: flex; gap: 8px; align-items: center; margin: -6px 0 18px; font-weight: 700; color: var(--secondary); cursor: pointer; }
+#who[hidden] { display: none; }
+.form-error { background: #FBE9E7; color: #B03A2E; border-radius: 10px; padding: 10px 14px; font-weight: 700; margin: 12px 0 0; }
+.form-error[hidden] { display: none; }
+
+/* زر الواتساب */
+.wa-card {
+  display: flex; align-items: center; gap: 16px; background: #1E7E4A; color: #fff; text-decoration: none;
+  border-radius: var(--radius); padding: 18px 24px; box-shadow: var(--shadow); margin-bottom: 18px;
+}
+.wa-card:hover { background: #18693D; }
+.wa-icon { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.16); flex-shrink: 0; }
+.wa-text { display: flex; flex-direction: column; gap: 2px; }
+.wa-text strong { font-size: 19px; }
+.wa-text span { font-size: 22px; font-weight: 800; letter-spacing: 1px; text-align: start; }
+.or-line { display: flex; align-items: center; gap: 12px; color: var(--muted); margin: 0 0 18px; }
+.or-line::before, .or-line::after { content: ""; flex: 1; border-top: 1px solid #D5DCE4; }
+.hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }

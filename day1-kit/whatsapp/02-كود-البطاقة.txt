@@ -1,0 +1,52 @@
+كود بطاقة التعريف (اليوم الأول)
+
+1. اعمل مجلد اسمه my-card على سطح المكتب وافتحه بـ VS Code (File ← Open Folder)
+2. اعمل ملف جديد من جوا VS Code اسمه index.html
+3. انسخ الكود كامل والصقه، واحفظ Ctrl+S
+4. كليك يمين على الملف ← Open with Live Server
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بطاقتي</title>
+  <style>
+    /* CSS: شكل الصفحة */
+    body { font-family: Tahoma, sans-serif; background: #f4f1ea;
+           display: flex; justify-content: center; align-items: center;
+           min-height: 100vh; margin: 0; }
+    .card { background: white; padding: 32px; border-radius: 16px; width: 320px;
+            text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .avatar { font-size: 64px; }
+    h1 { color: #13293d; margin: 8px 0; }
+    p { color: #555; }
+    button { background: #e07a2f; color: white; border: none;
+             padding: 10px 20px; border-radius: 8px; cursor: pointer; }
+    hr { border: none; border-top: 1px solid #eee; margin: 24px 0; }
+    .badge { background: #13293d; color: white; padding: 4px 12px;
+             border-radius: 999px; font-size: 14px; }
+    .project-link { display: inline-block; margin-top: 12px; color: #999;
+                    pointer-events: none; }
+  </style>
+</head>
+<body>
+  <!-- HTML: محتوى الصفحة -->
+  <div class="card">
+    <div class="avatar">😊</div>
+    <h1>اسمي هنا</h1>
+    <p>بحب: القراءة والرياضة</p>
+
+    <!-- JavaScript: تفاعل الزر -->
+    <button onclick="alert('أهلاً وسهلاً!')">سلّم علي</button>
+
+    <hr>
+    <p>مشروعي القادم</p>
+    <h2>اسم المشروع</h2>
+    <span class="badge">قريباً</span>
+    <br>
+    <!-- يوم 5: حط رابط موقعك بدل # واحذف شارة قريباً -->
+    <a href="#" class="project-link">زور الموقع ←</a>
+  </div>
+</body>
+</html>

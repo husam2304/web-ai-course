@@ -1,0 +1,11 @@
+dist/
+decks/.build.js
+decks/*.pptx
+backend/bin/
+backend/obj/
+backend/App_Data/
+backend/appsettings.Development.json
+node_modules/
+*.log
+# Trainee data (exports, reviews) never goes in the repo: upload it to the evaluation chat instead.
+*.xlsx

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>مطبوعات اليوم الأول</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Noto Sans Arabic", "Noto Naskh Arabic", Tahoma, sans-serif; color: #1B2430; margin: 0; font-size: 13pt; }
+  .page { page-break-after: always; min-height: 265mm; position: relative; }
+  .page:last-child { page-break-after: auto; }
+  .head { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 3px solid #E07A2F; padding-bottom: 6px; margin-bottom: 14px; }
+  .head h1 { font-size: 22pt; color: #13293D; margin: 0; }
+  .head small { color: #6B7A88; font-size: 10pt; }
+  .copies { position: absolute; bottom: 0; left: 0; font-size: 9pt; color: #9AA5B1; }
+  .row { display: flex; gap: 10px; align-items: stretch; margin-bottom: 10px; }
+  .tag { background: #13293D; color: #fff; border-radius: 8px; padding: 10px 12px; width: 32mm; font-weight: 700; display: flex; flex-direction: column; justify-content: center; }
+  .tag span { font-weight: 400; font-size: 9.5pt; color: #C9D6E0; }
+  .desc { flex: 1; border: 1.5px solid #D5DCE4; border-radius: 8px; padding: 8px 12px; }
+  .desc .ex { color: #6B7A88; font-size: 11pt; }
+  .tips { background: #FDF1E7; border-radius: 10px; padding: 12px 16px; margin-top: 14px; }
+  .tips h3 { margin: 0 0 6px; color: #B8571A; }
+  .tips li { margin-bottom: 4px; }
+  .field { margin-bottom: 12px; }
+  .field label { display: block; font-weight: 700; color: #13293D; margin-bottom: 4px; }
+  .field .hint { font-weight: 400; color: #6B7A88; font-size: 10.5pt; }
+  .lines { border: 1.5px solid #D5DCE4; border-radius: 8px; background: repeating-linear-gradient(to bottom, transparent 0, transparent 9mm, #E6EBF0 9mm, #E6EBF0 9.3mm); }
+  .meta { display: flex; gap: 10px; margin-bottom: 14px; }
+  .meta div { flex: 1; border: 1.5px solid #D5DCE4; border-radius: 8px; padding: 6px 10px; font-weight: 700; color: #13293D; height: 15mm; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #C9D2DB; padding: 0 6px; text-align: center; }
+  th { background: #13293D; color: #fff; font-size: 11pt; height: 10mm; }
+  td { height: 10.2mm; }
+  .prio th { height: 9mm; }
+  .prio td { height: 11mm; text-align: right; }
+  .box { border: 1.5px dashed #9AA5B1; border-radius: 10px; position: relative; }
+  .box .lbl { position: absolute; top: -11px; right: 14px; background: #fff; padding: 0 8px; font-weight: 700; color: #13293D; }
+  .signal { height: 120mm; border-radius: 16px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #fff; margin-bottom: 10mm; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .signal b { font-size: 54pt; }
+  .signal span { font-size: 18pt; }
+  .green { background: #2A9D8F; }
+  .red { background: #C0392B; }
+  .cut { border-top: 2px dashed #9AA5B1; margin: -5mm 0 5mm; text-align: center; font-size: 9pt; color: #9AA5B1; }
+  .narrow-num { width: 9mm; } .name { width: 62mm; } .team { width: 16mm; }
+  th, .tag, .head { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tips { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .big { font-size: 15pt; }
+  .big .row { margin-bottom: 11px; }
+  .big .tag { width: 38mm; padding: 12px 14px; font-size: 16pt; }
+  .big .desc { padding: 10px 14px; }
+  .big .desc .ex { font-size: 13.5pt; margin-top: 4px; }
+  .big .tips { padding: 14px 20px; margin-top: 14px; }
+  .big .tips li { margin-bottom: 5px; }
+</style>
+</head>
+<body>
+
+<!-- 1. قالب الـ Prompt -->
+<section class="page big">
+  <div class="head"><h1>قالب الـ Prompt الثابت</h1><small>دورة تطوير المواقع بمساعدة الذكاء الاصطناعي · اليوم الأول</small></div>
+  <p>أي طلب للـ AI بيصير أوضح لما يكون فيه هاي الأجزاء الستة. مش لازم كلها بكل مرة، بس كل ما زادت، صارت النتيجة أحسن.</p>
+  <div class="row"><div class="tag">الدور<span>Role</span></div><div class="desc">مين بدك الـ AI يكون؟<div class="ex">«أنت مطور مواقع بتساعد مبتدئ»</div></div></div>
+  <div class="row"><div class="tag">السياق<span>Context</span></div><div class="desc">الفكرة والجمهور<div class="ex">«مخبز عائلي صغير في عمّان، زبائنه العائلات بالحي»</div></div></div>
+  <div class="row"><div class="tag">المطلوب<span>Task</span></div><div class="desc">شو بدك بالضبط، بجملة واضحة<div class="ex">«اعملي الصفحة الرئيسية فيها عنوان، صور 3 منتجات، وزر «اطلب الآن»»</div></div></div>
+  <div class="row"><div class="tag">الشكل<span>Format</span></div><div class="desc">الألوان، الخط، الترتيب<div class="ex">«ألوان دافئة، والزر واضح فوق»</div></div></div>
+  <div class="row"><div class="tag">القيود<span>Constraints</span></div><div class="desc">الحدود اللي لازم يلتزم فيها<div class="ex">«بالعربي، مناسب للجوال، بدون تسجيل دخول»</div></div></div>
+  <div class="row"><div class="tag">النتيجة<span>Output</span></div><div class="desc">شو بدك يرجعلك<div class="ex">«كود كامل» أو «تعديل محدد بس» أو «شرح بجملتين»</div></div></div>
+  <div class="tips">
+    <h3>3 تقنيات أعلى مستوى</h3>
+    <ul>
+      <li><b>اسألني قبل ما تجاوب:</b> «قبل ما تقترح أي شي، اسألني 5 أسئلة عن مشروعي.»</li>
+      <li><b>أعطِه مثال:</b> «بدي الأهداف بهاد الشكل: زيادة الطلبات من سكان الحي.»</li>
+      <li><b>قسّم المهمة:</b> «خلينا نشتغل خطوة خطوة. أول شي الجمهور بس.»</li>
+    </ul>
+    <p style="margin:6px 0 0"><b>تذكّر:</b> أول جواب مسودة، اطلب تعديلات لحد ما يناسبك. وإذا ما بتقدر تشرح الكود بجملة، لا تحطه بموقعك.</p>
+  </div>
+  <div class="copies">نسخة لكل مشارك</div>
+</section>
+
+<!-- 2. وثيقة المتطلبات (1) -->
+<section class="page">
+  <div class="head"><h1>وثيقة متطلبات المشروع</h1><small>اليوم الأول · 1 من 2</small></div>
+  <div class="meta"><div>رقم الفريق:</div><div>أسماء الأعضاء:</div><div>اسم المشروع:</div></div>
+  <div class="field"><label>1. الفكرة <span class="hint">(شو الموقع، بجملة أو جملتين، ونوعه: تعريفي، Portfolio، فعالية...)</span></label><div class="lines" style="height:30mm"></div></div>
+  <div class="field"><label>2. الجمهور <span class="hint">(فئة وحدة محددة، مش «كل الناس»، وليش بيزوروا الموقع)</span></label><div class="lines" style="height:30mm"></div></div>
+  <div class="field"><label>3. الأهداف <span class="hint">(هدفين أو ثلاثة، مثل: «زيادة الطلبات من سكان الحي»)</span></label><div class="lines" style="height:30mm"></div></div>
+  <div class="field"><label>4. الإجراء الرئيسي (CTA) <span class="hint">(شو بدنا الزائر يعمل؟ بجملة وحدة)</span></label><div class="lines" style="height:20mm"></div></div>
+  <div class="field"><label>5. الصفحات والأقسام <span class="hint">(من 3 لـ 6 صفحات، وأقسام كل صفحة من فوق لتحت)</span></label>
+    <table>
+      <tr><th style="width:12mm">#</th><th style="width:45mm">الصفحة</th><th>الأقسام بالترتيب</th></tr>
+      <tr><td>1</td><td>الرئيسية</td><td></td></tr>
+      <tr><td>2</td><td></td><td></td></tr>
+      <tr><td>3</td><td>تواصل معنا</td><td></td></tr>
+      <tr><td>4</td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td></tr>
+      <tr><td>6</td><td></td><td></td></tr>
+    </table>
+  </div>
+  <div class="copies">نسخة لكل فريق</div>
+</section>
+
+<!-- 3. وثيقة المتطلبات (2) -->
+<section class="page">
+  <div class="head"><h1>وثيقة متطلبات المشروع</h1><small>اليوم الأول · 2 من 2</small></div>
+  <div class="field"><label>6. الميزات والأولويات <span class="hint">(سؤالين: بيخدم الهدف الرئيسي؟ بنقدر نخلصه بـ HTML وCSS وJavaScript بالوقت المتاح؟ الجوابين نعم = ضروري)</span></label>
+    <table class="prio">
+      <tr><th style="width:33%">ضروري (Must have)</th><th style="width:33%">مهم (Nice to have)</th><th>لاحقاً (Later)</th></tr>
+      <tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td></tr>
+    </table>
+  </div>
+  <div class="field"><label>7. الميزتين التفاعليتين <span class="hint">(على الأقل، والـ hamburger ما بينحسب)</span></label>
+    <div class="meta" style="margin:0"><div>1.</div><div>2.</div><div>3. (اختياري)</div></div>
+  </div>
+  <div class="field"><label>8. خريطة الموقع والرسم الأولي</label>
+    <p class="hint" style="margin:0">على الورقة الجاية، وصوّروها بالجوال وارفعوها مع الوثيقة.</p></div>
+  <div class="tips">
+    <h3>قبل ما تسلّموا، راجعوا</h3>
+    <ul>
+      <li>الصفحات بين 3 و6؟</li>
+      <li>في ميزتين تفاعليتين على الأقل بـ «ضروري»؟</li>
+      <li>تسجيل الدخول والدفع وقاعدة البيانات بـ «لاحقاً»؟</li>
+      <li>كل اقتراح من الـ AI بيناسب فكرتنا، وبنقدر نشرحه؟</li>
+    </ul>
+  </div>
+  <div class="copies">نسخة لكل فريق</div>
+</section>
+
+<!-- 4. خريطة الموقع والرسم الأولي -->
+<section class="page">
+  <div class="head"><h1>خريطة الموقع والرسم الأولي للرئيسية</h1><small>فريق رقم: ........</small></div>
+  <div class="box" style="height:95mm;margin:14px 0 22px"><span class="lbl">خريطة الموقع: الرئيسية فوق، وأسهم منها لكل صفحة</span></div>
+  <div class="box" style="height:140mm"><span class="lbl">الرسم الأولي للرئيسية: مربعات للأقسام، مربع فيه X للصورة، وخطوط للنص</span></div>
+  <div class="copies">نسخة لكل فريق</div>
+</section>
+
+<!-- 5. بطاقات الإشارة -->
+<section class="page">
+  <div class="signal green"><b>✓ خلصت</b><span>جهازي جاهز / خلصت المهمة</span></div>
+  <div class="cut">✂ قص هون</div>
+  <div class="signal red"><b>✋ بدي مساعدة</b><span>جربت الـ AI وورقة الأخطاء وزميلي</span></div>
+  <div class="copies">نسخة لكل مشارك · طباعة ملونة</div>
+</section>
+
+<!-- 6-7. ورقة متابعة التقييم -->
+<section class="page">
+  <div class="head"><h1>متابعة التقييم اليومي</h1><small>اليوم: ........ · صفحة 1</small></div>
+  <table>
+    <tr><th class="narrow-num">#</th><th class="name">الاسم</th><th class="team">الفريق</th><th>الحضور</th><th>المخرج</th><th>سؤال الفهم</th><th>المشاركة</th><th>المجموع /10</th></tr>
+    <tr><td>1</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>2</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>3</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>4</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>6</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>7</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>9</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>10</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>11</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>12</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>13</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>14</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>15</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>16</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>17</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>18</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>19</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>20</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <div class="copies">للمدرب · نسختين لكل يوم (40 مشارك)</div>
+</section>
+<section class="page">
+  <div class="head"><h1>متابعة التقييم اليومي</h1><small>اليوم: ........ · صفحة 2</small></div>
+  <table>
+    <tr><th class="narrow-num">#</th><th class="name">الاسم</th><th class="team">الفريق</th><th>الحضور</th><th>المخرج</th><th>سؤال الفهم</th><th>المشاركة</th><th>المجموع /10</th></tr>
+    <tr><td>21</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>22</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>23</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>24</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>25</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>26</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>27</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>28</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>29</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>30</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>31</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>32</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>33</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>34</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>35</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>36</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>37</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>38</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>39</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr><tr><td>40</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+  <div class="copies">للمدرب · نسختين لكل يوم (40 مشارك)</div>
+</section>
+
+</body>
+</html>

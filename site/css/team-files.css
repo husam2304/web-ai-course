@@ -1,0 +1,71 @@
+/* ===== ملفات فريقي ===== */
+.narrow { max-width: 720px; }
+.tf-box { background: var(--card); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); margin-bottom: 24px; }
+.tf-box label { display: block; font-weight: 700; color: var(--secondary); margin-bottom: 8px; }
+.tf-box select {
+  width: 100%; padding: 12px 14px; border: 2px solid #D5DCE4; border-radius: 10px;
+  font-family: var(--font-body); font-size: 17px; background: #fff; color: var(--text);
+}
+.tf-msg { background: #FBE9E7; color: #B03A2E; border-radius: 10px; padding: 10px 14px; font-weight: 700; margin: 12px 0 0; }
+.tf-day { margin-bottom: 22px; }
+.tf-day h2 { font-size: 20px; margin-bottom: 10px; }
+.tf-day ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tf-file {
+  display: flex; flex-direction: column; gap: 2px; background: var(--card); border-radius: 12px; padding: 12px 16px;
+  box-shadow: var(--shadow); text-decoration: none; border-inline-start: 4px solid var(--accent);
+}
+.tf-file:hover { background: #F6FAF9; }
+.tf-name { font-weight: 700; color: var(--secondary); overflow-wrap: anywhere; }
+.tf-meta { font-size: 14px; color: var(--muted); }
+.tf-empty, .muted { color: var(--muted); text-align: center; }
+.tf-note { text-align: center; margin-top: 24px; }
+.tf-note a { color: var(--primary); font-weight: 700; }
+[hidden] { display: none !important; }
+
+/* ----- نص الـ AI (Markdown) ----- */
+.md-box { background: var(--card); border-radius: 12px; box-shadow: var(--shadow); padding: 10px 16px; margin: 0 0 10px; border-inline-start: 4px solid var(--primary-light); }
+.md-box summary { cursor: pointer; padding: 4px 0; }
+.md-title { font-weight: 800; color: var(--secondary); }
+.md-meta { font-size: 13px; color: var(--muted); }
+.md-actions { display: flex; gap: 6px; margin: 6px 0 8px; flex-wrap: wrap; }
+.md-btn { background: #EEF1F4; color: var(--secondary); border: none; border-radius: 8px; padding: 5px 12px; font-family: var(--font-body); font-size: 13.5px; font-weight: 700; cursor: pointer; }
+.md-btn:hover { background: #DFE5EB; }
+.md-body { line-height: 1.8; font-size: 15.5px; overflow-wrap: anywhere; }
+.md-body h3, .md-body h4, .md-body h5, .md-body h6 { color: var(--secondary); margin: 14px 0 6px; font-size: 17px; }
+.md-body h3 { font-size: 19px; }
+.md-body p { margin: 0 0 6px; }
+.md-body ul, .md-body ol { margin: 0 0 8px; padding-inline-start: 22px; }
+.md-body li { margin-bottom: 3px; }
+.md-body hr { border: none; border-top: 1px solid #E1E6EB; margin: 12px 0; }
+.md-body code { background: #EEF1F4; padding: 1px 6px; border-radius: 5px; font-size: 14px; }
+.md-table { overflow-x: auto; margin: 6px 0 10px; }
+.md-table table { border-collapse: collapse; min-width: 100%; font-size: 14.5px; }
+.md-table th, .md-table td { border: 1px solid #E1E6EB; padding: 6px 10px; text-align: start; vertical-align: top; }
+.md-table th { background: #F2F5F8; }
+.md-body ul { list-style: disc; } .md-body ol { list-style: decimal; }
+.md-box summary { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.md-head { flex: 1; min-width: 200px; }
+.md-box .md-actions { margin: 0; }
+.md-copy { background: var(--primary); color: #fff; }
+.md-copy:hover { background: var(--primary-light); }
+
+/* ----- ملاحظات المدرب ----- */
+.tf-box h2 { font-size: 19px; margin: 0 0 10px; }
+.fb-count { background: #FBE9E7; color: #B03A2E; border-radius: 999px; padding: 2px 10px; font-size: 13px; vertical-align: middle; }
+.fb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.fb-item { border-radius: 10px; padding: 10px 14px; border-inline-start: 4px solid; }
+.fb-item.good { background: #EAF7F0; border-color: #2A9D8F; }
+.fb-item.improve { background: #FFF4E6; border-color: #E07A2F; }
+.fb-item.fix { background: #FDECEA; border-color: #C0392B; }
+.fb-item.done { opacity: .7; }
+.fb-meta { font-size: 13px; color: var(--muted); }
+.fb-meta b { color: var(--secondary); }
+.fb-text { white-space: pre-line; margin: 4px 0; line-height: 1.7; }
+.fb-new { background: #C0392B; color: #fff; border-radius: 999px; padding: 0 8px; font-weight: 700; font-size: 12px; }
+.fb-foot { display: flex; gap: 8px; align-items: center; justify-content: flex-end; flex-wrap: wrap; }
+.fb-done { color: #1E7268; font-weight: 700; font-size: 14px; }
+.tf-code-form { display: flex; gap: 8px; flex-wrap: wrap; }
+.tf-code-form select { flex: 2; min-width: 160px; }
+.tf-code-form input { flex: 1; min-width: 100px; padding: 10px 12px; border: 2px solid #D5DCE4; border-radius: 10px; font-size: 18px; letter-spacing: 4px; text-align: center; }
+.muted-s { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+.tf-personal[hidden] { display: none; }

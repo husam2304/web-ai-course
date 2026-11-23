@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة المدرب | دورة تطوير المواقع بمساعدة الذكاء الاصطناعي</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="لوحة المدرب.">
+  <link rel="icon" href="images/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <script src="js/main.js" defer></script>
+  <script src="js/md.js" defer></script>
+  <script src="js/admin.js" defer></script>
+</head>
+<body>
+  <!-- رأس الصفحة: نفسه بكل الصفحات -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">ويب <span>AI</span></a>
+      <button class="menu-btn" aria-label="فتح القائمة" aria-expanded="false">☰</button>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="index.html">الرئيسية</a></li>
+          <li><a href="program.html">البرنامج</a></li>
+          <li><a href="projects.html">المشاريع</a></li>
+          <li><a href="trainer.html">المدرب</a></li>
+          <li><a href="resources.html">ملفات الدورة</a></li>
+          <li><a href="submit.html">التسليم</a></li>
+          <li><a href="team-files.html">ملفات فريقي</a></li>
+          <li><a href="contact.html">تواصل</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>لوحة المدرب</h1>
+        <p>التسليمات، الفرق والمتدربين، والتقييم اليومي</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- الدخول -->
+        <form class="admin-login" id="login-form">
+          <label for="admin-key">مفتاح الأدمن</label>
+          <input type="password" id="admin-key" autocomplete="current-password" dir="ltr">
+          <button type="submit" class="btn">دخول</button>
+          <p class="error-msg" id="login-error"></p>
+        </form>
+
+        <!-- اللوحة -->
+        <div id="dashboard" hidden>
+          <div class="admin-bar">
+            <nav class="view-tabs" id="view-tabs" aria-label="أقسام اللوحة">
+              <button type="button" class="view-tab active" data-view="subs">التسليمات</button>
+              <button type="button" class="view-tab" data-view="roster">الحضور والتقييم</button>
+              <button type="button" class="view-tab" data-view="teams">الفرق والمتدربين</button>
+              <button type="button" class="view-tab" data-view="messages">الرسائل <span class="tab-badge" id="msg-badge" hidden></span></button>
+              <button type="button" class="view-tab" data-view="trash">المحذوفات</button>
+            </nav>
+            <button class="link-btn" id="logout-btn" type="button">خروج</button>
+          </div>
+
+          <nav class="day-tabs" id="day-tabs" aria-label="الأيام"></nav>
+
+          <!-- 1) التسليمات -->
+          <div class="view" id="view-subs">
+            <div class="admin-actions">
+              <input type="search" id="search" placeholder="بحث بالاسم أو الفريق">
+              <button class="btn" id="upload-open" type="button">+ رفع ملف لمتدرب</button>
+              <button class="btn btn-light" id="auto-link" type="button">ربط تلقائي</button>
+            </div>
+            <div class="admin-actions">
+              <button class="btn btn-dark" id="export-day" type="button">Excel لهاليوم</button>
+              <button class="btn btn-dark" id="export-all" type="button">Excel لكل الأيام + التقييم</button>
+              <button class="btn btn-light" id="zip-day" type="button">كل ملفات اليوم ZIP</button>
+            </div>
+            <div class="merge-bar" id="merge-bar" hidden>
+              <span id="merge-count"></span>
+              <button class="btn" type="button" id="merge-open">دمج المحدد</button>
+              <button class="link-btn" type="button" id="merge-clear">إلغاء التحديد</button>
+            </div>
+            <div class="report" id="link-report" hidden></div>
+            <p class="admin-count" id="admin-count"></p>
+            <div class="table-wrap">
+              <table class="admin-table subs-table">
+                <thead>
+                  <tr><th>#</th><th>المتدرب</th><th>الفريق</th><th>تعديل</th><th>الملفات</th><th>الوقت</th><th>الإجابات</th></tr>
+                </thead>
+                <tbody id="rows"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 2) الحضور والتقييم -->
+          <div class="view" id="view-roster" hidden>
+            <p class="admin-count" id="roster-count"></p>
+            <div id="roster"></div>
+          </div>
+
+          <!-- 4) الرسائل -->
+          <div class="view" id="view-messages" hidden>
+            <div class="admin-actions">
+              <select id="msg-filter" aria-label="فلترة الرسائل">
+                <option value="all">كل الرسائل</option>
+                <option value="new">الجديدة بس</option>
+                <option value="replied">اللي انرد عليها</option>
+              </select>
+            </div>
+            <div id="messages"></div>
+          </div>
+
+          <!-- 5) المحذوفات -->
+          <div class="view" id="view-trash" hidden>
+            <p class="muted">التسليمات والملفات المحذوفة أو المدموجة بتضل هون. بتقدر ترجّعها، أو تحذفها نهائياً (الحذف النهائي بيمسح الملف من السيرفر).</p>
+            <div id="trash"></div>
+          </div>
+
+          <!-- 3) الفرق والمتدربين -->
+          <div class="view" id="view-teams" hidden>
+            <div class="admin-actions">
+              <button class="btn btn-dark" id="print-tents" type="button">طباعة لافتات الفرق</button>
+              <button class="btn btn-dark" id="print-codes" type="button">طباعة أكواد الملاحظات</button>
+            </div>
+            <p class="muted">كل متدرب إله كود من 4 أرقام، بيستخدمه بصفحة «ملفات فريقي» ليشوف ملاحظاته الشخصية. ملاحظات الفريق ما بدها كود.</p>
+            <form class="inline-form" id="team-form">
+              <input type="text" id="team-name" placeholder="اسم فريق جديد" maxlength="100" required>
+              <button class="btn" type="submit">+ إضافة فريق</button>
+            </form>
+            <div class="teams-grid" id="teams"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ربط التسليم بالمتدربين -->
+    <dialog class="modal" id="link-dialog">
+      <form method="dialog" id="link-form">
+        <h2 id="link-title">ربط التسليم</h2>
+        <p class="muted" id="link-typed"></p>
+        <div class="pick" id="link-pick"></div>
+        <div class="modal-actions">
+          <button class="btn" type="submit" value="save">حفظ</button>
+          <button class="btn btn-light" type="submit" value="cancel" formnovalidate>إلغاء</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- تعديل تسليم -->
+    <dialog class="modal modal-wide" id="edit-dialog">
+      <form method="dialog" id="edit-form">
+        <h2 id="edit-title">تعديل التسليم</h2>
+        <label class="label" for="edit-day">اليوم</label>
+        <select id="edit-day" class="day-select"></select>
+        <p class="label">الإجابات</p>
+        <div id="edit-answers"></div>
+        <div class="inline-form">
+          <input type="text" id="edit-newkey" placeholder="اسم حقل جديد (مثلاً: خطة الفريق)" maxlength="100">
+          <button type="button" class="btn btn-light" id="edit-addkey">+ حقل</button>
+        </div>
+        <p class="label">الملفات</p>
+        <div id="edit-files"></div>
+        <label class="label" for="edit-newfiles">إضافة ملفات (لحد 3 بالمرة)</label>
+        <input type="file" id="edit-newfiles" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip">
+        <p class="error-msg" id="edit-error"></p>
+        <div class="modal-actions">
+          <button class="btn" type="submit" value="save" id="edit-save">حفظ</button>
+          <button class="btn btn-light" type="submit" value="cancel" formnovalidate>إلغاء</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- دمج تسليمات -->
+    <dialog class="modal modal-wide" id="merge-dialog">
+      <form method="dialog" id="merge-form">
+        <h2 id="merge-title">دمج التسليمات</h2>
+        <p class="muted">لكل حقل اختار القيمة اللي بتنعتمد، أو عدّلها بإيدك. التسليمات الثانية بتروح للمحذوفات (بتقدر ترجعها).</p>
+        <div class="merge-top">
+          <label>بيضل رقم التسليم: <select id="merge-target"></select></label>
+          <label>اليوم: <select id="merge-day" class="day-select"></select></label>
+        </div>
+        <div id="merge-fields"></div>
+        <p class="label">الملفات اللي بتضل (اللي مش معلّم بروح للمحذوفات)</p>
+        <div id="merge-files"></div>
+        <p class="muted" id="merge-people"></p>
+        <p class="error-msg" id="merge-error"></p>
+        <div class="modal-actions">
+          <button class="btn" type="submit" value="save" id="merge-save">دمج</button>
+          <button class="btn btn-light" type="submit" value="cancel" formnovalidate>إلغاء</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- الملاحظات على تسليم -->
+    <dialog class="modal" id="fb-dialog">
+      <form method="dialog" id="fb-form">
+        <h2 id="fb-title">ملاحظات</h2>
+        <div id="fb-existing"></div>
+        <p class="label" id="fb-form-title">ملاحظة جديدة</p>
+        <div class="fb-row" id="fb-target"></div>
+        <div class="fb-row fb-kinds">
+          <label class="kind good"><input type="radio" name="fb-kind" value="good"> ممتاز</label>
+          <label class="kind improve"><input type="radio" name="fb-kind" value="improve" checked> تحسين</label>
+          <label class="kind fix"><input type="radio" name="fb-kind" value="fix"> مطلوب تصليح</label>
+        </div>
+        <div class="fb-templates" id="fb-templates"></div>
+        <textarea id="fb-text" rows="4" maxlength="2000" placeholder="اكتب الملاحظة..." dir="auto"></textarea>
+        <button type="button" class="link-btn" id="fb-save-template">+ احفظها كملاحظة جاهزة</button>
+        <p class="error-msg" id="fb-error"></p>
+        <div class="modal-actions">
+          <button class="btn" type="submit" value="save" id="fb-save">إضافة</button>
+          <button class="btn btn-light" type="button" id="fb-cancel-edit" hidden>إلغاء التعديل</button>
+          <button class="btn btn-light" type="submit" value="cancel" formnovalidate>إغلاق</button>
+        </div>
+      </form>
+    </dialog>
+
+    <!-- رفع ملف لمتدرب -->
+    <dialog class="modal" id="upload-dialog">
+      <form method="dialog" id="upload-form">
+        <h2 id="upload-title">رفع ملف</h2>
+        <p class="label">لمين الملف؟</p>
+        <div class="pick" id="upload-pick"></div>
+        <label class="label" for="upload-files">الملفات (لحد 3، كل واحد لحد 20MB)</label>
+        <input type="file" id="upload-files" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip">
+        <label class="label" for="upload-note">ملاحظة (اختياري)</label>
+        <input type="text" id="upload-note" maxlength="500" placeholder="مثلاً: بعتها عالواتساب">
+        <p class="error-msg" id="upload-error"></p>
+        <div class="modal-actions">
+          <button class="btn" type="submit" value="save" id="upload-save">رفع</button>
+          <button class="btn btn-light" type="submit" value="cancel" formnovalidate>إلغاء</button>
+        </div>
+      </form>
+    </dialog>
+
+  </main>
+
+  <!-- ذيل الصفحة: نفسه بكل الصفحات -->
+  <footer class="site-footer">
+    <div class="container">
+      <ul class="footer-links">
+        <li><a href="index.html">الرئيسية</a></li>
+        <li><a href="program.html">البرنامج</a></li>
+        <li><a href="projects.html">المشاريع</a></li>
+        <li><a href="trainer.html">المدرب</a></li>
+        <li><a href="resources.html">ملفات الدورة</a></li>
+        <li><a href="submit.html">التسليم</a></li>
+        <li><a href="team-files.html">ملفات فريقي</a></li>
+        <li><a href="contact.html">تواصل</a></li>
+      </ul>
+      <p>دورة تطوير المواقع بمساعدة الذكاء الاصطناعي · مؤسسة ولي العهد · 2026</p>
+    </div>
+  </footer>
+</body>
+</html>
