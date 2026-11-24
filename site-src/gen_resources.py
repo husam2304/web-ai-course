@@ -152,10 +152,72 @@ tools2 = [("Google Stitch", "https://stitch.withgoogle.com/", "التصميم"),
           ("Laws of UX", "https://lawsofux.com/", "مبادئ UX")]
 tools2_html = "\n".join(f'            <a class="tool-link" href="{u}" target="_blank" rel="noopener"><strong>{n}</strong><span>{d}</span></a>' for n, u, d in tools2)
 
+# ---------- Day 3 (cards locked until the trainer opens them from the admin page) ----------
+d3 = open(os.path.join(HERE, "day3_content.txt"), encoding="utf-8").read().split("\n=====\n")
+d3_tree = d3[0].rstrip("\n")
+d3_prompts = [
+    ("d3-p1", "Prompt 1: الهيكل", "أول prompt، مع إرفاق DESIGN.md أو صورة الرئيسية", d3[1].strip()),
+    ("d3-p2", "Prompt 2: بناء صفحة من الصفر", "لكل صفحة، مع إرفاق صورة الشاشة", d3[2].strip()),
+    ("d3-p3", "Prompt 3: ميزة JavaScript خطوة خطوة", "لكل ميزة", d3[3].strip()),
+    ("d3-p4", "Prompt 4: اشرحلي", "بعد كل ميزة، وقبل سؤال الفهم", d3[4].strip()),
+    ("d3-p5", "Prompt 5: تصليح خطأ", "لما ميزة ما تشتغل", d3[5].strip()),
+    ("d3-p6", "Prompt 6: موقع بلغتين", "للفرق اللي بدها تبديل لغة", d3[6].strip()),
+]
+d3_rules = ["كود Stitch ممنوع: بناخد منه صورة الشاشة و DESIGN.md بس.",
+    "بدون Tailwind: CSS عادي بملف style.css.",
+    "أي سطر بالموقع، أي حدا بالفريق لازم يقدر يشرحه.",
+    "الفريق على جهاز واحد، و zip كل ساعة على «ملفات فريقي»."]
+d3_check = ["كل روابط الـ nav شغالة، من كل صفحة.",
+    "الـ Console نظيف (بدون أحمر) بكل صفحة.",
+    "الصور كلها محلية بمجلد images/.",
+    "ميزة JS وحدة على الأقل شغالة (غير الـ hamburger).",
+    "الـ zip فيه المجلد كامل، مش index.html لحاله."]
+
+def locked(key, title, when, body, extra_cls=""):
+    """A card that stays hidden (class is-locked) until /api/unlocks lists its key."""
+    return f'''        <article class="res-card is-locked{extra_cls}" id="{key}" data-lock="{key}" data-lock-title="{esc(title)}">
+          <p class="res-when">{when}</p>
+          <h3>{title}</h3>
+          <div class="lock-body">
+{body}
+          </div>
+        </article>'''
+
+d3_rules_html = locked("d3-rules", "قواعد اليوم", "أول اليوم",
+    '          <ul class="steps">\n' + "\n".join(f"            <li>{esc(r)}</li>" for r in d3_rules) + "\n          </ul>\n"
+    '          <a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a>')
+d3_tree_html = locked("d3-tree", "هيكل المجلدات", "مع Prompt 1",
+    copy_block("project/", d3_tree, "", "d3-tree-code").replace('<pre id="d3-tree-code" dir="auto">', '<pre id="d3-tree-code" dir="ltr">'))
+d3_prompts_html = "\n".join(locked(k, t, w, copy_block("Prompt", txt, "", k + "-text")) for k, t, w, txt in d3_prompts)
+d3_check_html = locked("d3-check", "الفحص آخر اليوم (checklist)", "قبل التسليم",
+    '          <ul class="checklist">\n' + "\n".join(f'            <li><label><input type="checkbox"> {esc(c)}</label></li>' for c in d3_check) + "\n          </ul>\n"
+    '          <a class="btn" href="submit.html">صفحة التسليم</a>')
+
+day3_panel = f'''
+        <div class="day-panel" data-day="3">
+        <h2 class="day-title" id="day3">اليوم الثالث: البناء بـ HTML و CSS و JavaScript</h2>
+        <p class="block-sub">البطاقات بتنفتح وحدة وحدة لما نوصلها بالشرح. الصفحة بتتحدّث لحالها.</p>
+        <ol class="toc">
+          <li><a href="#d3-rules">قواعد اليوم</a></li>
+          <li><a href="#d3-tree">هيكل المجلدات</a></li>
+          <li><a href="#d3-prompts">الـ Prompts الست</a></li>
+          <li><a href="#d3-check">الفحص آخر اليوم</a></li>
+        </ol>
+{d3_rules_html}
+{d3_tree_html}
+        <h2 class="block-title" id="d3-prompts">الـ Prompts الست</h2>
+        <p class="block-sub">اكبس «نسخ»، الصق بالمحادثة، وعبّي اللي بين [ ] بس.</p>
+        <div class="prompts-grid">
+{d3_prompts_html}
+        </div>
+{d3_check_html}
+        </div>
+'''
+
 days_nav = '''        <nav class="day-tabs" aria-label="أيام الدورة">
           <a href="#day1" class="day-tab" data-day="1">اليوم 1</a>
-          <a href="#day2" class="day-tab active" data-day="2">اليوم 2</a>
-          <span class="day-tab soon">اليوم 3 · قريباً</span>
+          <a href="#day2" class="day-tab" data-day="2">اليوم 2</a>
+          <a href="#day3" class="day-tab active" data-day="3">اليوم 3</a>
           <span class="day-tab soon">اليوم 4 · قريباً</span>
           <span class="day-tab soon">اليوم 5 · قريباً</span>
         </nav>'''
@@ -305,6 +367,7 @@ resources_main = '''    <section class="page-hero">
           <a class="btn" href="submit.html">صفحة التسليم</a>
         </article>
         </div>
+''' + day3_panel + '''
       </div>
     </section>
 '''

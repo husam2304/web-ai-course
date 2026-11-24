@@ -242,3 +242,4 @@ button.dup { border: none; cursor: pointer; font-family: var(--font-body); }
 .trash-item { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; background: var(--card); border-radius: 10px; padding: 10px 14px; box-shadow: var(--shadow); }
 #view-trash h3 { font-size: 18px; margin: 10px 0 8px; }
 .subs-table .sel { white-space: nowrap; }
+.mini.primary { background: var(--primary, #1F4E79); color: #fff; }

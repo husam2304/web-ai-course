@@ -99,6 +99,12 @@ public static class SchemaUpgrade
                 Status nvarchar(10) NOT NULL,
                 AdminNote nvarchar(1000) NULL
             );
+
+        IF OBJECT_ID('ContentUnlocks') IS NULL
+            CREATE TABLE ContentUnlocks (
+                [Key] nvarchar(64) NOT NULL CONSTRAINT PK_ContentUnlocks PRIMARY KEY,
+                UnlockedAtUtc datetime2 NOT NULL
+            );
         """;
 
     // Each statement runs on its own (a table must exist before another table's FK points at it).

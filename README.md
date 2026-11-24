@@ -25,6 +25,8 @@ tools/build-decks.sh 2                 # rebuild Day 2 deck -> decks/out/
 
 ## Rules that must not break
 
+- «ملفات الدورة» Day 3+: cards with `data-lock` stay hidden until opened from the admin («ملفات الدورة 🔒» tab, table `ContentUnlocks`). Page-hiding only; if the API is down the page shows everything.
+- Upload limit: 50MB per file (`Limits.MaxFileMb` + `web.config` + `MAX_FILE_MB` in `submit.js` must match).
 - Trainees' projects: **no backend**. Anything that needs one is a display-only UI. JS features (incl. localStorage) are fine.
 - The course site itself does use the backend (submit, team files, feedback, contact, admin).
 - `API_URL = 'https://web-train.runasp.net'` in `site/js/*.js`.

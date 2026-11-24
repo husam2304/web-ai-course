@@ -328,6 +328,7 @@ admin_main = '''    <section class="page-hero">
               <button type="button" class="view-tab" data-view="roster">الحضور والتقييم</button>
               <button type="button" class="view-tab" data-view="teams">الفرق والمتدربين</button>
               <button type="button" class="view-tab" data-view="messages">الرسائل <span class="tab-badge" id="msg-badge" hidden></span></button>
+              <button type="button" class="view-tab" data-view="locks">ملفات الدورة 🔒</button>
               <button type="button" class="view-tab" data-view="trash">المحذوفات</button>
             </nav>
             <button class="link-btn" id="logout-btn" type="button">خروج</button>
@@ -380,6 +381,12 @@ admin_main = '''    <section class="page-hero">
               </select>
             </div>
             <div id="messages"></div>
+          </div>
+
+          <!-- ملفات الدورة: فتح البطاقات وقت الشرح -->
+          <div class="view" id="view-locks" hidden>
+            <p class="muted">كل بطاقة بتضل مقفولة عند المتدربين لحد ما تفتحها. صفحاتهم بتتحدّث لحالها خلال 20 ثانية. القفل إخفاء بالصفحة بس، مش حماية.</p>
+            <div id="locks"></div>
           </div>
 
           <!-- 5) المحذوفات -->
@@ -493,7 +500,7 @@ admin_main = '''    <section class="page-hero">
         <h2 id="upload-title">رفع ملف</h2>
         <p class="label">لمين الملف؟</p>
         <div class="pick" id="upload-pick"></div>
-        <label class="label" for="upload-files">الملفات (لحد 3، كل واحد لحد 20MB)</label>
+        <label class="label" for="upload-files">الملفات (لحد 3، كل واحد لحد 50MB)</label>
         <input type="file" id="upload-files" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip">
         <label class="label" for="upload-note">ملاحظة (اختياري)</label>
         <input type="text" id="upload-note" maxlength="500" placeholder="مثلاً: بعتها عالواتساب">
@@ -536,7 +543,7 @@ PAGES = [
     ("admin.html", "لوحة المدرب | " + SITE, "لوحة المدرب.", "admin", admin_main, ("md.js", "admin.js")),
     ("team-files.html", "ملفات فريقي | " + SITE, "نزّل ملفات فريقك المرفوعة من أي جهاز.", "team-files", team_files_main, ("md.js", "team-files.js")),
     ("submit.html", "التسليم | " + SITE, "تسليم مخرجات كل يوم من أيام الدورة.", "submit", submit_main, ("submit.js",)),
-    ("resources.html", "ملفات الدورة | " + SITE, "كل أكواد وprompts وقوالب الدورة، جاهزة للنسخ والتحميل.", "resources", resources_main, ("copy.js", "days.js")),
+    ("resources.html", "ملفات الدورة | " + SITE, "كل أكواد وprompts وقوالب الدورة، جاهزة للنسخ والتحميل.", "resources", resources_main, ("copy.js", "days.js", "locks.js")),
     ("index.html", f"{SITE}", "دورة 5 أيام للمبتدئين: خطط، صمم، ابنِ، اختبر وانشر موقعك الأول بمساعدة الذكاء الاصطناعي.", "index", index_main, ()),
     ("program.html", "البرنامج | " + SITE, "برنامج الأيام الخمسة: التخطيط، التصميم، البناء، الاختبار والنشر، مع مخرج واضح لكل يوم.", "program", program_main, ("accordion.js",)),
     ("projects.html", "المشاريع | " + SITE, "مشاريع فرق الدورة: مواقع حقيقية بناها المشاركين، مع تصفية حسب نوع الموقع.", "projects", projects_main, ("projects.js",)),

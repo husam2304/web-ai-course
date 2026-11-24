@@ -7,7 +7,8 @@ namespace CourseSubmissions.Api;
 public static class Limits
 {
     public const int MaxFiles = 3;
-    public const long MaxFileBytes = 20L * 1024 * 1024;                       // 20 MB per file
+    public const int MaxFileMb = 50;                                           // Day 3+: whole-site zips
+    public const long MaxFileBytes = MaxFileMb * 1024L * 1024;
     public const long MaxRequestBytes = MaxFiles * MaxFileBytes + 5L * 1024 * 1024; // files + form fields
     public const int MaxAnswersChars = 60_000; // plans pasted from the AI can be long
 
@@ -67,7 +68,7 @@ public static class Uploads
             if (!Limits.AllowedExtensions.Contains(ext))
                 return $"نوع الملف {f.FileName} غير مسموح. المسموح: PDF، Word، صور، ZIP.";
             if (f.Length > Limits.MaxFileBytes)
-                return $"الملف {f.FileName} أكبر من 20MB.";
+                return $"الملف {f.FileName} أكبر من {Limits.MaxFileMb}MB.";
         }
         return null;
     }

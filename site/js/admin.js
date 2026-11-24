@@ -104,8 +104,8 @@ $('#view-tabs').addEventListener('click', function (e) {
 function showView(view) {
   currentView = view;
   for (const b of document.querySelectorAll('.view-tab')) b.classList.toggle('active', b.dataset.view === view);
-  for (const v of ['subs', 'roster', 'teams', 'messages', 'trash']) $('#view-' + v).hidden = v !== view;
-  dayTabs.hidden = view === 'teams' || view === 'messages' || view === 'trash';
+  for (const v of ['subs', 'roster', 'teams', 'messages', 'trash', 'locks']) $('#view-' + v).hidden = v !== view;
+  dayTabs.hidden = view === 'teams' || view === 'messages' || view === 'trash' || view === 'locks';
   refresh();
 }
 
@@ -115,6 +115,7 @@ function refresh() {
   else if (currentView === 'roster') loadRoster();
   else if (currentView === 'messages') loadMessages();
   else if (currentView === 'trash') loadTrash();
+  else if (currentView === 'locks') loadLocks();
   else renderTeams();
 }
 
@@ -1142,4 +1143,52 @@ $('#trash').addEventListener('click', async function (e) {
     await reloadSummary();
     loadTrash();
   } catch (err) { alert('ما زبط: ' + err.message); }
+});
+
+
+// ---------- ملفات الدورة: فتح وقفل البطاقات ----------
+// البطاقات بتنقرأ من resources.html نفسها (data-lock)، فأي بطاقة جديدة بالمولّد بتطلع هون لحالها
+async function loadLocks() {
+  const box = $('#locks');
+  box.innerHTML = '<p class="muted">عم يتحمّل...</p>';
+  try {
+    const [pageRes, open] = await Promise.all([fetch('resources.html', { cache: 'no-store' }), apiJson('/api/admin/unlocks')]);
+    const doc = new DOMParser().parseFromString(await pageRes.text(), 'text/html');
+    const days = {};
+    doc.querySelectorAll('.day-panel').forEach(function (panel) {
+      const cards = panel.querySelectorAll('[data-lock]');
+      if (cards.length) days[panel.dataset.day] = Array.from(cards).map(function (c) { return { key: c.dataset.lock, title: c.dataset.lockTitle }; });
+    });
+    const dayNums = Object.keys(days);
+    if (!dayNums.length) { box.innerHTML = '<p class="muted">ما في بطاقات مقفولة.</p>'; return; }
+    box.innerHTML = dayNums.map(function (d) {
+      const rows = days[d].map(function (c) {
+        const isOpen = open.indexOf(c.key) !== -1;
+        return '<tr><td>' + escapeHtml(c.title) + '</td><td>' + (isOpen ? '✅ مفتوحة' : '🔒 مقفولة') + '</td>' +
+          '<td><button type="button" class="mini' + (isOpen ? '' : ' primary') + '" data-lock-key="' + c.key + '" data-open="' + (isOpen ? 0 : 1) + '">' + (isOpen ? 'اقفل' : 'افتح') + '</button></td></tr>';
+      }).join('');
+      const keys = days[d].map(function (c) { return c.key; }).join(',');
+      return '<div class="roster-team"><h3>اليوم ' + d + '</h3><div class="admin-actions">' +
+        '<button type="button" class="btn btn-light" data-lock-all="' + keys + '" data-open="1">افتح الكل</button>' +
+        '<button type="button" class="btn btn-light" data-lock-all="' + keys + '" data-open="0">اقفل الكل</button></div>' +
+        '<div class="table-wrap"><table class="admin-table"><thead><tr><th>البطاقة</th><th>الحالة</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+    }).join('');
+  } catch (err) {
+    box.innerHTML = '<p class="error-msg">ما قدرنا نحمّل البطاقات: ' + escapeHtml(err.message) + '</p>';
+  }
+}
+
+$('#locks').addEventListener('click', async function (e) {
+  const one = e.target.closest('[data-lock-key]');
+  const all = e.target.closest('[data-lock-all]');
+  if (!one && !all) return;
+  const btn = one || all;
+  const keys = one ? [one.dataset.lockKey] : all.dataset.lockAll.split(',');
+  btn.disabled = true;
+  try {
+    for (const key of keys) await api('/api/admin/unlocks/' + encodeURIComponent(key), 'PUT', { unlocked: btn.dataset.open === '1' });
+  } catch (err) {
+    alert('ما زبط: ' + err.message);
+  }
+  loadLocks();
 });

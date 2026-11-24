@@ -20,6 +20,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     public DbSet<ContactMessage> ContactMessages => Set<ContactMessage>();
 
+    public DbSet<ContentUnlock> ContentUnlocks => Set<ContentUnlock>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Submission>(e =>
@@ -116,6 +118,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
                 .WithMany()
                 .HasForeignKey(x => x.TraineeId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<ContentUnlock>(e =>
+        {
+            e.ToTable("ContentUnlocks");
+            e.HasKey(x => x.Key);
+            e.Property(x => x.Key).HasMaxLength(64);
         });
     }
 }

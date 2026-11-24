@@ -182,3 +182,11 @@ public class ContactMessage
     /// <summary>Trainer's private note.</summary>
     public string? AdminNote { get; set; }
 }
+
+/// <summary>A card on the resources page («ملفات الدورة») that the trainer has opened. No row = still locked.</summary>
+public class ContentUnlock
+{
+    public string Key { get; set; } = string.Empty;
+
+    public DateTime UnlockedAtUtc { get; set; }
+}

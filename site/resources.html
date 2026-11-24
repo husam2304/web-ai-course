@@ -14,6 +14,7 @@
   <script src="js/main.js" defer></script>
   <script src="js/copy.js" defer></script>
   <script src="js/days.js" defer></script>
+  <script src="js/locks.js" defer></script>
 </head>
 <body>
   <!-- رأس الصفحة: نفسه بكل الصفحات -->
@@ -48,8 +49,8 @@
       <div class="container">
         <nav class="day-tabs" aria-label="أيام الدورة">
           <a href="#day1" class="day-tab" data-day="1">اليوم 1</a>
-          <a href="#day2" class="day-tab active" data-day="2">اليوم 2</a>
-          <span class="day-tab soon">اليوم 3 · قريباً</span>
+          <a href="#day2" class="day-tab" data-day="2">اليوم 2</a>
+          <a href="#day3" class="day-tab active" data-day="3">اليوم 3</a>
           <span class="day-tab soon">اليوم 4 · قريباً</span>
           <span class="day-tab soon">اليوم 5 · قريباً</span>
         </nav>
@@ -530,6 +531,179 @@ Show the mobile version of the home page with a hamburger menu.</pre>
           <a class="btn" href="submit.html">صفحة التسليم</a>
         </article>
         </div>
+
+        <div class="day-panel" data-day="3">
+        <h2 class="day-title" id="day3">اليوم الثالث: البناء بـ HTML و CSS و JavaScript</h2>
+        <p class="block-sub">البطاقات بتنفتح وحدة وحدة لما نوصلها بالشرح. الصفحة بتتحدّث لحالها.</p>
+        <ol class="toc">
+          <li><a href="#d3-rules">قواعد اليوم</a></li>
+          <li><a href="#d3-tree">هيكل المجلدات</a></li>
+          <li><a href="#d3-prompts">الـ Prompts الست</a></li>
+          <li><a href="#d3-check">الفحص آخر اليوم</a></li>
+        </ol>
+        <article class="res-card is-locked" id="d3-rules" data-lock="d3-rules" data-lock-title="قواعد اليوم">
+          <p class="res-when">أول اليوم</p>
+          <h3>قواعد اليوم</h3>
+          <div class="lock-body">
+          <ul class="steps">
+            <li>كود Stitch ممنوع: بناخد منه صورة الشاشة و DESIGN.md بس.</li>
+            <li>بدون Tailwind: CSS عادي بملف style.css.</li>
+            <li>أي سطر بالموقع، أي حدا بالفريق لازم يقدر يشرحه.</li>
+            <li>الفريق على جهاز واحد، و zip كل ساعة على «ملفات فريقي».</li>
+          </ul>
+          <a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a>
+          </div>
+        </article>
+        <article class="res-card is-locked" id="d3-tree" data-lock="d3-tree" data-lock-title="هيكل المجلدات">
+          <p class="res-when">مع Prompt 1</p>
+          <h3>هيكل المجلدات</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>project/</span>
+              <button class="copy-btn" data-target="d3-tree-code">نسخ</button>
+            </div>
+            <pre id="d3-tree-code" dir="ltr">project/
+├── index.html
+├── menu.html, about.html ...
+├── css/
+│   ├── style.css      ← مشترك
+│   └── menu.css       ← خاص بصفحة (اختياري)
+├── js/
+│   ├── data.js        ← البيانات
+│   └── main.js        ← التفاعل
+└── images/</pre>
+          </div>
+          </div>
+        </article>
+        <h2 class="block-title" id="d3-prompts">الـ Prompts الست</h2>
+        <p class="block-sub">اكبس «نسخ»، الصق بالمحادثة، وعبّي اللي بين [ ] بس.</p>
+        <div class="prompts-grid">
+        <article class="res-card is-locked" id="d3-p1" data-lock="d3-p1" data-lock-title="Prompt 1: الهيكل">
+          <p class="res-when">أول prompt، مع إرفاق DESIGN.md أو صورة الرئيسية</p>
+          <h3>Prompt 1: الهيكل</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="d3-p1-text">نسخ</button>
+            </div>
+            <pre id="d3-p1-text" dir="auto">أنا مبتدئ ببني موقع [فكرة الموقع] بـ HTML و CSS و JavaScript عادي، بدون Tailwind وبدون أي مكتبة.
+اللغة: [عربي RTL / إنجليزي LTR]. الصفحات: [index.html, menu.html, ...].
+مرفق ملف التصميم DESIGN.md (أو صورة الرئيسية): خد منه الألوان والخطوط بس.
+بدي:
+1. هيكل المجلدات: css/style.css و js/data.js و js/main.js و images/.
+2. style.css فيه :root بـ 6 لـ 8 متغيرات بس (خلفية 60%، أساسي 30%، مميز 10%، لون النص، الخط، الزوايا)، وclasses مشتركة: .container .btn .card .cards، و header و footer و media query للجوال مع hamburger.
+3. index.html فيها الهيكل الكامل (header مع nav لكل الصفحات وزر hamburger، main فاضي، footer)، و data.js قبل main.js آخر الـ body.
+4. data.js فيه مصفوفة اسمها items فيها عنصرين مثال بالحقول: [id, name, category, price, image ...].
+5. main.js فيه كود الـ hamburger بس.
+اشرحلي بالعربي بسطر شو وظيفة كل ملف.</pre>
+          </div>
+          </div>
+        </article>
+        <article class="res-card is-locked" id="d3-p2" data-lock="d3-p2" data-lock-title="Prompt 2: بناء صفحة من الصفر">
+          <p class="res-when">لكل صفحة، مع إرفاق صورة الشاشة</p>
+          <h3>Prompt 2: بناء صفحة من الصفر</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="d3-p2-text">نسخ</button>
+            </div>
+            <pre id="d3-p2-text" dir="auto">هاي صورة تصميم صفحة [اسم الصفحة]. ابنيها بـ HTML و CSS عادي، بدون Tailwind.
+هاد الـ style.css المشترك عندنا: [الصق style.css]
+وهاد الـ header والـ footer: [الصقهم]
+الشروط:
+- استخدم المتغيرات والـ classes الموجودة، ولا تعدّل style.css.
+- أي CSS جديد خاص بالصفحة حطه بملف css/[اسم-الصفحة].css.
+- الصور من مجلد images/ بأسماء واضحة، ولكل صورة alt.
+- البطاقات المتكررة (منتجات، أدوات، كتب) لا تكتبها بالـ HTML: حط مكانها &lt;div id="list" class="cards"&gt;&lt;/div&gt; بس.
+- بدون JavaScript بهالخطوة.
+ابني الصفحة قسم قسم، وبعد كل قسم اشرح بسطرين بالعربي شو عملت.</pre>
+          </div>
+          </div>
+        </article>
+        <article class="res-card is-locked" id="d3-p3" data-lock="d3-p3" data-lock-title="Prompt 3: ميزة JavaScript خطوة خطوة">
+          <p class="res-when">لكل ميزة</p>
+          <h3>Prompt 3: ميزة JavaScript خطوة خطوة</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="d3-p3-text">نسخ</button>
+            </div>
+            <pre id="d3-p3-text" dir="auto">بدي أضيف ميزة [وصف الميزة، مثلاً: بحث وفلترة للمنيو حسب الفئة].
+البيانات بملف data.js هيك: [الصق عنصرين من المصفوفة]
+وهاد الـ HTML تبع الجزء: [الصقه]
+اكتب الكود بـ JavaScript عادي، على خطوات، كل خطوة لحالها ومعها شرح بالعربي.
+استخدم const/let و forEach و filter و addEventListener، ولا تستخدم مكتبات.
+الكود بينضاف لـ main.js المشترك بين كل الصفحات: حطه بـ function باسم واضح، وجوا if بتتأكد إن العنصر موجود.
+اعطيني الكود الجديد بس، ولا تعيد كتابة main.js كله.</pre>
+          </div>
+          </div>
+        </article>
+        <article class="res-card is-locked" id="d3-p4" data-lock="d3-p4" data-lock-title="Prompt 4: اشرحلي">
+          <p class="res-when">بعد كل ميزة، وقبل سؤال الفهم</p>
+          <h3>Prompt 4: اشرحلي</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="d3-p4-text">نسخ</button>
+            </div>
+            <pre id="d3-p4-text" dir="auto">اشرحلي هالكود سطر سطر بالعربي البسيط، كأني أول مرة بشوف JavaScript. وبالآخر اسألني سؤال واحد عشان أتأكد إني فهمت.
+[الصق الكود]</pre>
+          </div>
+          </div>
+        </article>
+        <article class="res-card is-locked" id="d3-p5" data-lock="d3-p5" data-lock-title="Prompt 5: تصليح خطأ">
+          <p class="res-when">لما ميزة ما تشتغل</p>
+          <h3>Prompt 5: تصليح خطأ</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="d3-p5-text">نسخ</button>
+            </div>
+            <pre id="d3-p5-text" dir="auto">الميزة [اسمها] مش شغالة. هاد الخطأ من الـ Console: [الصق الخطأ الأحمر كامل]
+وهاد الكود: [الصق الجزء]
+قلي شو سبب الخطأ بجملة، وبعدين اعطيني السطر المصلّح بس، مش الملف كله.</pre>
+          </div>
+          </div>
+        </article>
+        <article class="res-card is-locked" id="d3-p6" data-lock="d3-p6" data-lock-title="Prompt 6: موقع بلغتين">
+          <p class="res-when">للفرق اللي بدها تبديل لغة</p>
+          <h3>Prompt 6: موقع بلغتين</h3>
+          <div class="lock-body">
+          <div class="code-block">
+            <div class="code-head">
+              <span>Prompt</span>
+              <button class="copy-btn" data-target="d3-p6-text">نسخ</button>
+            </div>
+            <pre id="d3-p6-text" dir="auto">موقعي [عربي RTL]. بدي زر بيبدّل للـ [إنجليزي LTR] ويرجع.
+الطريقة: كل نص عليه data-i18n="مفتاح"، والنصوص بـ object اسمه texts فيه ar و en، والزر بيغيّر lang و dir على &lt;html&gt;، والاختيار بينحفظ بـ localStorage عشان يضل بكل الصفحات.
+الـ CSS لازم يشتغل بالاتجاهين: استخدم margin-inline و padding-inline بدل left و right.
+ابدأ بـ 3 نصوص بس كمثال (العنوان، الـ nav، الزر)، واشرحلي كل خطوة.</pre>
+          </div>
+          </div>
+        </article>
+        </div>
+        <article class="res-card is-locked" id="d3-check" data-lock="d3-check" data-lock-title="الفحص آخر اليوم (checklist)">
+          <p class="res-when">قبل التسليم</p>
+          <h3>الفحص آخر اليوم (checklist)</h3>
+          <div class="lock-body">
+          <ul class="checklist">
+            <li><label><input type="checkbox"> كل روابط الـ nav شغالة، من كل صفحة.</label></li>
+            <li><label><input type="checkbox"> الـ Console نظيف (بدون أحمر) بكل صفحة.</label></li>
+            <li><label><input type="checkbox"> الصور كلها محلية بمجلد images/.</label></li>
+            <li><label><input type="checkbox"> ميزة JS وحدة على الأقل شغالة (غير الـ hamburger).</label></li>
+            <li><label><input type="checkbox"> الـ zip فيه المجلد كامل، مش index.html لحاله.</label></li>
+          </ul>
+          <a class="btn" href="submit.html">صفحة التسليم</a>
+          </div>
+        </article>
+        </div>
+
       </div>
     </section>
 

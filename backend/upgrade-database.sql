@@ -107,3 +107,10 @@ IF OBJECT_ID('ContactMessages') IS NULL
         AdminNote nvarchar(1000) NULL
     );
 GO
+
+IF OBJECT_ID('ContentUnlocks') IS NULL
+    CREATE TABLE ContentUnlocks (
+        [Key] nvarchar(64) NOT NULL CONSTRAINT PK_ContentUnlocks PRIMARY KEY,
+        UnlockedAtUtc datetime2 NOT NULL
+    );
+GO

@@ -34,6 +34,7 @@ public static class AdminEndpoints
         admin.MapAdminFeedback();
         admin.MapAdminContact();
         admin.MapAdminEdit(uploadsRoot);
+        admin.MapAdminUnlocks();
 
         // ================= Summary =================
         admin.MapGet("/summary", async (AppDbContext db) =>

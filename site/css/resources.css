@@ -187,3 +187,14 @@ code {
   .tpl th { width: 80px; }
 }
 .day-panel[hidden] { display: none !important; }
+
+/* ===== بطاقات مقفولة (اليوم 3 وطالع) ===== */
+.res-card.is-locked .lock-body { display: none; }
+.lock-msg { display: none; margin: 8px 0 0; color: var(--muted, #6b6b6b); font-weight: 500; }
+.res-card.is-locked .lock-msg { display: block; }
+.res-card.is-locked { opacity: .75; border-style: dashed; }
+.res-card.just-opened { animation: just-opened 1.2s ease 2; }
+@keyframes just-opened { 50% { box-shadow: 0 0 0 4px rgba(212, 160, 23, .55); } }
+.checklist { list-style: none; padding: 0; margin: 12px 0 16px; display: grid; gap: 8px; }
+.checklist label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; }
+.checklist input { margin-top: 5px; width: 18px; height: 18px; flex: none; }

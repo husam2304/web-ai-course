@@ -3,7 +3,7 @@
 // رابط الباك إند (بنحطه بعد رفعه على MonsterASP)
 const API_URL = 'https://web-train.runasp.net';
 
-const MAX_FILE_MB = 20;
+const MAX_FILE_MB = 50; // لازم يطابق Limits.MaxFileMb بالباك إند
 const ALLOWED = '.pdf,.doc,.docx,.jpg,.jpeg,.png,.webp,.zip';
 
 // أسئلة كل يوم. لإضافة يوم جديد: أضف عنصر هون بنفس الشكل
@@ -38,6 +38,20 @@ const FORMS = {
       { id: 'learned', key: 'أهم شي تعلمته', label: 'شو أهم شغلة تعلمتها اليوم؟', type: 'textarea', rows: 2, required: false },
       { id: 'extra', key: 'شغل إضافي', label: 'شغل إضافي (اختياري)', hint: 'عملت موقع جانبي أو اشتغلت لحالك زيادة عن شغل الفريق؟ احكي شو عملت، وحط رابط إذا في', type: 'textarea', rows: 4, required: false },
       { id: 'extraFile', label: 'ملف الشغل الإضافي', hint: 'اختياري. ZIP أو صور', type: 'file', required: false }
+    ]
+  },
+  3: {
+    title: 'تسليم اليوم الثالث: البناء بـ HTML و CSS و JavaScript',
+    note: 'الـ zip بيرفعه أي حد من الفريق، مرة وحدة بكفي. وكل واحد بيجاوب سؤال الفهم باسمه. النسخة الاحتياطية كل ساعة؟ اختار «نسخة احتياطية» وارفع الـ zip بس.',
+    fields: [
+      { id: 'kind', key: 'نوع التسليم', label: 'شو بدك تسلّم؟', type: 'choice', required: true,
+        options: ['التسليم النهائي (آخر اليوم)', 'نسخة احتياطية (كل ساعة)'], values: ['تسليم نهائي', 'نسخة احتياطية'] },
+      { id: 'teamId', label: 'فريقك', type: 'team', required: true },
+      { id: 'traineeId', label: 'اسمك', type: 'trainee', required: true },
+      { id: 'siteZip', label: 'zip موقع الفريق (المجلد كامل)', hint: 'لحد ' + MAX_FILE_MB + 'MB. إذا زميلك رفعه، اتركه فاضي', type: 'file', required: false, requiredIf: { kind: 1 } },
+      { id: 'answer', key: 'الجواب', label: 'سؤال الفهم: الصق function أو loop من كود فريقك (مش من مثال المدرب)، واشرح بكلماتك شو بيعمل سطر سطر.', below: 'مسموح تستعمل prompt 4 عشان تفهم، بس الجواب بكلماتك', type: 'textarea', rows: 12, required: true, showIf: { kind: 0 } },
+      { id: 'extra', key: 'شغل إضافي', label: 'شغل إضافي (اختياري)', hint: 'عملت موقع جانبي أو اشتغلت لحالك زيادة عن شغل الفريق؟ احكي شو عملت، وحط رابط إذا في', type: 'textarea', rows: 4, required: false, showIf: { kind: 0 } },
+      { id: 'extraFile', label: 'ملف الشغل الإضافي', hint: 'اختياري. ZIP أو صور', type: 'file', required: false, showIf: { kind: 0 } }
     ]
   }
 };
@@ -109,6 +123,12 @@ function renderForm(day) {
     } else if (field.type === 'trainee') {
       wrap.innerHTML = '<label for="traineeId">' + field.label + star + '</label><select id="traineeId" disabled><option value="">اختار الفريق أول</option></select>' +
         '<p class="hint">اسمك مش موجود؟ احكي مع المدرب.</p>';
+    } else if (field.type === 'choice') {
+      let html = '<p class="label">' + field.label + star + '</p><div class="choice">';
+      field.options.forEach(function (option, i) {
+        html += '<label class="radio"><input type="radio" name="' + field.id + '" value="' + i + '"' + (i === 0 ? ' checked' : '') + '> ' + option + '</label>';
+      });
+      wrap.innerHTML = html + '</div>';
     } else if (field.type === 'radio') {
       let html = '<p class="label">' + field.label + star + '</p>';
       field.options.forEach(function (option, i) {
@@ -124,7 +144,8 @@ function renderForm(day) {
       } else {
         input = '<input type="text" id="' + field.id + '"' + (field.inputmode ? ' inputmode="' + field.inputmode + '"' : '') + '>';
       }
-      wrap.innerHTML = '<label for="' + field.id + '">' + field.label + star + hint + '</label>' + input;
+      wrap.innerHTML = '<label for="' + field.id + '">' + field.label + star + hint + '</label>' + input +
+        (field.below ? '<p class="hint">' + field.below + '</p>' : '');
     }
 
     const error = document.createElement('p');
@@ -136,6 +157,41 @@ function renderForm(day) {
   // لما يختار الفريق: نعبّي قائمة الأسماء
   const teamSelect = fieldsBox.querySelector('#teamId');
   if (teamSelect) teamSelect.addEventListener('change', fillTrainees);
+
+  // خيار (نهائي / احتياطي) بيخفي ويظهر حقول
+  fieldsBox.querySelectorAll('.choice input').forEach(function (input) {
+    input.addEventListener('change', applyChoices);
+  });
+  applyChoices();
+}
+
+// قيمة خيار (رقم الخيار المختار)
+function choiceIndex(fieldId) {
+  const checked = form.querySelector('input[name="' + fieldId + '"]:checked');
+  return checked ? Number(checked.value) : 0;
+}
+
+function matches(cond) {
+  return Object.keys(cond).every(function (k) { return choiceIndex(k) === cond[k]; });
+}
+
+function isShown(field) { return !field.showIf || matches(field.showIf); }
+function isRequired(field) { return field.required || (field.requiredIf ? matches(field.requiredIf) : false); }
+
+function applyChoices() {
+  const config = FORMS[currentDay];
+  for (const field of config.fields) {
+    const wrap = fieldsBox.querySelector('[data-field="' + field.id + '"]');
+    if (!wrap) continue;
+    wrap.hidden = !isShown(field);
+    const label = wrap.querySelector('label[for="' + field.id + '"]');
+    if (field.requiredIf && label) {
+      let star = label.querySelector('.req');
+      if (isRequired(field) && !star) label.insertAdjacentHTML('beforeend', ' <span class="req">*</span>');
+      if (!isRequired(field) && star) star.remove();
+    }
+    if (wrap.hidden) setError(field.id, '');
+  }
 }
 
 // شارة: في ملاحظات من المدرب على الفريق؟
@@ -197,6 +253,7 @@ function validate(config) {
   let ok = true;
   for (const field of config.fields) {
     let error = '';
+    if (!isShown(field) || field.type === 'choice') continue;
     if (field.type === 'team' && !teamsLoaded) {
       const name = document.querySelector('#fullName').value.trim();
       const team = document.querySelector('#teamNumber').value.trim();
@@ -212,7 +269,7 @@ function validate(config) {
       if (field.required && !form.querySelector('input[name="' + field.id + '"]:checked')) error = 'اختار سؤال.';
     } else if (field.type === 'file') {
       const file = document.querySelector('#' + field.id).files[0];
-      if (field.required && !file) error = 'ارفع الملف.';
+      if (isRequired(field) && !file) error = 'ارفع الملف.';
       else if (file && file.size > MAX_FILE_MB * 1024 * 1024) error = 'الملف أكبر من ' + MAX_FILE_MB + 'MB.';
     } else {
       const value = document.querySelector('#' + field.id).value.trim();
@@ -239,7 +296,10 @@ form.addEventListener('submit', function (event) {
   data.append('website', form.querySelector('input[name="website"]').value);
 
   for (const field of config.fields) {
-    if (field.type === 'team' && !teamsLoaded) {
+    if (!isShown(field)) continue;
+    if (field.type === 'choice') {
+      answers[field.key] = field.values[choiceIndex(field.id)];
+    } else if (field.type === 'team' && !teamsLoaded) {
       data.append('fullName', document.querySelector('#fullName').value.trim());
       data.append('teamNumber', document.querySelector('#teamNumber').value.trim());
     } else if (field.type === 'trainee') {
@@ -283,7 +343,9 @@ function send(data) {
       // نخلّي الفريق والاسم مختارين عشان لو بدهم يسلّموا كمان مرة
       const keepTeam = fieldsBox.querySelector('#teamId') ? fieldsBox.querySelector('#teamId').value : '';
       const keepName = fieldsBox.querySelector('#traineeId') ? fieldsBox.querySelector('#traineeId').value : '';
+      const keepBackup = !!form.querySelector('input[name="kind"][value="1"]:checked');
       renderForm(currentDay);
+      if (keepBackup) selectBackup();
       if (keepTeam) {
         fieldsBox.querySelector('#teamId').value = keepTeam;
         fillTrainees();
@@ -334,8 +396,20 @@ async function start() {
   } catch (err) {
     teamsLoaded = false;
   }
-  // نفتح آخر يوم إله فورم
+  // نفتح آخر يوم إله فورم. submit.html#backup بيفتح النسخة الاحتياطية مباشرة
   renderForm(Math.max.apply(null, Object.keys(FORMS).map(Number)));
+  if (location.hash === '#backup') selectBackup();
+}
+
+window.addEventListener('hashchange', function () {
+  if (location.hash === '#backup' && FORMS[3]) { if (currentDay !== 3) renderForm(3); selectBackup(); }
+});
+
+function selectBackup() {
+  const input = form.querySelector('input[name="kind"][value="1"]');
+  if (!input) return;
+  input.checked = true;
+  applyChoices();
 }
 
 start();

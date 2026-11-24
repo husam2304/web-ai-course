@@ -56,3 +56,7 @@
 .fb-badge { display: block; background: #EEF6F5; border: 2px solid #2A9D8F; color: #1E7268; border-radius: 12px; padding: 12px 16px; margin: 0 auto 16px; max-width: 720px; font-weight: 800; text-decoration: none; text-align: center; }
 .fb-badge.is-new { background: #FDECEA; border-color: #C0392B; color: #B03A2E; }
 .fb-badge[hidden] { display: none; }
+
+/* اليوم 3: نهائي / نسخة احتياطية */
+.form-field[hidden] { display: none; }
+.choice { display: flex; flex-wrap: wrap; gap: 8px 20px; }
