@@ -1,5 +1,7 @@
 # Builds the resources page content (Day 1) and appends it to gen_pages PAGES
-import html, os, shutil, subprocess
+import html, os, shutil, subprocess, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import day4_build
 
 KIT = os.path.join(HERE, "..", "day1-kit")
 code = open(os.path.join(HERE, "day1_code.txt"), encoding="utf-8").read().split("\n=====\n")
@@ -217,8 +219,8 @@ day3_panel = f'''
 days_nav = '''        <nav class="day-tabs" aria-label="أيام الدورة">
           <a href="#day1" class="day-tab" data-day="1">اليوم 1</a>
           <a href="#day2" class="day-tab" data-day="2">اليوم 2</a>
-          <a href="#day3" class="day-tab active" data-day="3">اليوم 3</a>
-          <span class="day-tab soon">اليوم 4 · قريباً</span>
+          <a href="#day3" class="day-tab" data-day="3">اليوم 3</a>
+          <a href="#day4" class="day-tab active" data-day="4">اليوم 4</a>
           <span class="day-tab soon">اليوم 5 · قريباً</span>
         </nav>'''
 
@@ -367,7 +369,7 @@ resources_main = '''    <section class="page-hero">
           <a class="btn" href="submit.html">صفحة التسليم</a>
         </article>
         </div>
-''' + day3_panel + '''
+''' + day3_panel + day4_build.build() + '''
       </div>
     </section>
 '''
