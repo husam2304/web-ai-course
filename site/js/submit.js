@@ -53,6 +53,20 @@ const FORMS = {
       { id: 'extra', key: 'شغل إضافي', label: 'شغل إضافي (اختياري)', hint: 'عملت موقع جانبي أو اشتغلت لحالك زيادة عن شغل الفريق؟ احكي شو عملت، وحط رابط إذا في', type: 'textarea', rows: 4, required: false, showIf: { kind: 0 } },
       { id: 'extraFile', label: 'ملف الشغل الإضافي', hint: 'اختياري. ZIP أو صور', type: 'file', required: false, showIf: { kind: 0 } }
     ]
+  },
+  4: {
+    title: 'تسليم اليوم الرابع: التجميع والفحص',
+    note: 'الـ zip بيرفعه أي حد من الفريق، مرة وحدة بكفي. وكل واحد بيجاوب السؤال باسمه. النسخة الاحتياطية؟ اختار «نسخة احتياطية» وارفع الـ zip بس.',
+    fields: [
+      { id: 'kind', key: 'نوع التسليم', label: 'شو بدك تسلّم؟', type: 'choice', required: true,
+        options: ['التسليم النهائي (آخر اليوم)', 'نسخة احتياطية'], values: ['تسليم نهائي', 'نسخة احتياطية'] },
+      { id: 'teamId', label: 'فريقك', type: 'team', required: true },
+      { id: 'traineeId', label: 'اسمك', type: 'trainee', required: true },
+      { id: 'siteZip', label: 'zip الموقع بعد التجميع (مجلد واحد فيه index.html)', hint: 'لحد ' + MAX_FILE_MB + 'MB. إذا زميلك رفعه، اتركه فاضي', type: 'file', required: false, requiredIf: { kind: 1 } },
+      { id: 'answer', key: 'الجواب', label: 'اختار ميزة JS من موقعكم، وورجيني فيها الخطوات الثلاث: وين مسكت العنصر، وأي حدث، وشو غيّرت.', below: 'الصق الأسطر من كودكم، وجنب كل سطر اكتب: امسك / استنى / غيّر. الـ hamburger مسموح.', type: 'textarea', rows: 12, required: true, showIf: { kind: 0 } },
+      { id: 'extra', key: 'شغل إضافي', label: 'شغل إضافي (اختياري)', hint: 'عملت موقع جانبي أو اشتغلت لحالك زيادة عن شغل الفريق؟ احكي شو عملت، وحط رابط إذا في', type: 'textarea', rows: 4, required: false, showIf: { kind: 0 } },
+      { id: 'extraFile', label: 'ملف الشغل الإضافي', hint: 'اختياري. ZIP أو صور', type: 'file', required: false, showIf: { kind: 0 } }
+    ]
   }
 };
 
@@ -402,7 +416,10 @@ async function start() {
 }
 
 window.addEventListener('hashchange', function () {
-  if (location.hash === '#backup' && FORMS[3]) { if (currentDay !== 3) renderForm(3); selectBackup(); }
+  if (location.hash !== '#backup') return;
+  const last = Math.max.apply(null, Object.keys(FORMS).map(Number));
+  if (currentDay !== last) renderForm(last);
+  selectBackup();
 });
 
 function selectBackup() {
