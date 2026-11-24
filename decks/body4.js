@@ -5,8 +5,8 @@ async function build() {
   pres.addSection({ title: S0 });
   let s = pres.addSlide({ masterName: "DIVIDER", sectionTitle: S0 });
   s.addText("دورة تطوير المواقع الإلكترونية بمساعدة الذكاء الاصطناعي", { placeholder: "kicker", rtlMode: true, align: "right" });
-  s.addText("اليوم الرابع: خلّي الموقع يشتغل صح", { placeholder: "title", rtlMode: true, align: "right" });
-  s.addText("نكمّل، نختبر، نصلّح، ونجهّز للنشر", R({ x: M, y: 4.2, w: CW, h: 0.5, fontSize: 22, color: "C9D6E0" }));
+  s.addText("اليوم الرابع: نقرأ الكود ونربط الموقع", { placeholder: "title", rtlMode: true, align: "right" });
+  s.addText("كيف تقرأ سطر HTML وCSS وJavaScript، وكيف تصير صفحاتكم موقع واحد", R({ x: M, y: 4.2, w: CW, h: 0.5, fontSize: 22, color: "C9D6E0" }));
   s.addText("المدرب: حسام عليان", R({ x: M, y: 4.8, w: CW, h: 0.45, fontSize: 18, color: C.background1, bold: true }));
   for (let i = 0; i < 5; i++) {
     const x = W - M - 0.55 - i * 0.75;
@@ -15,325 +15,450 @@ async function build() {
     s.addShape(pres.shapes.OVAL, { x, y: 1.3, w: 0.55, h: 0.55, fill: { color: fill }, line: { color: fill, width: 0 }, objectName: "day-dot" });
     s.addText(String(i + 1), { x, y: 1.3, w: 0.55, h: 0.55, fontSize: 16, bold: true, color: HEX.lt1, align: "center", valign: "middle", margin: 0, isTextBox: true });
   }
-  s.addNotes("مبارح بنيتوا الموقع. اليوم بنتأكد إنه شغال صح عند أي حدا، مش بس عندكم.");
+  s.addNotes("افتح ملفات فريق واحد عالشاشة قبل ما تبلّش.");
 
-  s = newSlide("CONTENT", "افتتاح · مراجعة · 4 دقائق", "شو بيطبع هاد الكود؟", S0);
-  codeBox(s, M, 1.8, 7.2, 3.4, 'const pages = [\n  "الرئيسية",\n  "المنيو",\n  "تواصل"\n];\nfor (let i = 0; i < pages.length; i++) {\n  if (i === 1) {\n    console.log(pages[i]);\n  }\n}', "Console", 16);
+  s = newSlide("CONTENT", "افتتاح · مبارح", "مبارح ما راح عالفاضي", S0);
   {
-    const x = 8.1, w = W - M - 8.1;
-    const Q = [["FaQuestion", "شو بيطبع؟", "المنيو، لأن العدّ من 0"], ["FaEquals", "= أو ===؟", "= حط القيمة، === هل بيساوي؟", C.accent2], ["FaBars", "الـ hamburger", "مين؟ متى؟ شو؟"]];
-    await iconRows(s, Q, x, w, 1.8, 1.15, { ts: 17, bs: 15 });
+    const T = [["FaPaintBrush", "الـ CSS شغال", "عند كل الفرق"], ["FaCode", "الـ JS مكتوب", "والـ ids مطابقة للـ HTML"], ["FaUnlink", "الربط خربان", "مسارات غلط، وأسماء مش موجودة، وكل صفحة بمجلد"]];
+    const { xs, cw } = colsX(3, 0.3);
+    for (let i = 0; i < 3; i++) await card(s, xs[i], 1.8, cw, 2.8, { icon: T[i][0], iconFill: i === 2 ? C.accent1 : C.accent2, title: T[i][1], body: T[i][2], titleSize: 20, bodySize: 16 });
   }
-  callout(s, M, 5.45, CW, 0.95, "اسأل برفع الإيد قبل ما تكشف الجواب", { size: 16, bold: false });
-  s.addNotes("3 أسئلة، 4 دقائق.");
-
-  s = newSlide("CONTENT", "افتتاح · وين وصلتوا؟", "ارفع إيدك على كل بند خلصته", S0);
-  {
-    const D = [["FaHome", "الرئيسية كاملة"], ["FaLink", "كل الصفحات مربوطة"], ["FaMagic", "ميزتين شغالات"], ["FaLayerGroup", "نسخة مدموجة"]];
-    const { xs, cw } = colsX(4, 0.3);
-    for (let i = 0; i < 4; i++) await card(s, xs[i], 1.85, cw, 2.2, { icon: D[i][0], num: String(i + 1), title: D[i][1], titleSize: 18 });
-  }
-  callout(s, M, 4.4, CW, 1.9, "«الموقع اللي بيشتغل عندك مش بالضرورة بيشتغل عند غيرك. اليوم بنكمّل، بنلاقي الأخطاء قبل ما يلاقيها الزائر، وبنجهّز الموقع للنشر. بكرة بيصير إله رابط حقيقي.»", { size: 17 });
-  s.addNotes("سجّل الفرق اللي ناقصها أكثر من بند: هدول أول ناس بتقعد معهم بـ C1.");
-
-  s = newSlide("CONTENT", "أجندة اليوم", "شو رح نعمل اليوم؟", S0);
-  table(s, ["الوقت", "الجزء", "الموضوع"], [
-    ["0:00", "افتتاح", "مراجعة ووين وصلنا"],
-    ["0:10", "الدورة 1", "إكمال الصفحات"],
-    ["0:45", "الدورة 2", "الـ Debugging بالـ AI + مسابقة الأخطاء المزروعة"],
-    ["1:20", "استراحة", "15 دقيقة"],
-    ["1:35", "الدورة 3", "Lighthouse: السرعة والوصول وSEO"],
-    ["2:05", "الدورة 4", "الاختبار التبادلي بين الفرق"],
-    ["2:40", "الدورة 5", "إصلاح الأخطاء"],
-    ["3:15", "الدورة 6", "التجهيز للنشر على Netlify Drop"],
-    ["3:40", "الختام", "أكبر خطأ، التقييم، ولمحة عن بكرا"],
-  ], { y: 1.8, colW: [1.6, 2.2, 8.333], rowH: 0.42, fs: 14 });
-  callout(s, M, 6.25, CW, 0.5, "قواعد ملكية الملفات لسا شغالة: ما حدا بيعدّل ملف مش إله", { size: 15 });
-  s.addNotes("أقل يوم شرح: 43 دقيقة شرح و152 تطبيق.");
-
-  // ===== C1 =====
-  const S1 = "الدورة 1: إكمال الصفحات";
-  pres.addSection({ title: S1 });
-  divider("الدورة 1 · 35 دقيقة", "إكمال الصفحات", "نفس طريقة مبارح · prompt السياق · الأولويات · دمج سريع", S1, "شرح 5 دقائق، تطبيق 30.");
-
-  s = newSlide("CONTENT", "الدورة 1 · قبل ما تبلش", "محادثة جديدة؟ ابلشها بـ prompt السياق", S1);
-  promptBox(s, M, 1.75, 7.6, 4.75, "أنا ببني موقع [اسم المشروع] بـ HTML وCSS وJavaScript عادي، بدون أي framework.\n\nهاد ملف style.css تبعي (فيه المتغيرات): [الصق]\n\nوهاي صفحة كاملة من الموقع كمثال على الأسلوب: [الصق]\n\nبدنا نكمل صفحة [اسم الصفحة] قسم قسم، بنفس الأسلوب ونفس المتغيرات. استنى أبعتلك أول قسم.", "Prompt السياق", 15);
-  {
-    const x = 8.6, w = W - M - 8.6;
-    await card(s, x, 1.75, w, 4.75, { icon: "FaBrain", title: "ليش؟", body: "المحادثة تبعت مبارح ممكن تكون ضاعت، أو طالت والـ AI نسي المتغيرات والأسلوب. هيك بيرجع يعرف كل شي بأول رسالة", titleSize: 19, bodySize: 15 });
-  }
-
-  s = newSlide("CONTENT", "الدورة 1 · تطبيق · 30 دقيقة", "ابلش حسب الناقص عندك", S1);
-  await stepsFlow(s, [
-    { icon: "FaExclamationCircle", num: "1", title: "الحد الأدنى", body: "الرئيسية أو ميزة أو روابط ناقصة؟ هاد أول شي" },
-    { icon: "FaColumns", num: "2", title: "الأقسام الناقصة", body: "كمّل الصفحات حسب تصميم Stitch" },
-    { icon: "FaGem", num: "3", title: "التطابق", body: "مسافات، hover، الجوال", dark: true },
-  ], 1.9, 2.7, { bodySize: 15, titleSize: 19 });
-  {
-    const { xs, cw } = colsX(2, 0.4);
-    await card(s, xs[0], 4.85, cw, 1.65, { icon: "FaClock", title: "25 دقيقة: كل واحد على صفحاته", titleSize: 17 });
-    await card(s, xs[1], 4.85, cw, 1.65, { icon: "FaCodeBranch", iconFill: C.accent2, title: "آخر 5 دقائق: دمج سريع عند A", titleSize: 17 });
-  }
-  s.addNotes("فريق بعيد كتير: قلّل النطاق معهم (صفحة بتندمج بصفحة، قسم بينشال). أي تقليص بيروح لخطة التطوير بالعرض بكرة.");
-
-  // ===== C2 =====
-  const S2 = "الدورة 2: الـ Debugging";
-  pres.addSection({ title: S2 });
-  divider("الدورة 2 · 35 دقيقة", "الـ Debugging بالـ AI", "4 خطوات · رسائل الخطأ · Elements · prompt الإصلاح · مسابقة", S2, "شرح 12 دقيقة، تطبيق 23.");
-
-  s = newSlide("CONTENT", "الدورة 2 · الطريقة", "الـ Debugging زي المحقق: الأدلة قبل الاتهام", S2);
-  await stepsFlow(s, [
-    { icon: "FaSearch", num: "1", title: "شو صار بالضبط؟", body: "«ما بينفتح الجواب لما أكبس» مش «خربان»" },
-    { icon: "FaTerminal", num: "2", title: "شوف الأدلة", body: "Console وElements" },
-    { icon: "FaLightbulb", num: "3", title: "خمّن السبب", body: "أو اسأل الـ AI بالأدلة" },
-    { icon: "FaWrench", num: "4", title: "غيّر شي واحد", body: "وجرّب. 5 أشياء مرة وحدة؟ ما بتعرف مين صلّح", dark: true },
-  ], 1.9, 3.3, { bodySize: 15, titleSize: 18 });
-  callout(s, M, 5.5, CW, 0.9, "نفس الأربع خطوات بأي مشكلة، بأي موقع، حتى بعد الدورة", { size: 16 });
+  callout(s, M, 4.9, CW, 1.4, "«الصفحات مش شايفة بعض، زي غرف بيت ما بينها أبواب. اليوم بنتعلم نقرأ الكود اللي عندنا، وبنفتح الأبواب»", { size: 18 });
   s.addNotes("دقيقتين.");
 
-  s = newSlide("CONTENT", "الدورة 2 · رسالة الخطأ", "اقرأ الرسالة: هي بتقلك وين المشكلة", S2);
-  codeBox(s, M, 1.8, CW, 1.45, "Uncaught TypeError: Cannot read properties of null (reading 'addEventListener')\n    at accordion.js:3", "Console", 16);
+  s = newSlide("CONTENT", "افتتاح · هدف اليوم", "شرط النشر بكرا: 3 شغلات", S0);
   {
+    const D = [["FaFolder", "مجلد واحد", "فيه index.html"], ["FaLink", "الصفحات مربوطة", "بالقائمة، من كل صفحة"], ["FaCheckCircle", "Console نظيف", "بدون أحمر"]];
     const { xs, cw } = colsX(3, 0.3);
-    const T = [["null", "الـ querySelector ما لاقى العنصر"], ["accordion.js:3", "الملف ورقم السطر. اكبس عليه بيوديك"], ["الخلاصة", "اسم الكلاس بالـ JS مش نفسه بالـ HTML، أو ناقص defer"]];
-    for (let i = 0; i < 3; i++) await card(s, xs[i], 3.45, cw, 1.6, { title: T[i][0], body: T[i][1], titleSize: 17, bodySize: 14, dark: i === 2 });
+    for (let i = 0; i < 3; i++) await card(s, xs[i], 1.85, cw, 2.9, { icon: D[i][0], num: String(i + 1), title: D[i][1], body: D[i][2], titleSize: 21, bodySize: 17 });
   }
-  table(s, ["الرسالة", "معناها"], [
-    ["Cannot read properties of null", "العنصر مش موجود"],
-    ["Failed to load resource: 404", "ملف مش موجود بهالمسار"],
-    ["... is not defined / Unexpected token", "اسم مكتوب غلط / قوس أو فاصلة ناقصة"],
-  ], { y: 5.2, colW: [5.5, 6.633], rowH: 0.42, fs: 13 });
-  s.addNotes("4 دقائق. اعرض الرسالة حرفياً وفكّكها.");
+  callout(s, M, 5.1, CW, 1.1, "«أي سطر بالموقع، أي حدا بالفريق لازم يقدر يقرأه. واليوم بنتعلم كيف»", { size: 18 });
+  s.addNotes("دقيقة.");
 
-  s = newSlide("CONTENT", "الدورة 2 · Elements", "كليك يمين على أي عنصر ← Inspect", S2);
+  s = newSlide("CONTENT", "افتتاح · الأوراق", "ورقتين معكم طول اليوم", S0);
+  {
+    const { xs, cw } = colsX(2, 0.4);
+    await card(s, xs[0], 1.8, cw, 2.9, { icon: "FaBook", title: "ورقة المرجع = القاموس", body: "لكل واحد. أي سطر مش فاهمه، دوّر عليه هون", titleSize: 21, bodySize: 17 });
+    await card(s, xs[1], 1.8, cw, 2.9, { icon: "FaMap", iconFill: C.accent2, title: "ورقة التصليح = الخريطة", body: "لكل فريق. خطوات بأسماء ملفاتكم الحقيقية، وما فيها ولا فراغ تعبّوه. بس الصقوا الملف مكان «(الصق هون)»", titleSize: 21, bodySize: 17 });
+  }
+  callout(s, M, 5.0, CW, 1.3, "هلأ، خطوة 1: zip لمجلدكم زي ما هو ← صفحة التسليم ← «نسخة احتياطية». إذا شي خرب اليوم، بنرجع لهون", { size: 17 });
+  s.addNotes("دقيقتين للأوراق و3 للنسخة الاحتياطية.");
+
+  s = newSlide("CONTENT", "أجندة اليوم", "شو رح نعمل اليوم؟", S0);
+  table(s, ["الوقت", "الجزء", "شو بيصير"], [
+    ["0:00", "الافتتاح", "الأوراق والنسخة الاحتياطية"],
+    ["0:10", "HTML", "كيف تقرأ سطر + تطبيق على موقعكم"],
+    ["0:30", "CSS", "كيف تقرأ قاعدة + تطبيق"],
+    ["0:50", "JavaScript", "امسك ← استنى ← غيّر + تطبيق"],
+    ["1:10", "الملفات والربط", "الهيكل، الأسلاك، الـ relative path"],
+    ["1:25", "تطبيق", "نقل الملفات وتصليح الأسلاك"],
+    ["1:55", "استراحة", "15 دقيقة"],
+    ["2:10", "تطليع المشترك", "style.css و main.js"],
+    ["2:50", "المحلي والخارجي", "تنزيل الصور"],
+    ["3:10", "البيانات بـ JS", "data.js"],
+    ["3:40", "الفحص والتسليم", "Console نظيف وتسليم"],
+  ], { y: 1.75, colW: [1.5, 2.6, 8.033], rowH: 0.43, fs: 14 });
+  s.addNotes("كل شرح قصير، وبعده تطبيق فوري على موقعكم.");
+
+  // ===== HTML =====
+  const S1 = "HTML";
+  pres.addSection({ title: S1 });
+  divider("0:10 · شرح 15 + تطبيق 5", "HTML: كيف تقرأ سطر", "شكل السطر · هيكل الصفحة · التاجات · الخصائص", S1, "مش بنشرح «شو هو HTML»: بنتعلم نقرأ السطر. الأمثلة من ملفاتهم عالشاشة.");
+
+  s = newSlide("CONTENT", "HTML · شكل السطر", "تاج بيفتح، وتاج بيسكر، والمحتوى بالنص", S1);
+  codeBox(s, M, 1.8, CW, 1.3, '<a href="menu.html" class="nav-link">المنيو</a>', null, 26);
+  {
+    const T = [["FaCode", "<a ...>", "تاج الفتح: نوع العنصر (a = رابط)، والخصائص جواه"], ["FaSlidersH", 'href="menu.html"', "خاصية = قيمة: وين بيودي"], ["FaFont", "المنيو", "المحتوى: اللي بيشوفه الزائر"], ["FaCode", "</a>", "تاج الإغلاق"]];
+    const { xs, cw } = colsX(4, 0.25);
+    for (let i = 0; i < 4; i++) await card(s, xs[i], 3.3, cw, 1.95, { title: T[i][1], body: T[i][2], titleSize: 16, bodySize: 14 });
+  }
+  callout(s, M, 5.45, CW, 1.0, "بتنقرأ: «رابط (a)، بيوديك على menu.html، عليه class اسمه nav-link، ومكتوب عليه المنيو»", { size: 17 });
+  s.addNotes("4 دقائق. اقرأه بصوت عالي، بعدين القاعة كلها بتقرأ رابط من الـ nav تبع فريق عالشاشة.");
+
+  s = newSlide("CONTENT", "HTML · هيكل أي صفحة", "وين الأسلاك بالصفحة؟", S1);
+  codeBox(s, M, 1.8, 6.6, 4.8, '<!DOCTYPE html>\n<html lang="ar" dir="rtl">\n<head>\n  <meta charset="UTF-8">\n  <meta name="viewport" content="...">\n  <title>اسم الصفحة</title>\n  <link rel="stylesheet" href="css/style.css">\n  <link rel="stylesheet" href="css/menu.css">\n</head>\n<body>\n  <header> ... </header>\n  <main> ... </main>\n  <footer> ... </footer>\n  <script src="js/main.js"></script>\n  <script src="js/menu.js"></script>\n</body>\n</html>', "menu.html", 12.5);
   await iconRows(s, [
-    ["FaCode", "الـ HTML الحقيقي", "بتشوف الكلاسات عليه، وإذا open انضاف لما كبست"],
-    ["FaPaintBrush", "Styles على الجانب", "القواعد الطالعة على العنصر. القاعدة المشطوبة يعني في قاعدة ثانية غلبتها", C.accent2],
-    ["FaFlask", "جرّب قيمة هون", "التغيير بيروح مع refresh. لما تلاقي القيمة الصح انقلها للملف"],
-  ], M, CW, 1.9, 1.5, { ts: 19, bs: 16 });
-  s.addNotes("3 دقائق على موقع الدورة.");
+    ["FaEyeSlash", "head", "معلومات للمتصفح، ما بتظهر. فيه أسلاك الـ CSS (link)"],
+    ["FaEye", "body", "كل شي بيشوفه الزائر: header و main و footer", C.accent2],
+    ["FaPlug", "script آخر الـ body", "أسلاك الـ JS"],
+  ], 7.5, W - M - 7.5, 1.8, 1.35, { ts: 18, bs: 15 });
+  callout(s, 7.5, 5.85, W - M - 7.5, 0.75, "«هدول الأسلاك اللي بنصلّحهم اليوم»", { size: 15 });
+  s.addNotes("4 دقائق. اسألهم: وين السطر اللي بيربط الصفحة بالشكل؟ ووين اللي بيربطها بالحركة؟");
 
-  s = newSlide("CONTENT", "الدورة 2 · Prompt الإصلاح", "Prompt: إصلاح خطأ", S2);
-  promptBox(s, M, 1.75, 7.6, 4.75, "عندي مشكلة بموقع HTML/CSS/JS عادي.\nشو عملت: [كبست على السؤال بصفحة البرنامج]\nشو كنت متوقع: [ينفتح الجواب]\nشو صار: [ولا شي]\nرسالة الخطأ بالـ Console: [الصقها كاملة]\nالكود المتعلق: [الـ HTML تبع القسم + ملف الـ JS]\n\nاشرحلي شو السبب أول، بعدين اعطيني التعديل المطلوب بس (مش الملف كله من جديد).", "Prompt الإصلاح", 15);
-  {
-    const x = 8.6, w = W - M - 8.6;
-    await card(s, x, 1.75, w, 2.25, { icon: "FaQuestionCircle", title: "السبب أول", body: "عشان تتعلم، وتتأكد إن الـ AI فهم المشكلة", titleSize: 17, bodySize: 14 });
-    await card(s, x, 4.2, w, 2.3, { icon: "FaCut", iconFill: C.accent2, title: "التعديل بس", body: "الملف كله من جديد بيغيّر أشياء ما طلبتها وبيخرب الشغال", titleSize: 17, bodySize: 14 });
-  }
-  s.addNotes("لو التعديل ما زبط مرتين: ارجع للخطوة 1 واوصف من جديد، أو نادي المدرب.");
-
-  s = newSlide("STATEMENT", "مسابقة · 23 دقيقة", "بموقع الدورة 5 أخطاء مخبّاية", S2);
-  s.addText("نزّلوا course-site-bugs من الجروب · لكل خطأ: الصفحة · شو بيبيّن · السبب · الحل · أول فريق بيلاقي الخمسة بيرفع إيده", R({ x: M, y: 4.6, w: CW, h: 1.0, fontSize: 19, color: C.text2 }));
-  s.addNotes("دقيقتين تنزيل، 15 بحث، 6 للحلول. الـ AI مسموح بس بـ prompt الإصلاح. اللي علقوا: دلّهم على الأداة مش على المكان. بعد 8 دقائق ممكن تلميح.");
-
-  s = newSlide("CONTENT", "الدورة 2 · الحلول", "الأخطاء الخمسة", S2);
-  table(s, ["#", "وين", "الخطأ", "الأداة اللي بتكشفه"], [
-    ["1", "program.html", "styles.css بدل style.css", "Console: 404"],
-    ["2", "css/index.css", "Hero.jpg والملف hero.jpg", "ما بيبيّن عندك! بيخرب بعد النشر"],
-    ["3", "js/accordion.js", "faq-itm بدل faq-item", "Console: null"],
-    ["4", "trainer.html", "ناقص dir=\"rtl\"", "Elements"],
-    ["5", "الـ nav", "contactus.html بدل contact.html", "اكبس على كل رابط"],
-  ], { y: 1.8, colW: [0.6, 2.4, 4.4, 4.733], rowH: 0.6, fs: 15 });
-  callout(s, M, 5.6, CW, 0.9, "رقم 2: مش كل خطأ بيبيّن عندك. Windows ما بيفرّق بين الأحرف الكبيرة والصغيرة، بس السيرفر بيفرّق", { size: 15 });
-  s.addNotes("اعرض هاي السلايد بعد الـ 15 دقيقة بس. وقف على رقم 2: بيمهّد لفحص الأسماء بـ C6.");
-
-  s = newSlide("STATEMENT", "من 1:20 لـ 1:35", "استراحة 15 دقيقة", S2);
-  s.addText("بعد الاستراحة بنشتغل على مواقعكم الحقيقية، مش موقع الأخطاء", R({ x: M, y: 4.6, w: CW, h: 0.6, fontSize: 20, color: C.text2 }));
-
-  // ===== C3 =====
-  const S3 = "الدورة 3: Lighthouse";
-  pres.addSection({ title: S3 });
-  divider("الدورة 3 · 30 دقيقة", "Lighthouse", "فحص السيارة السنوي لموقعك: 4 علامات + كيف تصلح", S3, "شرح 10 دقائق، تطبيق 20.");
-
-  s = newSlide("CONTENT", "الدورة 3 · التشغيل", "شغّل Lighthouse بدقيقة", S3);
-  await stepsFlow(s, [
-    { icon: "FaUserSecret", num: "1", title: "Incognito", body: "Ctrl + Shift + N وافتح الصفحة بـ Live Server" },
-    { icon: "FaTools", num: "2", title: "F12 ← Lighthouse", body: "ممكن يكون مخفي ورا »" },
-    { icon: "FaMobileAlt", num: "3", title: "Mobile", body: "Navigation والـ 4 مجالات معلّمات" },
-    { icon: "FaPlay", num: "4", title: "Analyze", body: "Analyze page load", dark: true },
-  ], 1.9, 3.0, { bodySize: 15, titleSize: 18 });
-  {
-    const { xs, cw } = colsX(3, 0.3);
-    const L = [["2A9D8F", "90 – 100", "أخضر"], ["F4A261", "50 – 89", "برتقالي"], ["D1495B", "أقل من 50", "أحمر"]];
-    for (let i = 0; i < 3; i++) {
-      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: xs[i], y: 5.2, w: cw, h: 1.2, rectRadius: 0.12, fill: { color: L[i][0] }, line: { color: L[i][0], width: 0 }, objectName: "score" });
-      s.addText(`${L[i][2]}: ${L[i][1]}`, { x: xs[i], y: 5.2, w: cw, h: 1.2, fontSize: 20, bold: true, color: HEX.lt1, align: "center", valign: "middle", margin: 0, rtlMode: true, isTextBox: true });
-    }
-  }
-  s.addNotes("شغّله على موقع الدورة قدامهم. Incognito عشان الـ extensions ما تأثر.");
-
-  s = newSlide("CONTENT", "الدورة 3 · المجالات", "4 علامات، وشو أشهر مشاكلها", S3);
-  {
-    const Q = [["FaTachometerAlt", "Performance", "السرعة", "صور كبيرة: ضغطها أو WebP بـ squoosh.app"], ["FaUniversalAccess", "Accessibility", "الكل بيقدر يستعمله", "alt ناقص، تباين، زر بدون اسم، ترتيب العناوين"], ["FaCheckDouble", "Best Practices", "الممارسات الصح", "أخطاء بالـ Console"], ["FaGoogle", "SEO", "Google بيفهم الصفحة", "ناقص meta description، روابط «اضغط هنا»"]];
-    const { xs, cw } = colsX(4, 0.3);
-    for (let i = 0; i < 4; i++) await card(s, xs[i], 1.85, cw, 3.3, { icon: Q[i][0], iconFill: i % 2 ? C.accent2 : C.accent1, num: Q[i][2], title: Q[i][1], body: Q[i][3], titleSize: 18, bodySize: 14 });
-  }
-  callout(s, M, 5.45, CW, 1.0, "الهدف: Accessibility وSEO وBest Practices أخضر. الـ Performance بيتغيّر على Live Server، فركّز على الصور بس", { size: 15 });
-  s.addNotes("3 دقائق.");
-
-  s = newSlide("CONTENT", "الدورة 3 · الإصلاحات", "أكثر 3 إصلاحات بتحتاجوها", S3);
-  codeBox(s, M, 1.8, CW, 3.55, '<!-- 1. وصف الصفحة لـ Google: جملة خاصة بكل صفحة -->\n<meta name="description" content="مخبز الأمل في عمان: كعك ومعمول طازة كل يوم">\n\n<!-- 2. اسم لزر الـ hamburger -->\n<button class="menu-btn" aria-label="فتح القائمة">☰</button>\n\n<!-- 3. كل صورة إلها alt بيوصفها -->\n<img src="images/menu-cake.jpg" alt="كعكة شوكولاتة بالفراولة">', "HTML", 15);
-  {
-    const { xs, cw } = colsX(2, 0.4);
-    callout(s, xs[0], 5.55, cw, 0.95, "التباين: نفس فحص WebAIM. لون مشترك بـ style.css؟ شغل A", { size: 14, bold: false });
-    callout(s, xs[1], 5.55, cw, 0.95, "بعد كل إصلاح: شغّل Lighthouse مرة ثانية وشوف الرقم يطلع", { size: 14, bold: false, fill: C.background2 });
-  }
-  s.addNotes("الـ aria-label بالـ header بكل صفحة: كل واحد بيضيفه بصفحاته.");
-
-  s = newSlide("CONTENT", "الدورة 3 · تطبيق · 20 دقيقة", "افحص، صلّح، وافحص مرة ثانية", S3);
-  practice(s, "الخطوات", ["Lighthouse على صفحتين من صفحاتك (A: الرئيسية أول) + screenshot", "اقرأ كل مشكلة حمرا أو برتقالية. مش فاهم؟ الصقها للـ AI مع القسم", "صلّح أكبر 3 مشاكل", "شغّله مرة ثانية + screenshot بعد"], ["Accessibility وSEO أخضر", "screenshot قبل وبعد محفوظ للتقييم", "الصور الكبيرة انضغطت"]);
-  callout(s, M, 6.0, CW, 0.6, "«هاي ملاحظة من Lighthouse على صفحتي [الصق]. اشرحلي معناها وكيف أصلحها بالكود تبعي [الصق القسم]»", { size: 13, bold: false });
-
-  // ===== C4 =====
-  const S4 = "الدورة 4: الاختبار التبادلي";
-  pres.addSection({ title: S4 });
-  divider("الدورة 4 · 35 دقيقة", "الاختبار التبادلي", "فريق ثاني بيشوف موقعك أول مرة، زي أي زائر حقيقي", S4, "شرح 5 دقائق، تطبيق 30.");
-
-  s = newSlide("CONTENT", "الدورة 4 · ليش؟", "إنت بتعرف وين كل زر لأنك بنيته", S4);
-  table(s, ["ما بينفع", "بينفع"], [
-    ["«الفلتر خربان»", "«صفحة المنيو، وضع الجوال: كبست على «حلويات»، توقعت تضل الحلويات بس، ضلّت كل المنتجات ظاهرة»"],
-    ["«الموقع مش حلو على الجوال»", "«الرئيسية، وضع الجوال: بطاقات الخدمات طالعة برا الشاشة وفي scroll بالعرض»"],
-  ], { y: 1.8, colW: [3.8, 8.333], rowH: 0.85, fs: 14 });
-  {
-    const { xs, cw } = colsX(4, 0.25);
-    const T = ["الصفحة", "شو عملت", "شو توقعت", "شو صار"];
-    for (let i = 0; i < 4; i++) await card(s, xs[i], 4.55, cw, 0.9, { title: T[i], titleSize: 18, dark: true });
-  }
-  s.addText("الأهمية: عالية = خربان أو بيمنع المهمة · متوسطة = شغال بس محيّر · بسيطة = إملاء أو مسافة أو لون", R({ x: M, y: 5.7, w: CW, h: 0.8, fontSize: 15, color: C.text2 }));
-  s.addNotes("نفس أسئلة prompt الإصلاح، فالتقرير المكتوب منيح بينلصق للـ AI مباشرة بـ C5.");
-
-  s = newSlide("CONTENT", "الدورة 4 · التطبيق", "الترتيب دائري: 1 ← 2 ← 3 ... ← 1", S4);
-  await stepsFlow(s, [
-    { icon: "FaPenFancy", num: "3 دقائق", title: "التحضير", body: "كل فريق بيكتب مهمتين خاصين بموقعه، وA بيبعث ZIP + المهمتين" },
-    { icon: "FaVial", num: "17 دقيقة", title: "الاختبار", body: "عضو على اللابتوب وعضو على وضع الجوال، والتقرير بيتعبى" },
-    { icon: "FaPaperPlane", num: "10 دقائق", title: "التسليم", body: "التقرير على WhatsApp، والمراسل بيشرح أهم خطأين", dark: true },
-  ], 1.9, 2.9, { bodySize: 15, titleSize: 19 });
-  callout(s, M, 5.1, CW, 1.35, "المُختبِر ما بيصلّح شي، بيكتب بس · صاحب الموقع ما بيدافع، بيسمع وبيسأل · المراسل بيبدأ بشي عجبه بالموقع", { size: 16 });
-  s.addNotes("كل فريق بيختبِر وبينختبَر بنفس الوقت، وما حدا بيقعد فاضي. المراسل يروح، والعضو الثاني يضل يستقبل.");
-
-  s = newSlide("CONTENT", "الدورة 4 · المهام", "مهام الاختبار", S4);
-  {
-    const T = [["FaSitemap", "التنقل", "من الرئيسية لكل صفحة من الـ nav، والرجوع من الشعار"], ["FaMagic", "الميزات", "الميزتين والـ hamburger، على الجوال كمان"], ["FaStopwatch", "الـ CTA", "لاقي الإجراء الرئيسي بأقل من 10 ثواني"], ["FaSpellCheck", "المحتوى", "إملاء، نص ما بينقرأ، صورة ما ظهرت"], ["FaStar", "+ مهمتين", "من الفريق صاحب الموقع"]];
-    const { xs, cw } = colsX(5, 0.25);
-    for (let i = 0; i < 5; i++) await card(s, xs[i], 1.85, cw, 3.4, { icon: T[i][0], iconFill: i === 4 ? C.accent2 : C.accent1, title: T[i][1], body: T[i][2], titleSize: 17, bodySize: 14, dark: i === 4 });
-  }
-  callout(s, M, 5.55, CW, 0.9, "النجاح: كل فريق معه تقرير فيه 3 أخطاء على الأقل، كل واحد بالأسئلة الأربعة وإله أهمية", { size: 15, bold: false });
-  s.addNotes("اقرأ تقارير بشكل سريع، واللي مكتوب «خربان» بس اطلب يكملوه. هاد جزء من التقييم.");
-
-  // ===== C5 =====
-  const S5 = "الدورة 5: الإصلاح";
-  pres.addSection({ title: S5 });
-  divider("الدورة 5 · 35 دقيقة", "إصلاح الأخطاء", "الفرز أول · لا تخرب شي شغال · نسخة احتياطية", S5, "شرح 3 دقائق، تطبيق 32.");
-
-  s = newSlide("CONTENT", "الدورة 5 · الطريقة", "زي طوارئ المستشفى: الأخطر أول", S5);
-  await stepsFlow(s, [
-    { icon: "FaSave", num: "1", title: "نسخة احتياطية", body: "backup-day4.zip قبل أي تعديل" },
-    { icon: "FaUsers", num: "2", title: "وزّع حسب المالك", body: "صفحة B لـ B، والمشترك لـ A" },
-    { icon: "FaSortAmountDown", num: "3", title: "الأهمية", body: "عالية ← متوسطة ← بسيطة" },
-    { icon: "FaCheck", num: "4", title: "صلّح وعلّم ✓", body: "prompt الإصلاح ← جرّب ← ✓ بالتقرير", dark: true },
-  ], 1.9, 3.0, { bodySize: 15, titleSize: 18 });
-  callout(s, M, 5.2, CW, 1.25, "بعد كل إصلاح جرّب المكان اللي صلحته، وكمان الصفحة كلها والجوال. أشهر شي بالمشاريع الحقيقية: تصلح خطأ وتعمل اثنين", { size: 16 });
-
-  s = newSlide("CONTENT", "الدورة 5 · تطبيق · 32 دقيقة", "صلّحوا، ودمجوا، وتأكدوا", S5);
-  {
-    const T = [["FaSave", "دقيقتين", "النسخة الاحتياطية + توزيع الأخطاء"], ["FaWrench", "25 دقيقة", "كل واحد على ملفاته، العالية أول"], ["FaCodeBranch", "5 دقائق", "دمج، وA بيفحص العالية بالنسخة المدموجة"]];
-    const { xs, cw } = colsX(3, 0.3);
-    for (let i = 0; i < 3; i++) await card(s, xs[i], 1.85, cw, 2.6, { icon: T[i][0], num: T[i][1], title: T[i][2], titleSize: 17, dark: i === 1 });
-  }
-  callout(s, M, 4.75, CW, 1.7, "خطأ أكبر من الوقت (ميزة بدها إعادة كتابة)؟ بسّطها أو رحّلها لخطة التطوير، بس لازم تضل ميزتين شغالات. النجاح: كل الأخطاء العالية انحلّت بالنسخة المدموجة", { size: 15, bold: false });
-  s.addNotes("ما بتصلح بإيدك. بتسأل: شو بتقلك الـ Console؟ شو بعثت للـ AI؟");
-
-  // ===== C6 =====
-  const S6 = "الدورة 6: التجهيز للنشر";
-  pres.addSection({ title: S6 });
-  divider("الدورة 6 · 25 دقيقة", "التجهيز للنشر على Netlify Drop", "شروط المجلد · فحص الأسماء · favicon · حساب Netlify", S6, "شرح 8 دقائق، تطبيق 17. اسحب موقع الدورة على Netlify Drop قدامهم.");
-
-  s = newSlide("CONTENT", "الدورة 6 · شروط المجلد", "Netlify بياخد المجلد زي ما هو", S6);
-  table(s, ["الشرط", "ليش"], [
-    ["index.html بالمجلد الرئيسي مباشرة", "Netlify بيفتحه أول شي، بدونه الموقع ممكن ما يبيّن"],
-    ["كل الأسماء: إنجليزي، أحرف صغيرة، بدون مسافات", "السيرفر بيفرّق بين Hero.jpg وhero.jpg"],
-    ["كل href وsrc بطابق اسم الملف حرف حرف", "نفس السبب"],
-    ["ما في ملفات زايدة (Stitch، ZIP، Word)", "بتنرفع مع الموقع"],
-    ["كل صفحة إلها title خاص وfavicon", "هاد اللي بيبيّن على التبويب"],
-  ], { y: 1.8, colW: [5.6, 6.533], rowH: 0.62, fs: 15 });
-  callout(s, M, 5.65, CW, 0.8, "فحص سريع: بـ VS Code اضغط Ctrl + Shift + F وابحث عن src= وhref=، وقارن كل نتيجة باسم الملف بالـ Explorer", { size: 14, bold: false });
-  s.addNotes("3 دقائق.");
-
-  s = newSlide("CONTENT", "الدورة 6 · فحص الأسماء", "Prompt: فحص الأسماء + favicon", S6);
-  promptBox(s, M, 1.75, 7.6, 3.4, "هاي قائمة ملفات موقعي بالمسارات: [انسخها من الـ Explorer]\nوهاد الـ HTML تبع صفحة [اسم الصفحة]: [الصق]\nتأكد إن كل href وsrc بطابق اسم ملف موجود بالضبط، بنفس الأحرف الكبيرة والصغيرة.\nاعطيني قائمة باللي مش مطابق بس.", "Prompt فحص الأسماء", 15);
-  codeBox(s, M, 5.35, 7.6, 1.15, '<link rel="icon" href="images/favicon.png">', "favicon: بالـ head بكل صفحة", 15);
-  {
-    const x = 8.6, w = W - M - 8.6;
-    await card(s, x, 1.75, w, 4.75, { icon: "FaIcons", title: "favicon", body: "الأيقونة الصغيرة بالتبويب. A بيعملها من حرف أو emoji (favicon.io) وبيحطها بـ images/favicon.png، وكل واحد بيضيف السطر بصفحاته", titleSize: 19, bodySize: 15 });
-  }
-
-  s = newSlide("CONTENT", "الدورة 6 · حساب Netlify", "اعملوا الحساب اليوم، مش بكرة", S6);
-  {
-    const { xs, cw } = colsX(2, 0.4);
-    await card(s, xs[0], 1.85, cw, 3.0, { icon: "FaHourglassHalf", title: "ليش لازم حساب؟", body: "Netlify Drop بينشر بدون حساب، بس الموقع اللي ما بتضيفه لحسابك بينمسح خلال ساعة", titleSize: 19, bodySize: 16 });
-    await card(s, xs[1], 1.85, cw, 3.0, { icon: "FaUserPlus", iconFill: C.accent2, title: "A بيعمل الحساب", body: "على netlify.com بالإيميل أو حساب Google، بيفعّله، وبيتأكد إنه بيعرف كلمة السر", titleSize: 19, bodySize: 16 });
-  }
-  callout(s, M, 5.15, CW, 1.3, "اختاروا اسم الرابط: إنجليزي، أحرف صغيرة، بشرطات. مثلاً my-bakery يعني الرابط my-bakery.netlify.app. وجهّزوا اسمين احتياطيين لو محجوز", { size: 15 });
-  s.addNotes("2 دقيقة. بكرة ما بدنا نضيع وقت على تفعيل الإيميلات.");
-
-  s = newSlide("CONTENT", "الدورة 6 · تطبيق · 17 دقيقة", "المجلد النهائي", S6);
-  table(s, ["العضو", "المهمة"], [
-    ["A", "الـ favicon، حساب Netlify، فحص أسماء صفحاته، تنظيف الملفات الزايدة"],
-    ["B", "فحص أسماء صفحاته وصوره، سطر الـ favicon والـ title بصفحاته"],
-    ["الاثنين", "الدمج النهائي، تجربة أخيرة بـ Live Server، وfinal-day4.zip عند الاثنين"],
-  ], { y: 1.8, colW: [2.0, 10.133], rowH: 0.75, fs: 16 });
-  callout(s, M, 4.95, CW, 0.85, "تغيير اسم ملف لازم يتغيّر معه كل href أو src بيشير عليه (Ctrl + Shift + F على الاسم القديم)", { size: 15 });
-  callout(s, M, 5.95, CW, 0.65, "النجاح: مجلد نظيف عند الاثنين، حساب Netlify شغال عند A، واسم الرابط متفق عليه", { size: 15, bold: false, fill: C.background2 });
-  s.addNotes("افتح Explorer عند كل فريق ودوّر على أحرف كبيرة أو مسافات أو عربي بالأسماء، ومجلد داخل مجلد.");
-
-  // ===== Closing =====
-  const S7 = "الختام";
-  pres.addSection({ title: S7 });
-  s = newSlide("CONTENT", "الختام · 6 دقائق", "أكبر خطأ لقيناه اليوم", S7);
-  promptBox(s, M, 2.0, CW, 2.2, "«أكبر خطأ لقيناه اليوم كان ... وكشفناه بـ ...»", "كل فريق بجملة وحدة", 26);
-  callout(s, M, 4.6, CW, 1.2, "الكل عنده أخطاء، حتى المحترفين. الفرق إنك بتعرف كيف تلاقيها وتصلحها", { size: 18 });
-  s.addNotes("الهدف يسمعوا إن الكل عنده أخطاء، والمهم كيف لاقوها.");
-
-  s = newSlide("CONTENT", "الختام · 8 دقائق", "التقييم على Google Form", S7);
-  {
-    const D = [["FaFileArchive", "final-day4.zip", "واحد لكل فريق، A بيرفعه"], ["FaTachometerAlt", "Lighthouse", "screenshot لصفحة من صفحاتك"], ["FaQuestion", "سؤال فهم", "واحد من الثلاثة"], ["FaWrench", "خطأ صلحته", "شو سببه وكيف صلحته؟"]];
-    const { xs, cw } = colsX(4, 0.3);
-    for (let i = 0; i < 4; i++) await card(s, xs[i], 1.85, cw, 2.6, { icon: D[i][0], num: String(i + 1), title: D[i][1], body: D[i][2], titleSize: 17, bodySize: 14 });
-  }
-  callout(s, M, 4.75, CW, 1.1, "أسئلة الفهم: شو بتعمل لما ميزة ما بتشتغل؟ · شو معنى رسالة 404 بالـ Console؟ · ليش الصور لازم يكون إلها alt؟", { size: 15, bold: false });
-
-  s = newSlide("DIVIDER", "ملخص اليوم", "شو تعلمنا اليوم؟", S7);
-  {
-    const pts = ["الأدلة قبل الاتهام: Console وElements", "Lighthouse: 4 علامات وكيف تصلح", "عين فريق ثاني بتشوف اللي ما بتشوفه", "الأسماء أحرف صغيرة، والمجلد جاهز"];
-    const { xs, cw } = colsX(4, 0.25);
-    for (let i = 0; i < 4; i++) {
-      s.addShape(pres.shapes.ROUNDED_RECTANGLE, { x: xs[i], y: 4.25, w: cw, h: 1.1, rectRadius: 0.12, fill: { color: "2C4A66" }, line: { color: "2C4A66", width: 0 }, objectName: "summary-card" });
-      s.addText(pts[i], { x: xs[i] + 0.2, y: 4.25, w: cw - 0.4, h: 1.1, fontSize: 15, bold: true, color: HEX.lt1, align: "center", valign: "middle", margin: 0, rtlMode: true, isTextBox: true });
-    }
-    s.addText("بكرة آخر يوم: رابط حقيقي، نفتحه من الجوال، نربطه ببطاقة التعريف، وكل فريق بيعرض مشروعه. فكروا: شو القصة اللي بدكم تحكوها؟", R({ x: M, y: 5.6, w: CW, h: 0.9, fontSize: 16, color: "C9D6E0" }));
-  }
-  s.addNotes("تذكيرات: اللابتوب والجوال مشحونين، A يعرف إيميل وكلمة سر Netlify، final-day4.zip عند الاثنين، ومجلد بطاقة التعريف جاهز.");
-
-  // ===== Appendix =====
-  const S9 = "ملحق: أخطاء شائعة";
-  pres.addSection({ title: S9 });
-  const ERR = [
-    ["الـ AI صلّح وخرّب شي ثاني", "رجّع الملف كله", "النسخة الاحتياطية + «التعديل المطلوب بس»"],
-    ["نفس الخطأ رجع بعد الدمج", "انبعثت نسخة قديمة", "قارن وقت التعديل وابعث الملف من جديد"],
-    ["Lighthouse ما بيبيّن", "مخفي ورا » أو مش Chrome", "» فوق بـ DevTools، أو افتح بـ Chrome"],
-    ["Performance بيتغيّر كل مرة", "طبيعي على الجهاز", "Incognito، وركّز على الصور"],
-    ["Buttons do not have an accessible name", "زر أيقونة بس", "aria-label=\"فتح القائمة\""],
-    ["Headings not in sequentially-descending order", "قفز من h1 لـ h3", "h1 ← h2 ← h3، والحجم بالـ CSS"],
-    ["Form elements do not have associated labels", "حقل بدون label", "label for=\"email\" مع id=\"email\""],
-    ["Links do not have descriptive text", "«اضغط هنا»", "نص بيوصف وين بيودّي"],
-    ["الـ favicon ما بيبيّن", "المتصفح مخزّن القديم", "Ctrl + Shift + R أو Incognito"],
-    ["تغيير اسم ملف كسّر صفحات", "href بالاسم القديم", "Ctrl + Shift + F وغيّره بكل مكان"],
+  const TAGS = [
+    ["header / footer", "راس وذيل الصفحة (نفسهم بكل الصفحات)", "<header>...</header>"],
+    ["nav", "قائمة الروابط", "<nav>...</nav>"],
+    ["main", "محتوى الصفحة الأساسي", "<main>...</main>"],
+    ["section", "قسم من الصفحة", '<section id="menu">'],
+    ["h1 لـ h3", "عناوين (h1 واحد بكل صفحة)", "<h1>CAFFEON</h1>"],
+    ["p", "فقرة", "<p>نص</p>"],
+    ["a", "رابط", '<a href="about.html">من نحن</a>'],
+    ["img", "صورة (ما إلها تاج إغلاق)", '<img src="images/latte.jpg" alt="لاتيه">'],
+    ["ul / li", "قائمة وعناصرها", "<ul><li>قهوة</li></ul>"],
+    ["div", "صندوق بلمّ عناصر", '<div class="card">'],
+    ["span", "قطعة نص صغيرة", '<span class="price">3 JD</span>'],
+    ["button", "زر", '<button id="addBtn">أضف</button>'],
+    ["form", "فورم", '<form id="contactForm">'],
+    ["label / input", "عنوان الحقل والحقل", '<label for="name"> <input id="name">'],
+    ["link", "بيربط ملف CSS (بالـ head)", '<link rel="stylesheet" href="css/style.css">'],
+    ["script", "بيربط ملف JS (آخر الـ body)", '<script src="js/main.js"></script>'],
   ];
   for (let part = 0; part < 2; part++) {
-    s = newSlide("CONTENT", "ملحق · مرجع إلك وإنت بتلف", `أخطاء اليوم الرابع وحلولها (${part + 1} من 2)`, S9);
-    table(s, ["العرض", "السبب", "الحل"], ERR.slice(part * 5, part * 5 + 5), { y: 1.8, colW: [4.6, 3.0, 4.533], rowH: 0.75, fs: 14 });
-    s.addNotes("جدول أخطاء الكود من اليوم الثالث لسا شغال.");
+    s = newSlide("CONTENT", "HTML · القاموس", `أهم التاجات (${part + 1} من 2)`, S1);
+    table(s, ["التاج", "شو بيعمل", "مثال"], TAGS.slice(part * 8, part * 8 + 8), { ltr: [2], y: 1.8, colW: [2.2, 4.4, 5.533], rowH: 0.56, fs: 14 });
+    s.addNotes("مش لازم يحفظوه: «هاد القاموس». دوّر على كل تاج بكود فريق (Ctrl + F).");
   }
+
+  s = newSlide("CONTENT", "HTML · الخصائص", "أهم الخصائص", S1);
+  table(s, ["الخاصية", "شو بتعمل"], [
+    ["href", "وين بيودي الرابط، أو وين ملف الـ CSS"],
+    ["src", "وين الصورة أو ملف الـ JS"],
+    ["alt", "وصف الصورة للي ما بيشوفوا"],
+    ["id", "اسم لعنصر واحد بالصفحة (الـ JS بيمسكه فيه)"],
+    ["class", "اسم لمجموعة عناصر (الـ CSS بينسقهم فيه)"],
+    ["data-...", 'معلومة إضافية للـ JS، مثل data-category="coffee"'],
+    ["lang / dir", "لغة الصفحة واتجاهها: ar و rtl، أو en و ltr"],
+  ], { ltr: [0], y: 1.75, colW: [2.4, 9.733], rowH: 0.46, fs: 15 });
+  callout(s, M, 5.75, CW, 0.75, "«id للـ JS، و class للـ CSS. هيك اللغات الثلاث بتلاقي بعض»", { size: 17 });
+  s.addNotes("3 دقائق.");
+
+  s = newSlide("CONTENT", "HTML · تطبيق · 5 دقايق", "اقرأوا موقعكم", S1);
+  practice(s, "على أي صفحة من موقعكم", [
+    "لاقوا 3 أسطر: رابط (a)، وصورة (img)، و script",
+    "كل واحد بيقرأ سطر بصوت عالي بطريقة «بتنقرأ»",
+    "الملف اللي بالـ href أو الـ src موجود فعلاً؟ اكتبوا الجواب",
+    "اكتبوا بإيدكم سطر رابط جديد بالـ nav واحفظوا",
+  ], ["كل واحد قرأ سطر كجملة", "كل فريق كتب سطر رابط", "لقيتوا src بيشاور على ملف مش موجود؟ ممتاز: هاي أول أخطاءكم الحقيقية"], 1.8, 4.6);
+  s.addNotes("اسأل أضعف واحد بكل فريق يقرألك سطر.");
+
+  // ===== CSS =====
+  const S2 = "CSS";
+  pres.addSection({ title: S2 });
+  divider("0:30 · شرح 15 + تطبيق 5", "CSS: كيف تقرأ قاعدة", "شكل القاعدة · الـ selector · الخصائص · الجوال · مين بيغلب", S2, "المرجع: قسم «CSS: الشكل» بالورقة.");
+
+  s = newSlide("CONTENT", "CSS · شكل القاعدة", "selector { property: value; }", S2);
+  codeBox(s, M, 1.8, CW, 1.2, ".card { background: white; padding: 16px; }", null, 26);
+  {
+    const T = [["FaCrosshairs", "مين؟", "selector: ‏.card = كل اللي عليهم class اسمه card (النقطة = class)"], ["FaSlidersH", "شو بدي أغيّر؟", "property: ‏background، padding"], ["FaTag", "لأي قيمة؟", "value: ‏white، 16px"]];
+    const { xs, cw } = colsX(3, 0.3);
+    for (let i = 0; i < 3; i++) await card(s, xs[i], 3.2, cw, 2.0, { icon: T[i][0], iconFill: i === 1 ? C.accent2 : C.accent1, title: T[i][1], body: T[i][2], titleSize: 18, bodySize: 14 });
+  }
+  callout(s, M, 5.4, CW, 1.0, "بتنقرأ: «كل عنصر عليه class اسمه card: خلفيته بيضا، ومسافة من جوا 16 بكسل»", { size: 17 });
+  s.addNotes("4 دقائق. التشبيه: أمر لمصمم ديكور: «كل الكراسي، لونها، أحمر». بعدين اقرأوا قاعدة من CSS فريق عالشاشة.");
+
+  s = newSlide("CONTENT", "CSS · الـ selector", "مين بتمسك القاعدة؟", S2);
+  table(s, ["الـ selector", "بيمسك", "مثال"], [
+    ["اسم تاج", "كل التاجات من هالنوع", "p { }"],
+    [".class", "كل اللي عليهم هالـ class", ".card { }"],
+    ["#id", "عنصر واحد", "#cart { }"],
+    ["مسافة بينهم", "عنصر جوا عنصر", ".card img { }"],
+    [":hover", "لما الماوس يكون فوقه", ".btn:hover { }"],
+  ], { ltr: [2], y: 1.8, colW: [2.8, 5.4, 3.933], rowH: 0.62, fs: 17 });
+  s.addNotes("3 دقائق.");
+
+  const PROPS = [
+    ["النص", "color", "لون الخط", "color: #222;"],
+    ["النص", "font-size", "حجم الخط", "font-size: 18px;"],
+    ["النص", "font-weight", "سماكة الخط", "font-weight: 700;"],
+    ["النص", "font-family", "نوع الخط", 'font-family: "Cairo", sans-serif;'],
+    ["النص", "text-align", "محاذاة النص", "text-align: center;"],
+    ["الصندوق", "width / height", "العرض والطول", "width: 100%;"],
+    ["الصندوق", "padding", "مسافة من جوا", "padding: 16px;"],
+    ["الصندوق", "margin", "مسافة من برّا", "margin-bottom: 24px;"],
+    ["الصندوق", "border", "إطار", "border: 1px solid #ddd;"],
+    ["الصندوق", "border-radius", "زوايا دائرية", "border-radius: 12px;"],
+    ["الخلفية", "background", "لون أو صورة خلفية", "background: var(--primary);"],
+    ["الترتيب", "display: flex", "العناصر جواه جنب بعض", "display: flex;"],
+    ["الترتيب", "justify-content", "توزيع بالاتجاه الأساسي", "justify-content: space-between;"],
+    ["الترتيب", "align-items", "محاذاة بالاتجاه الثاني", "align-items: center;"],
+    ["الترتيب", "gap", "مسافة بين العناصر", "gap: 16px;"],
+    ["الترتيب", "display: grid", "شبكة (للبطاقات)", "display: grid;"],
+    ["الترتيب", "grid-template-columns", "عدد الأعمدة وعرضها", "grid-template-columns: repeat(3, 1fr);"],
+    ["الألوان", "--اسم و var()", "متغير لون بـ :root", "--primary: #1531a8; بعدين color: var(--primary);"],
+    ["الإخفاء", "display: none", "بيخفي العنصر", "display: none;"],
+  ];
+  for (let part = 0; part < 2; part++) {
+    const rows = part === 0 ? PROPS.slice(0, 10) : PROPS.slice(10);
+    s = newSlide("CONTENT", "CSS · القاموس", `أهم الخصائص (${part + 1} من 2)`, S2);
+    table(s, ["المجموعة", "الخاصية", "شو بتعمل", "مثال"], rows, { ltr: [1, 3], y: 1.75, colW: [1.6, 2.9, 2.9, 4.733], rowH: 0.43, fs: 13 });
+    s.addNotes("ما تمرق على كل سطر: اختار من كود فريق color و padding و display: flex، وغيّر قيمة قدامهم. قبل ما تحفظ: «شو رح يصير؟»");
+  }
+
+  s = newSlide("CONTENT", "CSS · الجوال ومين بيغلب", "قاعدتين مهمين", S2);
+  {
+    const { xs, cw } = colsX(2, 0.4);
+    codeBox(s, xs[0], 1.8, cw, 2.3, "@media (max-width: 768px) {\n  .cards { grid-template-columns: 1fr; }\n}", "الجوال", 15);
+    s.addText("القواعد جوا @media بتشتغل بس على الشاشات الصغيرة", R({ x: xs[0], y: 4.3, w: cw, h: 0.9, fontSize: 16 }));
+    await card(s, xs[1], 1.8, cw, 3.4, { icon: "FaTrophy", title: "مين بيغلب؟", body: "لما قاعدتين بنفس الـ selector على نفس العنصر، اللي بملف مربوط بعدين بتغلب. عشان هيك style.css أول، وملف الصفحة بعده", titleSize: 20, bodySize: 16 });
+  }
+  callout(s, M, 5.5, CW, 0.9, "التشبيه: آخر واحد حكى بالاجتماع بيمشي كلامه. بنرجعلها بـ «تطليع المشترك»", { size: 16, bold: false });
+  s.addNotes("دقيقة للجوال و3 لمين بيغلب.");
+
+  s = newSlide("CONTENT", "CSS · تطبيق · 5 دقايق", "لاقوا القاعدة وغيّروها", S2);
+  practice(s, "على موقعكم", [
+    "من الـ HTML اختاروا عنصر عليه class (مثلاً زر)",
+    "لاقوا قاعدته بملف الـ CSS (Ctrl + F باسم الـ class)",
+    "اقرأوها: مين؟ شو بدي أغيّر؟ لأي قيمة؟",
+    "غيّروا قيمة وحدة (لون أو حجم)، احفظوا، وشوفوا",
+  ], ["كل فريق ربط class من الـ HTML بقاعدته بالـ CSS", "غيّروا قيمة وشافوا النتيجة"], 1.8, 4.6);
+
+  // ===== JS =====
+  const S3 = "JavaScript";
+  pres.addSection({ title: S3 });
+  divider("0:50 · شرح 15 + تطبيق 5", "JavaScript: امسك ← استنى ← غيّر", "الخطوات الثلاث · الأوامر · الملف المشترك · الـ Console", S3, "المرجع: قسم «JavaScript: الحركة» بالورقة.");
+
+  s = newSlide("CONTENT", "JavaScript · 3 خطوات", "أي ميزة JS هي 3 خطوات", S3);
+  codeBox(s, M, 1.8, 7.4, 2.4, 'const btn = document.getElementById("addBtn");  // 1\nbtn.addEventListener("click", () => {            // 2\n  btn.textContent = "تمت الإضافة";                // 3\n});', null, 13);
+  await iconRows(s, [
+    ["FaHandPaper", "1. امسك", "الجرس: العنصر اللي الـ id تبعه addBtn"],
+    ["FaBell", "2. استنى", "حدا كبس: الحدث (click)", C.accent2],
+    ["FaLightbulb", "3. غيّر", "الضو اشتغل: النص تغيّر"],
+  ], 8.3, W - M - 8.3, 1.8, 0.85, { ts: 17, bs: 14 });
+  callout(s, M, 4.45, CW, 1.0, "بتنقرأ: «امسك العنصر اللي الـ id تبعه addBtn وسميه btn. لما حدا يكبس عليه، غيّر النص المكتوب عليه»", { size: 16 });
+  callout(s, M, 5.6, CW, 0.8, "addBtn هو الـ id بالـ HTML. إذا مش نفس الاسم حرف بحرف، الـ JS ما بيلاقي العنصر", { size: 15, bold: false, fill: C.background2 });
+  s.addNotes("5 دقائق. بعدين القاعة بتلاقي الخطوات الثلاث بقائمة الجوال تبع فريق عالشاشة.");
+
+  const CMDS = [
+    ["const / let", "متغير: const ما بيتغير، let بيتغير", "let count = 0;"],
+    ["document.getElementById", "بيمسك عنصر بالـ id", 'document.getElementById("cart")'],
+    ["document.querySelector", "بيمسك أول عنصر بأي selector", 'document.querySelector(".nav")'],
+    ["document.querySelectorAll", "بيمسك كل العناصر", 'document.querySelectorAll(".card")'],
+    ["addEventListener", "بيستنى حدث: click أو input أو submit", 'btn.addEventListener("click", ...)'],
+    ["textContent", "النص اللي جوا العنصر", "badge.textContent = count;"],
+    ["innerHTML", "HTML جوا العنصر", 'list.innerHTML = "<p>فاضي</p>";'],
+    ["classList", "بيضيف أو بيشيل class: add و remove و toggle", 'nav.classList.toggle("open");'],
+    ["style", "بيغيّر CSS من JS", 'bar.style.width = "80%";'],
+    ["if / else", "شرط", "if (spent > cap) { ... } else { ... }"],
+    ["function", "مجموعة أوامر باسم، بتناديها وقت ما بدك", "function showCart() { ... }"],
+    ["forEach", "لكل عنصر بالمصفوفة، اعمل هالشي", "items.forEach(item => { ... });"],
+    ["filter", "مصفوفة جديدة فيها بس اللي الشرط صح عليهم", "items.filter(i => i.price < 3)"],
+    ["localStorage", "بيحفظ على نفس الجهاز بعد الـ refresh", 'localStorage.setItem("lang", "ar");'],
+    ["console.log", "بيطبع بالـ Console (للتجربة)", 'console.log("شغال");'],
+  ];
+  for (let part = 0; part < 2; part++) {
+    const rows = part === 0 ? CMDS.slice(0, 9) : CMDS.slice(9);
+    s = newSlide("CONTENT", "JavaScript · القاموس", part === 0 ? "أهم الأوامر: امسك، استنى، غيّر" : "أهم الأوامر: أدوات", S3);
+    table(s, ["الأمر", "شو بيعمل", "مثال"], rows, { ltr: [0, 2], y: 1.75, colW: [3.3, 4.6, 4.233], rowH: 0.5, fs: 13 });
+    s.addNotes(part === 0 ? "امسك: getElementById و querySelector و querySelectorAll. استنى: addEventListener. غيّر: textContent و innerHTML و classList و style." : "مش لازم يحفظوه: هاد القاموس.");
+  }
+
+  s = newSlide("CONTENT", "JavaScript · الملف المشترك والـ Console", "قاعدتين قبل ما نربط", S3);
+  {
+    const { xs, cw } = colsX(2, 0.4);
+    await card(s, xs[0], 1.8, cw, 3.2, { icon: "FaShareAlt", title: "main.js مربوط بكل الصفحات", body: "أي كود فيه لازم يتأكد إن العنصر موجود أول: if (btn) { ... }\nوما بصير نفس اسم const بملفين مربوطين بنفس الصفحة", titleSize: 19, bodySize: 15 });
+    await card(s, xs[1], 1.8, cw, 3.2, { icon: "FaBug", iconFill: C.accent2, title: "F12 ← Console", body: "404 (Not Found) = الملف مش موجود بالمكان اللي بالمسار. هاد اللي بنصلّحه بعد شوي. جدول الأخطاء آخر ورقة المرجع", titleSize: 19, bodySize: 15 });
+  }
+  callout(s, M, 5.3, CW, 1.0, "افتح صفحة فريق فيها script src بيشاور على ملف مش موجود، وورّيهم الـ 404", { size: 15, bold: false });
+  s.addNotes("دقيقتين للقاعدة و3 للـ Console.");
+
+  s = newSlide("CONTENT", "JavaScript · تطبيق · 5 دقايق", "نفس سؤال فورم اليوم", S3);
+  practice(s, "على موقعكم", [
+    "اختاروا ميزة JS من موقعكم (الـ hamburger مسموح)",
+    "حطوا تعليق جنب كل خطوة: // امسك و // استنى و // غيّر",
+    "كل واحد بيشرح للثاني خطوة وحدة بكلماته",
+  ], ["كل فريق علّم الخطوات الثلاث على ميزة من كوده", "«هاد بالضبط سؤال الفورم آخر اليوم»"], 1.8, 4.6);
+  s.addNotes("الـ JS عند أغلبهم مش شغال لأنه مش مربوط. مش مشكلة: التمرين قراءة.");
+
+  // ===== Files & wiring =====
+  const S4 = "الملفات والربط";
+  pres.addSection({ title: S4 });
+  divider("1:10 · شرح 15 + تطبيق 30", "الملفات والربط", "الهيكل الموحّد · الأسلاك الثلاثة · الـ relative path · الأسماء", S4, "المرجع: قسم «الملفات والربط» بالورقة.");
+
+  s = newSlide("CONTENT", "الملفات · الهيكل الموحّد", "كل الصفحات برّا، وملفاتها بمجلدات", S4);
+  codeBox(s, M, 1.8, 6.6, 4.6, "my-site/\n├── index.html, menu.html, about.html\n├── css/\n│   ├── style.css\n│   └── menu.css ...\n├── js/\n│   ├── main.js, data.js\n│   └── menu.js ...\n└── images/", "الهيكل", 14);
+  await iconRows(s, [
+    ["FaHome", "البيت", "الصفحات غرف على نفس الممر"],
+    ["FaShareAlt", "المشترك", "style.css و main.js لكل الصفحات، وملف لكل صفحة جنبهم", C.accent2],
+    ["FaArchive", "الخزائن", "css للألوان، و js للأجهزة، و images للصور", C.accent2],
+    ["FaTimesCircle", "مبارح", "كل غرفة كانت بيت لحالها"],
+  ], 7.5, W - M - 7.5, 1.8, 1.05, { ts: 18, bs: 15 });
+  s.addNotes("3 دقائق.");
+
+  s = newSlide("CONTENT", "الملفات · الأسلاك الثلاثة", "3 أسلاك بتربط الموقع", S4);
+  table(s, ["السلك", "بيربط", "وين بينحط"], [
+    ['<link rel="stylesheet" href="css/style.css">', "الصفحة بالـ CSS", "بالـ head"],
+    ['<script src="js/main.js"></script>', "الصفحة بالـ JS", "آخر الـ body"],
+    ['<a href="menu.html">', "صفحة بصفحة", "وين ما بدك"],
+  ], { ltr: [0], y: 1.8, colW: [6.4, 3.0, 2.733], rowH: 0.65, fs: 15 });
+  callout(s, M, 4.6, CW, 0.8, "الترتيب بيفرق: CSS: style.css أول وبعدين ملف الصفحة. JS: main.js بعدين data.js بعدين ملف الصفحة", { size: 15 });
+  callout(s, M, 5.6, CW, 0.8, "مثال من ورقة AI: menu.html بتربط menu.js، بس الملف اسمه js/main.js. السلك بيشاور على مكان فاضي", { size: 15, bold: false, fill: C.background2 });
+  s.addNotes("4 دقائق.");
+
+  s = newSlide("CONTENT", "الملفات · الـ relative path", "المسار بينحسب من مكان الملف اللي كاتب السطر", S4);
+  table(s, ["الحالة", "المسار", "مثال"], [
+    ["ملف بنفس المجلد", "اسمه بس", "من index.html لـ about.html"],
+    ["ملف جوا مجلد", "اسم المجلد / اسم الملف", "من index.html لـ css/style.css"],
+    ["ملف بمجلد فوق", "../ قبل الاسم", "من css/style.css لصورة: url(../images/bg.jpg)"],
+  ], { y: 1.8, colW: [2.8, 3.4, 5.933], rowH: 0.62, fs: 15 });
+  {
+    const { xs, cw } = colsX(3, 0.3);
+    const T = [["FaWalking", "جنبك", "اسم الملف"], ["FaDoorOpen", "جوا الغرفة", "css/style.css"], ["FaLevelUpAlt", "اطلع طابق", "../"]];
+    for (let i = 0; i < 3; i++) await card(s, xs[i], 4.5, cw, 1.4, { title: T[i][1] + " = " + T[i][2], titleSize: 17 });
+  }
+  s.addText("صورة جوا ملف CSS: دايماً ../images/... · ممنوع: C:\\Users\\... ومسار بيبلش بـ /", R({ x: M, y: 6.1, w: CW, h: 0.5, fontSize: 14, color: "3E5266" }));
+  s.addNotes("5 دقائق. ارسمها عاللوح كبناية. اسألهم قبل التطبيق: «من css/style.css بدي صورة بـ images/: شو بكتب؟»");
+
+  s = newSlide("CONTENT", "الملفات · الأسماء", "إنجليزي، أحرف صغيرة، بدون مسافات", S4);
+  {
+    const { xs, cw } = colsX(2, 0.4);
+    await card(s, xs[0], 1.8, cw, 2.4, { icon: "FaCheck", iconFill: C.accent2, title: "about-us.html", body: "صح", titleSize: 22, bodySize: 17 });
+    await card(s, xs[1], 1.8, cw, 2.4, { icon: "FaTimes", title: "About Us.html", body: "غلط", titleSize: 22, bodySize: 17 });
+  }
+  callout(s, M, 4.45, CW, 0.9, "JS/Main.js غير js/main.js: على جهازك بيمشي، بس بعد النشر بكرا بيخرب", { size: 16 });
+  callout(s, M, 5.55, CW, 0.9, "مثال من ورقة DSA: «explore portfolios.html» صارت explore.html", { size: 16, bold: false, fill: C.background2 });
+  s.addNotes("3 دقائق.");
+
+  s = newSlide("CONTENT", "تطبيق · 30 دقيقة", "نقل الملفات وتصليح الأسلاك (ورقة التصليح، خطوات 2 لـ 4)", S4);
+  practice(s, "الخطوات", [
+    "الهيكل الجديد: مجلد واحد بالاسم اللي بالورقة، وجواه css و js و images",
+    "انقلوا وغيّروا الأسماء حسب جدول «الاسم هلأ ← الاسم الجديد»",
+    "صلّحوا الأسلاك: بحث واستبدال (Ctrl + H) بكل صفحة حسب الجدول",
+    "القائمة: نفس الـ nav بكل الصفحات",
+    "جرّبوا: index.html على Live Server، تنقلوا، والـ Console بكل صفحة",
+  ], ["مجلد واحد", "index.html بيودي على كل الصفحات", "ما في 404 بالـ Console", "الـ JS اشتغل لأول مرة!"], 1.8, 4.7);
+  s.addNotes("بعد خطوة الأسلاك الـ JS بيشتغل لأول مرة عند أغلب الفرق: احتفل فيها بصوت عالي. لفّة: the sun، آفاق، تكنولوجيا، AI، IT، DSA.");
+
+  s = newSlide("STATEMENT", "من 1:55 لـ 2:10", "استراحة 15 دقيقة", S4);
+  s.addText("قبلها: zip للمجلد الجديد ← صفحة التسليم ← «نسخة احتياطية»", R({ x: M, y: 4.6, w: CW, h: 0.6, fontSize: 20, color: C.text2 }));
+  s.addNotes("بالاستراحة مرّ على الفرق اللي لسا عندهم 404.");
+
+  // ===== Shared =====
+  const S5 = "تطليع المشترك";
+  pres.addSection({ title: S5 });
+  divider("2:10 · شرح 10 + تطبيق 30", "تطليع المشترك", "style.css للشكل · main.js للحركة · مش دمج الكل", S5, "افتح ملفي CSS لصفحتين من فريق جنب بعض، وورّيهم قواعد الـ header والـ footer مكررة.");
+
+  s = newSlide("CONTENT", "المشترك · ليش؟", "نفس الـ header مكرر بـ 5 ملفات", S5);
+  {
+    const { xs, cw } = colsX(2, 0.4);
+    await card(s, xs[0], 1.8, cw, 2.6, { icon: "FaCopy", title: "هلأ", body: "بدك تغيّر لون الـ header؟ بتغيّره بـ 5 ملفات، ورح تنسى واحد", titleSize: 20, bodySize: 16 });
+    await card(s, xs[1], 1.8, cw, 2.6, { icon: "FaFileAlt", iconFill: C.accent2, title: "بعد التطليع", body: "المشترك بملف واحد: style.css للشكل، و main.js للحركة", titleSize: 20, bodySize: 16 });
+  }
+  callout(s, M, 4.7, CW, 0.75, "مش دمج الكل: بس المكرر (الـ header، الـ footer، المتغيرات، الأزرار، قائمة الجوال)", { size: 16 });
+  callout(s, M, 5.6, CW, 0.75, "مين بيغلب؟ style.css أول، وملف الصفحة بعده، فالصفحة بتقدر تغيّر المشترك عندها", { size: 15, bold: false, fill: C.background2 });
+  s.addNotes("5 دقائق. التشبيه: بدل ما كل غرفة إلها مفتاح كهرباء رئيسي، في لوحة وحدة للبيت.");
+
+  s = newSlide("CONTENT", "المشترك · خطأ متوقع", "has already been declared", S5);
+  codeBox(s, M, 1.8, CW, 1.2, "Uncaught SyntaxError: Identifier 'menuToggle' has already been declared", "Console", 16);
+  await iconRows(s, [
+    ["FaClone", "شو صار؟", "نفس اسم const بملفين مربوطين بنفس الصفحة، فكل الـ JS بيوقف"],
+    ["FaTools", "الحل", "احذف الكود المكرر من ملف الصفحة", C.accent2],
+    ["FaUsers", "مثال DSA", "كود قائمة الجوال (menuToggle و mainNav) بـ main.js، ومكرر بـ 4 ملفات"],
+  ], M, CW, 3.25, 1.05, { ts: 18, bs: 15 });
+  s.addNotes("دقيقتين.");
+
+  s = newSlide("CONTENT", "تطبيق · 30 دقيقة", "خطوات 5 و6 بورقة التصليح", S5);
+  practice(s, "الخطوات", [
+    "الـ CSS: prompt أول صفحة بيطلّع style.css، وبعدين prompt لكل صفحة بيشيل منها المكرر",
+    "سطر style.css فوق سطر ملف الصفحة",
+    "بعد كل صفحة: قارنوا بالشكل القديم (تغيير صغير طبيعي)",
+    "الـ JS: main.js قبل ملف الصفحة، واحذفوا المكرر بـ prompt الورقة",
+    "جرّبوا زر القائمة على عرض جوال (F12 ← أيقونة الجوال)",
+  ], ["style.css مربوط بكل الصفحات", "ملفات الصفحات أصغر", "قائمة الجوال شغالة", "ما في أحمر بالـ Console"], 1.8, 4.7);
+  s.addNotes("الـ AI قطع الملف بالنص أو كتب «باقي الكود زي ما هو»؟ ارجعوله واطلبوا الملف كامل بدون اختصار.");
+
+  // ===== Local / external =====
+  const S6 = "المحلي والخارجي";
+  pres.addSection({ title: S6 });
+  s = newSlide("CONTENT", "2:50 · المحلي والخارجي", "أغراضك ببيتك، ولا مستعارة من الجيران؟", S6);
+  table(s, ["", "المحلي", "الخارجي"], [
+    ["شو هو", "ملف بمجلد موقعك", "رابط بيبلش بـ https://"],
+    ["مثال", "images/latte.jpg", "https://fonts.googleapis.com/..."],
+    ["متى نستعمله", "الصور وملفاتك", "الخطوط والأيقونات (Google Fonts و Material Symbols)"],
+    ["الخطر", "ما في", "بده إنترنت، وممكن يوقف بأي لحظة"],
+  ], { y: 1.75, colW: [2.2, 4.0, 5.933], rowH: 0.5, fs: 14 });
+  callout(s, M, 4.95, CW, 0.75, "صور Stitch روابط خارجية، فلازم تنزل على images/. و Tailwind (cdn.tailwindcss.com) ممنوع", { size: 16 });
+  callout(s, M, 5.8, CW, 0.7, "جرّب قدامهم: افصل النت واعمل refresh لصفحة فيها صور Stitch. «شو رح يصير؟»", { size: 15, bold: false, fill: C.background2 });
+  s.addNotes("5 دقائق.");
+
+  s = newSlide("CONTENT", "تطبيق · 15 دقيقة", "نزّلوا الصور", S6);
+  practice(s, "بكل صفحة", [
+    "Ctrl + F على https://: صورة ولا خط؟",
+    "كل صورة: افتحوا الرابط، كليك يمين ← Save image، احفظوها بـ images/ باسم إنجليزي صغير (latte.jpg)",
+    "غيّروا الـ src لـ images/latte.jpg. وبملف CSS: url(../images/latte.jpg)",
+    "الخطوط والأيقونات من Google بتضل خارجية",
+  ], ["صور الرئيسية على الأقل محلية", "بتظهر بدون نت", "الباقي بيكمل أول يوم 5"], 1.8, 4.6);
+
+  // ===== data.js =====
+  const S7 = "البيانات بـ JS";
+  pres.addSection({ title: S7 });
+  divider("3:10 · شرح 10 + تطبيق 20", "البيانات بـ JavaScript", "مصفوفة بـ data.js · loop بيرسم البطاقات", S7, "أول شي بينشال: إذا الساعة 3:10 وفي فرق لسا عندها 404، خلي الوقت للتصليح.");
+
+  s = newSlide("CONTENT", "البيانات · data.js", "إضافة منتج جديد = سطر واحد", S7);
+  codeBox(s, M, 1.8, CW, 1.9, 'const items = [\n  { id: 1, name: "لاتيه", price: 2.5, image: "images/latte.jpg" },\n  { id: 2, name: "موكا", price: 3, image: "images/mocha.jpg" }\n];', "js/data.js", 16);
+  {
+    const { xs, cw } = colsX(3, 0.3);
+    const T = [["FaList", "[ ] مصفوفة", "مجموعة عناصر"], ["FaIdCard", "{ } object", "عنصر: مفتاح وقيمة"], ["FaTable", "زي Excel", "كل سطر منتج، وقالب البطاقة بينطبع مرة لكل سطر"]];
+    for (let i = 0; i < 3; i++) await card(s, xs[i], 3.95, cw, 2.5, { icon: T[i][0], iconFill: i === 1 ? C.accent2 : C.accent1, title: T[i][1], body: T[i][2], titleSize: 18, bodySize: 15 });
+  }
+  s.addNotes("6 دقائق: الفكرة و data.js.");
+
+  s = newSlide("CONTENT", "البيانات · الـ loop", "الـ loop بيرسم بطاقة لكل عنصر", S7);
+  codeBox(s, M, 1.8, 6.8, 3.7, 'const list = document.getElementById("list");\nitems.forEach(item => {\n  list.innerHTML += `\n    <div class="card">\n      <img src="${item.image}" alt="${item.name}">\n      <h3>${item.name}</h3>\n      <p>${item.price} دينار</p>\n    </div>`;\n});', "ملف الصفحة", 12.5);
+  await iconRows(s, [
+    ["FaRedo", "forEach", "لكل عنصر بـ items، اعمل هالشي"],
+    ["FaDollarSign", "${ }", "جوا الـ backticks بتحط قيمة جوا النص", C.accent2],
+    ["FaHandPaper", "نفس الخطوات", "امسك list، وغيّر الـ innerHTML"],
+  ], 7.7, W - M - 7.7, 1.8, 1.2, { ts: 17, bs: 14 });
+  callout(s, M, 5.7, CW, 0.75, 'بالـ HTML: <div id="list" class="cards"></div> فاضي، و data.js مربوط قبل ملف الصفحة', { size: 15 });
+  s.addNotes("4 دقائق. بتنقرأ: «لكل عنصر بـ items، ضيف جوا list بطاقة فيها صورته واسمه وسعره».");
+
+  s = newSlide("CONTENT", "تطبيق · 20 دقيقة", "خطوة «تحسين» بورقة التصليح", S7);
+  practice(s, "الخطوات", [
+    "prompt الورقة (مكتوب لصفحتكم: المنيو عند AI، والمبدعين عند DSA)",
+    "ترتيب الـ scripts: js/main.js بعدين js/data.js بعدين ملف الصفحة",
+    "جرّبوا: ضيفوا سطر بـ data.js وشوفوا البطاقة طلعت",
+  ], ["البطاقات بتنرسم من data.js", "البحث والفلترة ضلوا شغالين"], 1.8, 4.6);
+
+  // ===== Check & submit =====
+  const S8 = "الفحص والتسليم";
+  pres.addSection({ title: S8 });
+  s = newSlide("CONTENT", "3:40 · الفحص · 10 دقايق", "افحصوا صفحة صفحة", S8);
+  {
+    const items = ["القائمة بتودي على كل الصفحات، من كل صفحة", "F12 ← Console: ما في أحمر بولا صفحة", "الميزات اللي كانت مكتوبة شغالة (بحث، فلترة، قائمة الجوال)", "المجلد واحد، وفيه index.html"];
+    for (let i = 0; i < items.length; i++) {
+      const y = 1.85 + i * 0.9;
+      box(s, M, y, CW, 0.74, i % 2 ? "FFFFFF" : C.background2, "D5DCE4");
+      s.addShape(pres.shapes.RECTANGLE, { x: W - M - 0.62, y: y + 0.2, w: 0.34, h: 0.34, fill: { color: "FFFFFF" }, line: { color: HEX.accent1, width: 2 }, objectName: "checkbox" });
+      s.addText(items[i], R({ x: M + 0.3, y: y + 0.12, w: CW - 1.2, h: 0.5, fontSize: 18, color: C.text2, valign: "middle" }));
+    }
+  }
+  callout(s, M, 5.6, CW, 0.85, "أحمر بالـ Console؟ جدول الأخطاء آخر ورقة المرجع. مش موجود هناك؟ للـ AI: «قلي السبب بجملة، واعطيني السطر المصلّح بس»", { size: 14, bold: false });
+
+  s = newSlide("CONTENT", "3:50 · التسليم", "صفحة التسليم ← اليوم 4 ← «تسليم نهائي»", S8);
+  {
+    const { xs, cw } = colsX(3, 0.3);
+    await card(s, xs[0], 1.8, cw, 3.5, { icon: "FaFileArchive", num: "الفريق · مرة وحدة", title: "zip الموقع بعد التجميع", body: "المجلد الواحد اللي فيه index.html", titleSize: 19, bodySize: 15 });
+    await card(s, xs[1], 1.8, cw, 3.5, { icon: "FaUser", iconFill: C.accent2, num: "كل واحد باسمه", title: "سؤال واحد", body: "اختار ميزة JS من موقعكم، وورجيني فيها الخطوات الثلاث: وين مسكت العنصر، وأي حدث، وشو غيّرت", titleSize: 19, bodySize: 15 });
+    await card(s, xs[2], 1.8, cw, 3.5, { icon: "FaPlusCircle", num: "اختياري", title: "شغل إضافي", body: "لأي حدا اشتغل شي لحاله على جهازه", titleSize: 19, bodySize: 15 });
+  }
+  callout(s, M, 5.55, CW, 0.95, "«اللي علّم الخطوات الثلاث بتطبيق JS الصبح، جوابه جاهز. الصقوا الأسطر من كودكم، واشرحوها بكلماتكم»", { size: 15 });
+  s.addNotes("7 دقائق.");
+
+  s = newSlide("DIVIDER", "بكرا · اليوم الخامس", "بننشر مواقعكم عالنت", S8);
+  s.addText("رابط حقيقي بتفتحوه من جوالاتكم، وبتعرضوه. اللي باقيله شي بيكمله أول نص ساعة", R({ x: M, y: 4.3, w: CW, h: 0.9, fontSize: 18, color: "C9D6E0" }));
+  s.addNotes("3 دقائق.");
+
+  // ===== Appendix =====
+  const S9 = "ملحق";
+  pres.addSection({ title: S9 });
+  s = newSlide("CONTENT", "ملحق · مرجع إلك وإنت بتلف", "أخطاء الـ Console", S9);
+  table(s, ["الخطأ", "معناه", "الحل"], [
+    ["404 (Not Found)", "الملف مش موجود بالمكان اللي بالمسار", "قارن المسار بـ href أو src مع اسم الملف ومكانه حرف بحرف"],
+    ["Cannot read properties of null", "الـ JS دوّر على عنصر وما لقاه", "الـ id بالـ JS نفسه اللي بالـ HTML؟ أو حط if (العنصر) { }"],
+    ["... is not defined", "اسم مش معرّف", "غلط إملائي؟ (Items غير items) أو data.js مش مربوط قبل ملف الصفحة"],
+    ["has already been declared", "نفس اسم const بملفين مربوطين", "احذف الكود المكرر من ملف الصفحة"],
+  ], { ltr: [0], y: 1.8, colW: [3.3, 3.8, 5.033], rowH: 0.75, fs: 14 });
+  callout(s, M, 5.85, CW, 0.8, "القاعدة العامة قبل ما تقرأ أي كود: احفظت؟ المسار صح؟ الاسم نفسه؟", { size: 16 });
+
+  s = newSlide("CONTENT", "ملحق · لفّة الطاولات", "مين أول؟", S9);
+  table(s, ["الفريق", "الوضع", "أصعب خطوة", "انتبه لـ"], [
+    ["the sun", "ما في بناء من اليوم 3 بالملفات", "بناء صفحتين من الصفر", "شوف جهازهم أول شي"],
+    ["آفاق", "صفحة وحدة فيها كل اشي", "prompt التقسيم لـ 4 صفحات", "نتيجة الاختبار مربوطة بالمكتبة"],
+    ["تكنولوجيا", "5 صفحات، المسارات كلها غلط", "تصليح الأسلاك", "الأحرف الكبيرة (JS)، وصفحة Tailwind آخر شي"],
+    ["AI", "4 صفحات بمجلدات، و JS مش مربوط", "تطليع الـ CSS المشترك", "footer الـ about ممكن يتغير: طبيعي"],
+    ["IT Team", "3 صفحات بأسماء عشوائية", "أطول ورقة (9 خطوات)", "العلامة على الفهم"],
+    ["DSA", "أنظف شغل، كله بمجلد واحد", "حذف كود القائمة المكرر", "main.js قبل حذف المكرر = الـ JS بيوقف"],
+  ], { y: 1.75, colW: [1.7, 3.4, 3.2, 3.833], rowH: 0.7, fs: 13 });
 
   await pres.writeFile({ fileName: "day4-ar.pptx" });
   await applyTheme("day4-ar.pptx", THEME);
