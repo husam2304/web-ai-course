@@ -268,7 +268,7 @@ def build():
 
     rules = locked("d4-rules", "قواعد اليوم: الملفات والربط", "أول اليوم", rules_body)
     reference = locked("d4-ref", "ورقة المرجع: HTML و CSS و JavaScript", "خليها جنبك وإنت بتشتغل", ref_body)
-    team_cards = "\n".join(locked(f"d4-team-{s}", t, "ورقة فريقكم", acc("افتح الورقة", body), "res-card team-sheet") for s, t, body in teams)
+    team_cards = "\n".join(locked(f"d4-team-{s}", t, "لأي فريق" if s == "common" else "ورقة فريقكم", acc("افتح الورقة", body), "res-card team-sheet") for s, t, body in teams)
 
     return f'''
         <div class="day-panel" data-day="4">
