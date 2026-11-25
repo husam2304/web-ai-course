@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مهمة البداية: اليوم 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* VOICE: worksheet a trainer hands out — calm, direct, Jordanian Arabic.
+   IDEA: a printed lab task card with numbered stations and a team folder tab.
+   PICTURE: the team's own folder tree, drawn live from their pick.
+   COLOUR and TYPE: deep teal field, white cards, warm orange accent; Cairo.
+   LAYOUT: one column, step bands, team tabs that swap the tree and table. */
+:root{color-scheme:light dark;
+--bg:light-dark(#eef5f4,#0d1f22);--card:light-dark(#ffffff,#142c30);--ink:light-dark(#10282c,#e6f1ef);
+--muted:light-dark(#4d6a6e,#9fb9bb);--teal:light-dark(#0e6b6b,#3cc2bd);--deep:light-dark(#0b4f52,#0a3a3c);
+--acc:light-dark(#e2711d,#ff9a4d);--line:light-dark(#d4e3e1,#24454a);--code:light-dark(#f1f7f6,#0f2427)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.7 "Cairo",system-ui,sans-serif;overflow-x:clip}
+.wrap{max-width:860px;margin:0 auto;padding:0 max(4vw,16px)}
+header{background:var(--deep);color:#fff;padding:clamp(28px,5vw,56px) 0 clamp(24px,4vw,40px)}
+header h1{margin:0 0 6px;font-size:clamp(30px,5vw,46px);line-height:1.15;font-weight:800}
+header p{margin:0;opacity:.9;max-width:60ch}
+.rule{display:flex;gap:10px;align-items:flex-start;margin-top:18px;background:rgba(255,255,255,.1);border-radius:14px;padding:12px 16px;font-weight:600}
+.rule b{color:#ffc08a}
+section{padding:28px 0 8px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,3vw,30px);margin-bottom:22px}
+.step h2{display:flex;align-items:center;gap:12px;margin:0 0 4px;font-size:clamp(22px,3vw,28px);line-height:1.3}
+.num{flex:none;width:44px;height:44px;border-radius:50%;background:var(--teal);color:#fff;display:grid;place-items:center;font-weight:800;font-size:22px}
+.time{color:var(--muted);font-size:15px;margin:0 56px 14px 0}
+ol,ul{padding-inline-start:1.4em;margin:8px 0}
+li{margin:6px 0}
+code,.mono{font-family:"JetBrains Mono",monospace;font-size:.88em;direction:ltr;unicode-bidi:isolate;background:var(--code);border:1px solid var(--line);border-radius:6px;padding:1px 6px;white-space:nowrap}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.tabs button{font:inherit;font-weight:700;min-height:44px;padding:6px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--teal);border-color:var(--teal);color:#fff}
+.tabs button:focus-visible,.copy:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.team{border:2px dashed var(--line);border-radius:14px;padding:16px}
+.team h3{margin:0 0 8px;font-size:20px}
+.tree{direction:ltr;text-align:left;font-family:"JetBrains Mono",monospace;font-size:14px;background:var(--code);border-radius:10px;padding:12px 14px;margin:10px 0;white-space:pre;overflow-x:auto;line-height:1.6}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:15px}
+th,td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:start;vertical-align:top}
+th{color:var(--muted);font-weight:700}
+td code{white-space:normal;overflow-wrap:anywhere}
+.arrow{color:var(--acc);font-weight:800;text-align:center;width:2em}
+.note{background:light-dark(#fff4e8,#2b2116);border-inline-start:4px solid var(--acc);border-radius:10px;padding:10px 14px;margin:12px 0}
+.methods{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:12px}
+.method{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--code)}
+.method h3{margin:0 0 4px;font-size:18px}
+.method small{color:var(--muted)}
+.menu{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:0 6px 18px rgba(0,0,0,.12);padding:6px 0;margin:8px 0;font-size:14px;direction:ltr;text-align:left;min-width:190px}
+.menu div{padding:4px 14px}.menu .hi{background:var(--teal);color:#fff}
+.copy{font:inherit;font-size:14px;font-weight:700;min-height:40px;padding:4px 14px;border-radius:10px;border:1px solid var(--teal);color:var(--teal);background:transparent;cursor:pointer}
+.check{list-style:none;padding:0}
+.check label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;min-height:36px}
+.check input{width:22px;height:22px;margin-top:5px;accent-color:var(--teal);flex:none}
+footer{color:var(--muted);text-align:center;padding:20px 0 40px;font-size:15px}
+@media(max-width:600px){.methods{grid-template-columns:1fr}.time{margin-inline-start:0}body{font-size:16px}}
+@media(prefers-reduced-motion:no-preference){.team{animation:in .25s ease}@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1}}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <h1>مهمة البداية: اليوم 4</h1>
+  <p>كل فريق بيشتغل مع بعض على جهاز الفريق. مهمتين: نجهّز مجلدات الموقع بأسماء صح، وبعدين ننزّل الصور.</p>
+  <div class="rule">⚠️ <span>ما حدا يعدّل ولا سطر <b>جوا</b> الملفات. اليوم بس مجلدات وأسماء وصور.</span></div>
+</div></header>
+
+<main class="wrap">
+<section>
+<div class="step">
+  <h2><span class="num">1</span>المجلدات والأسماء</h2>
+  <p class="time">حوالي 15 دقيقة</p>
+  <ol>
+    <li><b>نسخة احتياطية:</b> اعملوا zip لمجلد موقعكم زي ما هو، وارفعوه على موقع الدورة ← «ملفات فريقي».</li>
+    <li><b>مجلد جديد</b> باسم موقعكم (تحت، حسب فريقكم)، وجواه 3 مجلدات: <code>css</code> و <code>js</code> و <code>images</code></li>
+    <li><b>انسخوا (مش انقلوا)</b> كل ملف من مكانه القديم لمكانه الجديد، وغيّروا اسمه حسب قائمة فريقكم.</li>
+  </ol>
+  <div class="note">قواعد الأسماء: إنجليزي، أحرف صغيرة، بدون مسافات. <code>about.html</code> صح، و <code>About Us.html</code> غلط.</div>
+
+  <p><b>اختاروا فريقكم:</b></p>
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="team" id="team" role="tabpanel"></div>
+</div>
+
+<div class="step">
+  <h2><span class="num">2</span>الصور</h2>
+  <p class="time">حوالي 15 دقيقة</p>
+  <p>صور التصميم هلأ روابط من Stitch على الإنترنت، وممكن توقف بأي لحظة. بدنا نحطها <b>جوا موقعكم</b> بمجلد <code>images</code>. افتحوا كل صفحة من موقعكم بـ Chrome، وصورة صورة:</p>
+
+  <div class="methods">
+    <div class="method">
+      <h3>الطريقة الأولى</h3>
+      <small>لأغلب الصور</small>
+      <ol>
+        <li>كبسة يمين على الصورة.</li>
+        <li>اختاروا «حفظ الصورة باسم»:
+          <div class="menu" aria-hidden="true"><div>Open image in new tab</div><div class="hi">Save image as...</div><div>Copy image</div></div>
+        </li>
+        <li>اختاروا مجلد <code>images</code>.</li>
+        <li>غيّروا الاسم بس، وخلّوا النهاية زي ما هي (<code>.jpg</code> أو <code>.png</code> أو <code>.webp</code>). إذا ما في نهاية، اكتبوا <code>.jpg</code></li>
+      </ol>
+    </div>
+    <div class="method">
+      <h3>الطريقة الثانية</h3>
+      <small>إذا كبسة اليمين ما طلّعت «حفظ الصورة»، يعني الصورة خلفية</small>
+      <ol>
+        <li>اكبسوا <code>F12</code>، وفوق اختاروا <code>Network</code>.</li>
+        <li>تحتها اكبسوا على الفلتر <code>Img</code>.</li>
+        <li>حدّثوا الصفحة: <code>Ctrl + R</code></li>
+        <li>بتطلع قائمة بكل صور الصفحة. اكبسوا على وحدة ← <code>Preview</code> بيورجيكم إياها.</li>
+        <li>كبسة يمين على اسمها ← <code>Open in new tab</code></li>
+        <li>بالتاب الجديدة: كبسة يمين ← «حفظ الصورة باسم» ← <code>images</code></li>
+      </ol>
+    </div>
+  </div>
+
+  <h3 style="margin-top:22px">كيف نسمّي الصورة؟</h3>
+  <p>اسم الصفحة، بعدين شو بالصورة: <code>menu-latte.jpg</code> أو <code>home-hero.jpg</code></p>
+
+  <h3>قائمة الصور</h3>
+  <p>اعملوا ملف نصي اسمه <code>images-list.txt</code> جوا مجلد <code>images</code>، واكتبوا فيه لكل صورة: اسمها ← بأي صفحة ← بأي مكان. هاي القائمة رح نحتاجها لما نغيّر الكود.</p>
+  <div class="tree" id="sample">menu-latte.jpg   ←  menu.html  ←  بطاقة اللاتيه
+home-hero.jpg    ←  index.html ←  الصورة الكبيرة فوق</div>
+  <button class="copy" id="copyBtn" type="button">انسخ المثال</button>
+</div>
+
+<div class="step">
+  <h2><span class="num">✓</span>قبل ما تخلصوا</h2>
+  <ul class="check" id="check">
+    <li><label><input type="checkbox">النسخة الاحتياطية مرفوعة على «ملفات فريقي».</label></li>
+    <li><label><input type="checkbox">المجلد الجديد فيه <code>css</code> و <code>js</code> و <code>images</code>.</label></li>
+    <li><label><input type="checkbox">كل الملفات منسوخة بأسمائها الجديدة.</label></li>
+    <li><label><input type="checkbox">صور كل الصفحات بمجلد <code>images</code> بأسماء إنجليزي.</label></li>
+    <li><label><input type="checkbox">ملف <code>images-list.txt</code> فيه كل الصور.</label></li>
+  </ul>
+  <p><b>اللي بيخلص بدري:</b> افتحوا موقعكم على عرض الجوال (<code>F12</code> ← أيقونة الجوال 📱) واكتبوا شو الشغلات اللي شكلها خربان.</p>
+</div>
+</section>
+</main>
+<footer>دورة تطوير المواقع بمساعدة الذكاء الاصطناعي · اليوم 4</footer>
+
+<script>
+{
+const teams=[
+ {id:"ai",name:"AI",folder:"caffeon",rows:[["home/index.html","index.html"],["home/css/main.css","css/home.css"],["home/js/main.js","js/home.js"],["menu/indx.html","menu.html"],["menu/css/main.css","css/menu.css"],["menu/js/main.js","js/menu.js"],["workspace/index.html","workspace.html"],["workspace/css/main.css","css/workspace.css"],["workspace/js/main.js","js/workspace.js"],["about&contact/index.html","about.html"],["about&contact/css/main.css","css/about.css"],["about&contact/js/main.js","js/about.js"]]},
+ {id:"dsa",name:"DSA",folder:"nova",intro:"انسخوا كل محتوى web1 لجوا nova، وبعدين غيّروا هدول بس. الباقي بضل نفس اسمه.",rows:[["explore portfolios.html","explore.html"],["profiledetails.html","portfolio.html"],["css/main.css","css/style.css"],["css/styleexplore.css","css/explore.css"]]},
+ {id:"it",name:"IT Team",folder:"it-team",rows:[["index.html","drinks.html"],["css/main.css","css/drinks.css"],["javasc/mail.js","js/drinks.js"],["about us/about.html","food.html"],["about us/a.css","css/food.css"],["3/bb.html","contact.html"],["3/b.css","css/contact.css"],["bbb.js","js/contact.js"],["aa.js","لا تنسخوه (فاضي)"]]},
+ {id:"tech",name:"تكنولوجيا",folder:"noqta-ai",warn:"انتبهوا: js و .js بأحرف صغيرة، مش JS.",rows:[["index.html","index.html"],["css/main.css","css/home.css"],["JS/main.JS","js/home.js"],["sh2/index2.html","category.html"],["sh2/css/main2.css","css/category.css"],["sh2/JS/main2.JS","js/category.js"],["SH3/index3.html","about.html"],["SH3/css/main3.css","css/about.css"],["SH3/JS/M.js","js/about.js"],["SH4/index4.html","compare.html"],["SH4/css/main4.css","css/compare.css"],["SH4/JS/main4.JS","js/compare.js"],["sh5/index5.html","tool.html"]]},
+ {id:"afaq",name:"آفاق",folder:"afaq",intro:"اعملوا المجلدات css و js و images بس. انسخوا indx.html لجوا afaq زي ما هو، وما تغيّروا اسمه: هاد بنقسمه لصفحات مع المدرب.",rows:[]},
+ {id:"sun",name:"the sun",folder:"wazen",intro:"اعملوا المجلدات css و js و images. إذا عندكم ملفات من اليوم 3 على الجهاز، خبّروا المدرب أول ما يوصل. وإذا ما عندكم، جهّزوا من Stitch: صورة شاشة «إعداد الميزانية»، وصورة «توزيع أسقف البنود»، وملف DESIGN.md.",rows:[]}
+];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const tabs=document.getElementById("tabs"),panel=document.getElementById("team");
+function tree(t){
+  const pages=t.rows.map(r=>r[1]).filter(n=>/\.html$/.test(n));
+  const css=t.rows.map(r=>r[1]).filter(n=>n.startsWith("css/")).map(n=>n.slice(4));
+  const js=t.rows.map(r=>r[1]).filter(n=>n.startsWith("js/")).map(n=>n.slice(3));
+  let s=t.folder+"/\n";
+  pages.forEach(p=>s+="├── "+p+"\n");
+  s+="├── css/"+(css.length?"   "+css.join(", "):"")+"\n";
+  s+="├── js/"+(js.length?"    "+js.join(", "):"")+"\n";
+  s+="└── images/";
+  return s;
+}
+function show(id){
+  const t=teams.find(x=>x.id===id)||teams[0];
+  [...tabs.children].forEach(b=>b.setAttribute("aria-selected",b.dataset.id===t.id));
+  let h=`<h3>${esc(t.name)} ← المجلد الجديد: <code>${esc(t.folder)}</code></h3>`;
+  if(t.intro)h+=`<p>${esc(t.intro)}</p>`;
+  if(t.warn)h+=`<div class="note">${esc(t.warn)}</div>`;
+  h+=`<div class="tree">${esc(tree(t))}</div>`;
+  if(t.rows.length){
+    h+=`<table><thead><tr><th>الملف هلأ</th><th></th><th>انسخوه لـ</th></tr></thead><tbody>`+
+      t.rows.map(r=>`<tr><td><code>${esc(r[0])}</code></td><td class="arrow">←</td><td>${/[a-z]/.test(r[1])?`<code>${esc(r[1])}</code>`:esc(r[1])}</td></tr>`).join("")+`</tbody></table>`;
+  }
+  panel.innerHTML=h;
+  try{localStorage.setItem("d4team",t.id)}catch(e){}
+}
+tabs.innerHTML=teams.map(t=>`<button type="button" role="tab" data-id="${t.id}" aria-selected="false">${esc(t.name)}</button>`).join("");
+tabs.addEventListener("click",e=>{const b=e.target.closest("button");if(b)show(b.dataset.id)});
+let saved=null;try{saved=localStorage.getItem("d4team")}catch(e){}
+show(saved||"ai");
+
+const copyBtn=document.getElementById("copyBtn");
+copyBtn.addEventListener("click",async()=>{
+  try{await navigator.clipboard.writeText(document.getElementById("sample").textContent);copyBtn.textContent="انسخ ✓"}
+  catch(e){copyBtn.textContent="ما زبط النسخ، انسخوه بإيدكم"}
+  setTimeout(()=>copyBtn.textContent="انسخ المثال",2000);
+});
+
+const boxes=[...document.querySelectorAll("#check input")];
+let st=[];try{st=JSON.parse(localStorage.getItem("d4check")||"[]")}catch(e){}
+boxes.forEach((b,i)=>{b.checked=!!st[i];b.addEventListener("change",()=>{try{localStorage.setItem("d4check",JSON.stringify(boxes.map(x=>x.checked)))}catch(e){}})});
+}
+</script>
+</body>
+</html>
