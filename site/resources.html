@@ -849,47 +849,56 @@ items.forEach(item =&gt; {
 <h4>خطوة 5: طلّعوا الـ CSS المشترك</h4>
 <p>الـ header والـ footer والألوان مكررين بالملفات الأربعة. بنطلّعهم لملف واحد <code dir="ltr">style.css</code>.</p>
 <div class="doc-note"><p>إذا الـ AI وقف بنص الملف، اكتبوا: «كمّل من وين وقفت». وإذا كتب «باقي الكود زي ما هو»، اكتبوا: «اعطيني الملف كامل بدون اختصار».</p></div>
-<p><strong>5أ. من </strong><strong><code dir="ltr">home.css</code></strong><strong>:</strong> انسخوا هاد الـ prompt، والصقوا تحته محتوى <code dir="ltr">css/home.css</code> كامل:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-10">نسخ</button></div><pre id="d4-ai-10" dir="auto">بدي أرتب ملفات CSS لموقعي. الموقع فيه 4 صفحات، وكل صفحة إلها ملف CSS، والـ header والـ footer مكررين فيهم.
-تحت ملف home.css تبع الصفحة الرئيسية. قسّمه لملفين:
+<p><strong>5أ. الملف المشترك </strong><strong><code dir="ltr">style.css</code></strong><strong>:</strong> افتحوا شات جديد، وارفقوا ملفات الـ CSS (<code dir="ltr">home.css</code> و <code dir="ltr">menu.css</code> و <code dir="ltr">workspace.css</code> و <code dir="ltr">about.css</code>)، وانسخوا هاد الـ prompt:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-10">نسخ</button></div><pre id="d4-ai-10" dir="auto">مرفق 4 ملفات CSS من موقعنا CAFFEON: home.css و menu.css و workspace.css و about.css. كل ملف تبع صفحة، وكل واحد فيه :root خاص فيه بأسماء متغيرات متشابهة وألوان قريبة من بعض.
+بهاد الرد بدي ملف style.css بس، وما بدي ملفات الصفحات هلأ.
 
-1. style.css فيه القواعد المشتركة بس، وهي:
-   - :root و *, *::before, *::after و html, body و a و img و button و ::-webkit-scrollbar
-   - .container و .main-content و .icon-sm و .icon-md
-   - كل قاعدة الـ selector تبعها بيبلش بـ: .site-header أو .header- أو .brand- أو .main-nav أو .nav-link أو .whatsapp- أو .cart-btn أو .cart-badge أو .user-avatar
-   - كل قاعدة الـ selector تبعها بيبلش بـ: .site-footer أو .footer-
-2. home.css فيه كل القواعد الباقية.
+1. :root واحد بس:
+   - وحّد المتغيرات المتشابهة: إذا في متغيرين بيعملوا نفس الشغلة (لون أساسي، خلفية، نص، حدود...) حتى لو الاسم أو درجة اللون مختلفة شوي، خليهم متغير واحد باسم واضح، وقيمته من home.css.
+   - الهدف 8 لـ 12 متغير بالكثير.
+2. القواعد المشتركة كلها بـ style.css، مرة وحدة: * و *::before و *::after و html و body و a و img و button و ::-webkit-scrollbar، و .container و .main-content و .icon-sm و .icon-md، والـ header (.site-header و .header- و .brand- و .main-nav و .nav-link و .whatsapp- و .cart-btn و .cart-badge و .user-avatar)، والـ footer (.site-footer و .footer-)، و @media تبعهم.
+   - إذا القاعدة مختلفة شوي بين الملفات: خد نسخة home.css. الاختلافات البسيطة بتنحذف.
+   - كل var() جوا style.css لازم يستعمل الأسماء الجديدة بس.
+3. بعد الملف اعطيني جدول «خريطة المتغيرات»: كل متغير قديم من كل ملف ← المتغير الجديد اللي صار مكانه. هاد الجدول رح نستعمله بالخطوات الجاية.
 
-قواعد مهمة:
-- انقل كل قاعدة زي ما هي حرف بحرف. لا تعدّل ولا تحذف ولا تضيف أي قيمة.
-- إذا في @media فيها قواعد من النوعين، اعمل نفس الـ @media بالملفين، وكل قاعدة بملفها.
-- اعطيني الملفين كاملين بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه.
-
-home.css:</pre></div>
-<p>حطوا الناتج بـ <code dir="ltr">css/style.css</code> و <code dir="ltr">css/home.css</code>. بعدين بالصفحات الأربع، ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة:</p>
+اعطيني style.css كامل بدون اختصار بـ code block واحد، وبعده الجدول.</pre></div>
+<p>حطوا الناتج بـ <code dir="ltr">css/style.css</code>. بعدين بالصفحات الأربع، ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة:</p>
 <div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-ai-11">نسخ</button></div><pre id="d4-ai-11" dir="ltr">&lt;link rel="stylesheet" href="css/style.css"&gt;</pre></div>
-<p>افتحوا <code dir="ltr">index.html</code> وتأكدوا إن الشكل ما تغيّر.</p>
-<p><strong>5ب. لكل صفحة باقية (menu بعدين workspace بعدين about):</strong> انسخوا هاد الـ prompt، والصقوا الملفين مكان العلامات. المثال هون لـ menu، وللصفحات الثانية غيّروا الاسم بس:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-12">نسخ</button></div><pre id="d4-ai-12" dir="auto">تحت ملفين من موقعي: style.css (المشترك بين كل الصفحات) و menu.css (تبع صفحة المنيو).
-style.css بينربط بالصفحة قبل menu.css.
-احذف من menu.css كل قاعدة موجودة بـ style.css بنفس الـ selector وبنفس الخصائص والقيم بالضبط.
-إذا نفس الـ selector بس في أي قيمة مختلفة، خلّي القاعدة بـ menu.css زي ما هي.
-لا تعدّل ولا تضيف أي اشي ثاني، ولا تلمس style.css.
-اعطيني menu.css كامل بدون اختصار بـ code block واحد، وقلي بسطر كم قاعدة حذفت.
-
-style.css:
-(الصق style.css هون)
-
-menu.css:
-(الصق menu.css هون)</pre></div>
-<p>بعد كل صفحة: بدّلوا الملف، وافتحوا الصفحة، وتأكدوا إن شكلها زي قبل. إذا اشي خرب، رجّعوا الملف القديم ونادوا حسام.</p>
+<p><strong>5ب. ملفات الصفحات، وحدة وحدة (بنفس الشات):</strong> انسخوا هاد الـ prompt لأول ملف:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-12">نسخ</button></div><pre id="d4-ai-12" dir="auto">هلأ home.css. اعمله من home.css الأصلي اللي بعتتلك إياه، بهالشروط:
+- ممنوع يكون فيه :root، ولا * ولا html ولا body ولا a ولا img ولا button ولا scrollbar، ولا أي قاعدة من القواعد المشتركة اللي حطيتها بـ style.css. هدول كلهم بـ style.css وبس، حتى لو القيم هون مختلفة شوي.
+- كل var(--اسم-قديم) بدّله بالاسم الجديد حسب «خريطة المتغيرات».
+- إذا في لون مكتوب مباشرة (مثل #00e5ff) وهو نفس أو قريب من متغير بالـ :root، بدّله بـ var() تبع المتغير.
+- القواعد الخاصة بالصفحة خليها زي ما هي، وما تغيّر غير أسماء المتغيرات.
+اعطيني home.css كامل بدون اختصار بـ code block واحد. وبالآخر سطر: «فحص: ما في :root ولا body ولا header ولا footer بهاد الملف».</pre></div>
+<p>وللملفات الباقية بنفس الشات (<code dir="ltr">menu.css</code>، بعدين <code dir="ltr">workspace.css</code>، بعدين <code dir="ltr">about.css</code>)، غيّروا الاسم بس:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-13">نسخ</button></div><pre id="d4-ai-13" dir="auto">نفس الشي لـ menu.css.</pre></div>
+<p>بعد كل ملف: بدّلوه، وافتحوا الصفحة، وتأكدوا إن شكلها زي قبل (فرق بسيط بدرجة لون عادي). F12 ← Elements ← <code dir="ltr">&lt;html&gt;</code> ← Styles: لازم تشوفوا <code dir="ltr">:root</code> واحد بس، جاي من <code dir="ltr">style.css</code>. إذا اشي خرب، رجّعوا الملف القديم ونادوا حسام.</p>
+<p><strong>5ج. صلّحوا الـ classes بالصفحات (بنفس الشات، صفحة صفحة):</strong> ارفقوا الصفحة وملف الـ JS تبعها، وانسخوا:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-14">نسخ</button></div><pre id="d4-ai-14" dir="auto">هلأ صار عندنا style.css وملف CSS لكل صفحة (اللي بعتتهم فوق). مرفق صفحة index.html وملف الـ JS تبعها home.js.
+بدي تفحص كل class بالـ HTML:
+- إذا الـ class موجود بـ style.css أو home.css: خليه زي ما هو.
+- إذا مش موجود بولا ملف، وفي class موجود بيعمل نفس الشغلة (مثلاً زر أو بطاقة أو عنوان بنفس الشكل): بدّله بالموجود.
+- إذا مش موجود وما في إشي مناسب: خليه زي ما هو، وحطه بالقائمة تحت.
+- وإذا في style="..." بالـ HTML أو بالـ JS فيه var(--اسم-قديم): بدّل الاسم حسب «خريطة المتغيرات».
+ممنوع:
+- تغيّر أي class أو id مستعمل بملف الـ JS (querySelector أو getElementById أو classList)، حتى لو مش موجود بالـ CSS، لأنه الـ JS بيعتمد عليه.
+- تغيّر النصوص أو الصور أو الروابط أو ترتيب العناصر.
+- تعدّل ملفات الـ CSS.
+اعطيني:
+1. جدول: الـ class القديم ← الجديد، وبأي عنصر.
+2. قائمة الـ classes اللي ما لقيتلها بديل.
+3. إذا تغيّر إشي: index.html كامل بدون اختصار بـ code block واحد. وإذا ما تغيّر ولا إشي: لا تبعت الكود، اكتب بس «ما في تغيير على index.html».</pre></div>
+<p>وللصفحات الباقية بنفس الشات (<code dir="ltr">menu.html</code>، بعدين <code dir="ltr">workspace.html</code>، بعدين <code dir="ltr">about.html</code>):</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-15">نسخ</button></div><pre id="d4-ai-15" dir="auto">نفس الشي لـ menu.html، ومرفق menu.js.</pre></div>
+<p>إذا الـ AI حكى «ما في تغيير»، الصفحة بتضل زي ما هي. وإذا عطاكم كود: بدّلوا الصفحة، وافتحوها، وجربوا الميزات اللي فيها.</p>
 <h4>خطوة 6: الـ JS</h4>
 <p>كل صفحة عندكم إلها JS خاص فيها، وما في كود مكرر يستاهل ينقل. ما بنعمل <code dir="ltr">main.js</code> اليوم.</p>
 <h4>خطوة 7: افحصوا</h4>
 <ul class="checklist"><li><label><input type="checkbox"> <span>كل صفحة بتفتح، والقائمة بتودي على الصفحات الأربع من كل صفحة.</span></label></li><li><label><input type="checkbox"> <span>F12 ← Console: ما في اشي أحمر بولا صفحة.</span></label></li><li><label><input type="checkbox"> <span>الفلترة والسلة بالمنيو شغالين.</span></label></li><li><label><input type="checkbox"> <span>الشكل زي ما كان قبل خطوة 5.</span></label></li><li><label><input type="checkbox"> <span>zip جديد لمجلد <code dir="ltr">caffeon</code> على «ملفات فريقي».</span></label></li></ul>
 <h4>خطوة 8: تحسين (بعد ما يخلص الفحص)</h4>
 <p><strong>المنيو من بيانات JS.</strong> انسخوا هاد الـ prompt، والصقوا مكان العلامات:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-13">نسخ</button></div><pre id="d4-ai-13" dir="auto">بدي أحوّل بطاقات المنيو لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع شبكة المنيو (من &lt;div id="menu-grid"&gt; لآخرها)، وملف menu.js.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-ai-16">نسخ</button></div><pre id="d4-ai-16" dir="auto">بدي أحوّل بطاقات المنيو لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع شبكة المنيو (من &lt;div id="menu-grid"&gt; لآخرها)، وملف menu.js.
 المطلوب:
 1. ملف js/data.js فيه مصفوفة اسمها menuItems. كل بطاقة = object فيه: title, price, category, badge, description, meta, image. خد القيم من البطاقات الموجودة بالضبط.
 2. بـ menu.js: function اسمها renderMenu بترسم البطاقات جوا #menu-grid من menuItems، بنفس الـ HTML والـ classes والـ data-* attributes بالضبط (data-category و data-add-title و data-add-price و data-add-cat).
@@ -914,7 +923,7 @@ menu.js:
 <p>اعملوا zip لمجلد <code dir="ltr">web1</code> زي ما هو، وارفعوه على «ملفات فريقي».</p>
 <p><a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a></p>
 <h4>خطوة 2: الهيكل الجديد</h4>
-<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-dsa-14">نسخ</button></div><pre id="d4-dsa-14" dir="ltr">nova/
+<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-dsa-17">نسخ</button></div><pre id="d4-dsa-17" dir="ltr">nova/
 ├── index.html
 ├── explore.html
 ├── portfolio.html
@@ -935,7 +944,7 @@ menu.js:
 <p>استعملوا «بحث واستبدال» بالمحرر (Ctrl+H) بكل صفحة:</p>
 <div class="table-wrap"><table class="doc-table"><thead><tr><th>وين</th><th>بدل</th><th>اكتبوا</th></tr></thead><tbody><tr><td>كل الصفحات الست</td><td class="ltr-cell"><code dir="ltr">css/main.css</code></td><td class="ltr-cell"><code dir="ltr">css/style.css</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">explore.html</code></td><td class="ltr-cell"><code dir="ltr">css/styleexplore.css</code></td><td class="ltr-cell"><code dir="ltr">css/explore.css</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">portfolio.html</code></td><td class="ltr-cell"><code dir="ltr">src="portfolio.js"</code></td><td class="ltr-cell"><code dir="ltr">src="js/portfolio.js"</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">index.html</code> و <code dir="ltr">explore.html</code></td><td class="ltr-cell"><code dir="ltr">href="#home"</code></td><td class="ltr-cell"><code dir="ltr">href="index.html"</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">index.html</code> و <code dir="ltr">explore.html</code></td><td class="ltr-cell"><code dir="ltr">href="#creatives"</code></td><td class="ltr-cell"><code dir="ltr">href="explore.html"</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">index.html</code> و <code dir="ltr">explore.html</code></td><td class="ltr-cell"><code dir="ltr">href="#login"</code></td><td class="ltr-cell"><code dir="ltr">href="login.html"</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">index.html</code> و <code dir="ltr">explore.html</code></td><td class="ltr-cell"><code dir="ltr">href="#signup"</code></td><td class="ltr-cell"><code dir="ltr">href="signup.html"</code></td></tr><tr><td class="ltr-cell"><code dir="ltr">index.html</code> و <code dir="ltr">explore.html</code></td><td>أي رابط «View Portfolio» (مثل <code dir="ltr">#portfolio-layla</code> أو <code dir="ltr">#layla-portfolio</code>)</td><td class="ltr-cell"><code dir="ltr">href="portfolio.html"</code></td></tr></tbody></table></div>
 <p><strong>من الدخول للوحة التحكم:</strong> هلأ ما في طريق لـ <code dir="ltr">dashboard.html</code>. اسألوا الـ AI:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-dsa-15">نسخ</button></div><pre id="d4-dsa-15" dir="auto">هاد ملف login.js تبع صفحة الدخول بموقعي. بعد ما تظهر رسالة النجاح، بدي الصفحة تنتقل لـ dashboard.html بعد ثانية وحدة.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-dsa-18">نسخ</button></div><pre id="d4-dsa-18" dir="auto">هاد ملف login.js تبع صفحة الدخول بموقعي. بعد ما تظهر رسالة النجاح، بدي الصفحة تنتقل لـ dashboard.html بعد ثانية وحدة.
 ما في سيرفر، الدخول واجهة عرض بس.
 اعطيني السطر الجديد بس، وقلي بالضبط بعد أي سطر أحطه، واشرحلي شو بيعمل بالعربي.
 
@@ -947,10 +956,10 @@ login.js:
 <h4>خطوة 6: الـ JS المشترك</h4>
 <p>كود قائمة الجوال موجود بـ <code dir="ltr">main.js</code>، ومكرر بأول <code dir="ltr">explore.js</code> و <code dir="ltr">portfolio.js</code> و <code dir="ltr">login.js</code> و <code dir="ltr">signup.js</code>.</p>
 <p><strong>6أ.</strong> بـ <code dir="ltr">explore.html</code> و <code dir="ltr">portfolio.html</code> و <code dir="ltr">login.html</code> و <code dir="ltr">signup.html</code>، ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة:</p>
-<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-dsa-16">نسخ</button></div><pre id="d4-dsa-16" dir="ltr">&lt;script src="js/main.js"&gt;&lt;/script&gt;</pre></div>
+<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-dsa-19">نسخ</button></div><pre id="d4-dsa-19" dir="ltr">&lt;script src="js/main.js"&gt;&lt;/script&gt;</pre></div>
 <p>بـ <code dir="ltr">dashboard.html</code> لا تضيفوه، لأنها ما فيها قائمة جوال.</p>
 <p><strong>6ب.</strong> هلأ الكود المكرر رح يعمل خطأ (نفس الـ const مرتين). لكل ملف من الأربعة، انسخوا هاد الـ prompt. المثال لـ <code dir="ltr">explore.js</code>، وللباقي غيّروا الاسم بس:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-dsa-17">نسخ</button></div><pre id="d4-dsa-17" dir="auto">تحت ملفين من موقعي: main.js (مربوط بكل الصفحات) و explore.js (تبع صفحة الاستكشاف). الصفحة بتربط main.js وبعده explore.js.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-dsa-20">نسخ</button></div><pre id="d4-dsa-20" dir="auto">تحت ملفين من موقعي: main.js (مربوط بكل الصفحات) و explore.js (تبع صفحة الاستكشاف). الصفحة بتربط main.js وبعده explore.js.
 explore.js فيه نسخة من كود قائمة الجوال اللي بـ main.js (menuToggle و mainNav وروابط .main-nav a). وجود const بنفس الاسم بملفين بيعمل خطأ وبيوقف كل الـ JS بالصفحة.
 احذف من explore.js هاد الكود المكرر بس. لا تغيّر ولا سطر ثاني، ولا تلمس main.js.
 اعطيني explore.js كامل بدون اختصار بـ code block واحد، وقلي بسطرين شو حذفت.
@@ -965,7 +974,7 @@ explore.js:
 <ul class="checklist"><li><label><input type="checkbox"> <span>القائمة بتودي على كل الصفحات، من كل صفحة.</span></label></li><li><label><input type="checkbox"> <span>F12 ← Console: ما في أحمر بولا صفحة.</span></label></li><li><label><input type="checkbox"> <span>البحث والفلترة بـ explore شغالين.</span></label></li><li><label><input type="checkbox"> <span>الدخول بيودي على لوحة التحكم.</span></label></li><li><label><input type="checkbox"> <span>zip جديد لمجلد <code dir="ltr">nova</code> على «ملفات فريقي».</span></label></li></ul>
 <h4>خطوة 8: تحسين</h4>
 <p><strong>المبدعين من بيانات JS.</strong> انسخوا هاد الـ prompt:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-dsa-18">نسخ</button></div><pre id="d4-dsa-18" dir="auto">بدي أحوّل بطاقات المبدعين بصفحة الاستكشاف لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع الشبكة (من &lt;div ... id="creativeGrid"&gt; لآخرها)، وملف explore.js.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-dsa-21">نسخ</button></div><pre id="d4-dsa-21" dir="auto">بدي أحوّل بطاقات المبدعين بصفحة الاستكشاف لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع الشبكة (من &lt;div ... id="creativeGrid"&gt; لآخرها)، وملف explore.js.
 المطلوب:
 1. ملف js/data.js فيه مصفوفة اسمها creatives. كل بطاقة = object فيه id (رقم من 1) وكل المعلومات اللي بالبطاقة (الاسم، التخصص، المدينة، الصورة، وأي data-* موجودة). خد القيم من البطاقات بالضبط.
 2. بأول explore.js، قبل سطر const creativeCards: function اسمها renderCreatives بترسم البطاقات جوا #creativeGrid من creatives بنفس الـ HTML والـ classes والـ data-* بالضبط، واناديها فوراً. هيك البحث والفلترة بيضلوا شغالين.
@@ -991,7 +1000,7 @@ explore.js:
 <p>اعملوا zip لمجلد <code dir="ltr">IT Team</code> زي ما هو، وارفعوه على «ملفات فريقي».</p>
 <p><a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a></p>
 <h4>خطوة 2: الهيكل الجديد</h4>
-<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-it-team-19">نسخ</button></div><pre id="d4-it-team-19" dir="ltr">it-team/
+<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-it-team-22">نسخ</button></div><pre id="d4-it-team-22" dir="ltr">it-team/
 ├── index.html      ← الرئيسية (جديدة، خطوة 5)
 ├── food.html
 ├── drinks.html
@@ -1011,7 +1020,7 @@ explore.js:
 <p><strong>جرّبوا هلأ:</strong> افتحوا <code dir="ltr">drinks.html</code> وجربوا السلة، و <code dir="ltr">contact.html</code> وجربوا النجوم.</p>
 <h4>خطوة 5: الصفحة الرئيسية</h4>
 <p>انسخوا هاد الـ prompt، والصقوا تحته محتوى <code dir="ltr">drinks.html</code> كامل:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-20">نسخ</button></div><pre id="d4-it-team-20" dir="auto">هاد ملف drinks.html من موقع مطعمنا الإيطالي. بدي صفحة رئيسية index.html بنفس الـ header ونفس الـ footer بالضبط (انسخهم زي ما هم).
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-23">نسخ</button></div><pre id="d4-it-team-23" dir="auto">هاد ملف drinks.html من موقع مطعمنا الإيطالي. بدي صفحة رئيسية index.html بنفس الـ header ونفس الـ footer بالضبط (انسخهم زي ما هم).
 بالنص:
 1. hero فيه اسم المطعم وجملة ترحيب.
 2. 3 بطاقات: المأكولات (رابط food.html)، المشروبات (رابط drinks.html)، التقييم والتواصل (رابط contact.html).
@@ -1026,42 +1035,52 @@ drinks.html:</pre></div>
 <p>عادي إن الرئيسية تبين بدون تنسيق هلأ، وإن الـ Console يحكي إن <code dir="ltr">main.js</code> مش موجود: <code dir="ltr">style.css</code> بيطلع بخطوة 6، و <code dir="ltr">main.js</code> بخطوة 7.</p>
 <h4>خطوة 6: طلّعوا الـ CSS المشترك</h4>
 <div class="doc-note"><p>إذا الـ AI وقف بنص الملف، اكتبوا: «كمّل من وين وقفت». وإذا كتب «باقي الكود زي ما هو»، اكتبوا: «اعطيني الملف كامل بدون اختصار».</p></div>
-<p><strong>6أ. من </strong><strong><code dir="ltr">drinks.css</code></strong><strong>:</strong> انسخوا هاد الـ prompt، والصقوا تحته محتوى <code dir="ltr">css/drinks.css</code> كامل:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-21">نسخ</button></div><pre id="d4-it-team-21" dir="auto">بدي أرتب ملفات CSS لموقعي. الموقع فيه 4 صفحات، وكل صفحة إلها ملف CSS، والـ header والـ footer مكررين فيهم.
-تحت ملف drinks.css تبع صفحة المشروبات. قسّمه لملفين:
+<p><strong>6أ. الملف المشترك </strong><strong><code dir="ltr">style.css</code></strong><strong>:</strong> افتحوا شات جديد، وارفقوا ملفات الـ CSS (<code dir="ltr">drinks.css</code> و <code dir="ltr">food.css</code> و <code dir="ltr">contact.css</code> و <code dir="ltr">home.css</code>)، وانسخوا هاد الـ prompt:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-24">نسخ</button></div><pre id="d4-it-team-24" dir="auto">مرفق 4 ملفات CSS من موقعنا (مطعم إيطالي): drinks.css و food.css و contact.css و home.css. كل ملف تبع صفحة، وكل واحد فيه :root خاص فيه بأسماء متغيرات متشابهة وألوان قريبة من بعض.
+بهاد الرد بدي ملف style.css بس، وما بدي ملفات الصفحات هلأ.
 
-1. style.css فيه القواعد المشتركة بس، وهي:
-   - :root و *, *::before, *::after و body و a و img و button
-   - .material-symbols-outlined و .text-primary و .text-tertiary و .container و .main-content و .sep و .copyright
-   - كل قاعدة الـ selector تبعها بيبلش بـ: .site-header أو .header- أو .brand- أو .main-nav أو .nav-link أو .phone-pill أو .mobile-menu-btn أو .lang-btn
-   - كل قاعدة الـ selector تبعها بيبلش بـ: .site-footer أو .footer-
-2. drinks.css فيه كل القواعد الباقية.
+1. :root واحد بس:
+   - وحّد المتغيرات المتشابهة: إذا في متغيرين بيعملوا نفس الشغلة (لون أساسي، خلفية، نص، حدود...) حتى لو الاسم أو درجة اللون مختلفة شوي، خليهم متغير واحد باسم واضح، وقيمته من drinks.css.
+   - الهدف 8 لـ 12 متغير بالكثير.
+2. القواعد المشتركة كلها بـ style.css، مرة وحدة: * و *::before و *::after و body و a و img و button، و .material-symbols-outlined و .text-primary و .text-tertiary و .container و .main-content و .sep و .copyright، والـ header (.site-header و .header- و .brand- و .main-nav و .nav-link و .phone-pill و .mobile-menu-btn و .lang-btn)، والـ footer (.site-footer و .footer-)، و @media تبعهم.
+   - إذا القاعدة مختلفة شوي بين الملفات: خد نسخة drinks.css. الاختلافات البسيطة بتنحذف.
+   - كل var() جوا style.css لازم يستعمل الأسماء الجديدة بس.
+3. بعد الملف اعطيني جدول «خريطة المتغيرات»: كل متغير قديم من كل ملف ← المتغير الجديد اللي صار مكانه. هاد الجدول رح نستعمله بالخطوات الجاية.
 
-قواعد مهمة:
-- انقل كل قاعدة زي ما هي حرف بحرف. لا تعدّل ولا تحذف ولا تضيف أي قيمة.
-- إذا في @media فيها قواعد من النوعين، اعمل نفس الـ @media بالملفين، وكل قاعدة بملفها.
-- اعطيني الملفين كاملين بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه.
-
-drinks.css:</pre></div>
-<p>حطوا الناتج بـ <code dir="ltr">css/style.css</code> و <code dir="ltr">css/drinks.css</code>. بعدين بـ <code dir="ltr">food.html</code> و <code dir="ltr">drinks.html</code> و <code dir="ltr">contact.html</code> ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة (<code dir="ltr">index.html</code> بتكون رابطته أصلاً):</p>
-<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-it-team-22">نسخ</button></div><pre id="d4-it-team-22" dir="ltr">&lt;link rel="stylesheet" href="css/style.css"&gt;</pre></div>
-<p><strong>6ب. لـ </strong><strong><code dir="ltr">food.css</code></strong><strong> وبعدين </strong><strong><code dir="ltr">contact.css</code></strong><strong>:</strong> انسخوا هاد الـ prompt. المثال لـ food، ولـ contact غيّروا الاسم بس:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-23">نسخ</button></div><pre id="d4-it-team-23" dir="auto">تحت ملفين من موقعي: style.css (المشترك بين كل الصفحات) و food.css (تبع صفحة المأكولات).
-style.css بينربط بالصفحة قبل food.css.
-احذف من food.css كل قاعدة موجودة بـ style.css بنفس الـ selector وبنفس الخصائص والقيم بالضبط.
-إذا نفس الـ selector بس في أي قيمة مختلفة، خلّي القاعدة بـ food.css زي ما هي.
-لا تعدّل ولا تضيف أي اشي ثاني، ولا تلمس style.css.
-اعطيني food.css كامل بدون اختصار بـ code block واحد، وقلي بسطر كم قاعدة حذفت.
-
-style.css:
-(الصق style.css هون)
-
-food.css:
-(الصق food.css هون)</pre></div>
-<p>بعد كل صفحة: افتحوها وتأكدوا إن شكلها زي قبل.</p>
+اعطيني style.css كامل بدون اختصار بـ code block واحد، وبعده الجدول.</pre></div>
+<p>حطوا الناتج بـ <code dir="ltr">css/style.css</code>. بعدين بـ <code dir="ltr">food.html</code> و <code dir="ltr">drinks.html</code> و <code dir="ltr">contact.html</code> ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة (<code dir="ltr">index.html</code> بتكون رابطته أصلاً):</p>
+<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-it-team-25">نسخ</button></div><pre id="d4-it-team-25" dir="ltr">&lt;link rel="stylesheet" href="css/style.css"&gt;</pre></div>
+<p><strong>6ب. ملفات الصفحات، وحدة وحدة (بنفس الشات):</strong> انسخوا هاد الـ prompt لأول ملف:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-26">نسخ</button></div><pre id="d4-it-team-26" dir="auto">هلأ drinks.css. اعمله من drinks.css الأصلي اللي بعتتلك إياه، بهالشروط:
+- ممنوع يكون فيه :root، ولا * ولا html ولا body ولا a ولا img ولا button ولا scrollbar، ولا أي قاعدة من القواعد المشتركة اللي حطيتها بـ style.css. هدول كلهم بـ style.css وبس، حتى لو القيم هون مختلفة شوي.
+- كل var(--اسم-قديم) بدّله بالاسم الجديد حسب «خريطة المتغيرات».
+- إذا في لون مكتوب مباشرة (مثل #00e5ff) وهو نفس أو قريب من متغير بالـ :root، بدّله بـ var() تبع المتغير.
+- القواعد الخاصة بالصفحة خليها زي ما هي، وما تغيّر غير أسماء المتغيرات.
+اعطيني drinks.css كامل بدون اختصار بـ code block واحد. وبالآخر سطر: «فحص: ما في :root ولا body ولا header ولا footer بهاد الملف».</pre></div>
+<p>وللملفات الباقية بنفس الشات (<code dir="ltr">food.css</code>، بعدين <code dir="ltr">contact.css</code>، بعدين <code dir="ltr">home.css</code>)، غيّروا الاسم بس:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-27">نسخ</button></div><pre id="d4-it-team-27" dir="auto">نفس الشي لـ food.css.</pre></div>
+<p>بعد كل ملف: بدّلوه، وافتحوا الصفحة، وتأكدوا إن شكلها زي قبل (فرق بسيط بدرجة لون عادي). F12 ← Elements ← <code dir="ltr">&lt;html&gt;</code> ← Styles: لازم تشوفوا <code dir="ltr">:root</code> واحد بس، جاي من <code dir="ltr">style.css</code>. إذا اشي خرب، رجّعوا الملف القديم ونادوا حسام.</p>
+<p><strong>6ج. صلّحوا الـ classes بالصفحات (بنفس الشات، صفحة صفحة):</strong> ارفقوا الصفحة وملف الـ JS تبعها إذا موجود (<code dir="ltr">food.html</code> و <code dir="ltr">index.html</code> لسا ما إلهم JS)، وانسخوا:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-28">نسخ</button></div><pre id="d4-it-team-28" dir="auto">هلأ صار عندنا style.css وملف CSS لكل صفحة (اللي بعتتهم فوق). مرفق صفحة drinks.html وملف الـ JS تبعها drinks.js.
+بدي تفحص كل class بالـ HTML:
+- إذا الـ class موجود بـ style.css أو drinks.css: خليه زي ما هو.
+- إذا مش موجود بولا ملف، وفي class موجود بيعمل نفس الشغلة (مثلاً زر أو بطاقة أو عنوان بنفس الشكل): بدّله بالموجود.
+- إذا مش موجود وما في إشي مناسب: خليه زي ما هو، وحطه بالقائمة تحت.
+- وإذا في style="..." بالـ HTML أو بالـ JS فيه var(--اسم-قديم): بدّل الاسم حسب «خريطة المتغيرات».
+ممنوع:
+- تغيّر أي class أو id مستعمل بملف الـ JS (querySelector أو getElementById أو classList)، حتى لو مش موجود بالـ CSS، لأنه الـ JS بيعتمد عليه.
+- تغيّر النصوص أو الصور أو الروابط أو ترتيب العناصر.
+- تعدّل ملفات الـ CSS.
+اعطيني:
+1. جدول: الـ class القديم ← الجديد، وبأي عنصر.
+2. قائمة الـ classes اللي ما لقيتلها بديل.
+3. إذا تغيّر إشي: drinks.html كامل بدون اختصار بـ code block واحد. وإذا ما تغيّر ولا إشي: لا تبعت الكود، اكتب بس «ما في تغيير على drinks.html».</pre></div>
+<p>وللصفحات الباقية بنفس الشات (<code dir="ltr">food.html</code>، بعدين <code dir="ltr">contact.html</code>، بعدين <code dir="ltr">index.html</code>):</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-29">نسخ</button></div><pre id="d4-it-team-29" dir="auto">نفس الشي لـ food.html (ما إلها ملف JS).</pre></div>
+<p>إذا الـ AI حكى «ما في تغيير»، الصفحة بتضل زي ما هي. وإذا عطاكم كود: بدّلوا الصفحة، وافتحوها، وجربوا الميزات اللي فيها.</p>
 <h4>خطوة 7: الـ JS المشترك وملف المأكولات</h4>
 <p><strong>7أ. </strong><strong><code dir="ltr">main.js</code></strong><strong>:</strong> كود قائمة الجوال وزر اللغة مكرر بـ <code dir="ltr">drinks.js</code> و <code dir="ltr">contact.js</code>. انسخوا هاد الـ prompt:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-24">نسخ</button></div><pre id="d4-it-team-24" dir="auto">تحت ملفين من موقعي: drinks.js و contact.js. الاثنين فيهم نفس الكود لقائمة الجوال (mobileMenuBtn و mainNav) ولزر تبديل اللغة (langToggle).
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-30">نسخ</button></div><pre id="d4-it-team-30" dir="auto">تحت ملفين من موقعي: drinks.js و contact.js. الاثنين فيهم نفس الكود لقائمة الجوال (mobileMenuBtn و mainNav) ولزر تبديل اللغة (langToggle).
 بدي:
 1. ملف جديد js/main.js فيه هاد الكود المشترك بس، مرة وحدة، جوا DOMContentLoaded. كل جزء بيتأكد إن العنصر موجود قبل ما يستخدمه (if)، لأن main.js رح ينربط بكل الصفحات.
 2. drinks.js و contact.js بدون هاد الكود. باقي الكود ما بيتغير ولا سطر.
@@ -1075,7 +1094,7 @@ contact.js:
 (الصق هون)</pre></div>
 <p>بكل الصفحات الأربع، ضيفوا <code dir="ltr">&lt;script src="js/main.js"&gt;&lt;/script&gt;</code> <strong>قبل</strong> سطر ملف الصفحة.</p>
 <p><strong>7ب. </strong><strong><code dir="ltr">food.js</code></strong><strong>:</strong> صفحة المأكولات فيها أزرار بس ما إلها ملف JS. انسخوا هاد الـ prompt، والصقوا تحته <code dir="ltr">food.html</code> كامل:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-25">نسخ</button></div><pre id="d4-it-team-25" dir="auto">هاد ملف food.html (صفحة المأكولات بموقع مطعمنا). فيها عناصر تفاعلية بس ما إلها JavaScript. اكتبلي js/food.js بـ JavaScript عادي بيشغّل:
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-31">نسخ</button></div><pre id="d4-it-team-31" dir="auto">هاد ملف food.html (صفحة المأكولات بموقع مطعمنا). فيها عناصر تفاعلية بس ما إلها JavaScript. اكتبلي js/food.js بـ JavaScript عادي بيشغّل:
 1. أزرار الحجم (.size-pill) بكل صنف: لما ينكبس زر، بيصير active وبيتغيّر سعر نفس الصنف (العناصر اللي الـ id تبعها بيبلش بـ price-).
 2. صينية الطلب: إضافة أصناف، والعدد بـ #trayCount، والمجموع بـ #trayTotal، والصينية نفسها #stickyOrderTray، وزر التصفير #resetOrderBtn، وزر التأكيد #confirmOrderBtn (رسالة بس، ما في سيرفر).
 3. الإشعار #toastNotification مع النص #toastText.
@@ -1093,7 +1112,7 @@ food.html:</pre></div>
 <ul class="checklist"><li><label><input type="checkbox"> <span>القائمة بتودي على الصفحات الأربع، من كل صفحة.</span></label></li><li><label><input type="checkbox"> <span>F12 ← Console: ما في أحمر بولا صفحة.</span></label></li><li><label><input type="checkbox"> <span>زر القائمة عالجوال وزر اللغة شغالين بكل الصفحات.</span></label></li><li><label><input type="checkbox"> <span>السلة (مشروبات)، والأحجام والصينية (مأكولات)، والنجوم (تواصل) شغالين.</span></label></li><li><label><input type="checkbox"> <span>zip جديد لمجلد <code dir="ltr">it-team</code> على «ملفات فريقي».</span></label></li></ul>
 <h4>خطوة 9: تحسين</h4>
 <p><strong>المشروبات من بيانات JS.</strong> انسخوا هاد الـ prompt:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-26">نسخ</button></div><pre id="d4-it-team-26" dir="auto">بدي أحوّل بطاقات المشروبات (.drink-card) لبيانات بـ JavaScript. تحت شغلتين: drinks.html و drinks.js.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-it-team-32">نسخ</button></div><pre id="d4-it-team-32" dir="auto">بدي أحوّل بطاقات المشروبات (.drink-card) لبيانات بـ JavaScript. تحت شغلتين: drinks.html و drinks.js.
 المطلوب:
 1. ملف js/data.js فيه مصفوفة اسمها drinks. كل بطاقة = object فيه كل معلوماتها (الاسم بالعربي والإنجليزي، الوصف، الأسعار، الصورة، والقسم: بارد أو ساخن). خد القيم من البطاقات بالضبط.
 2. كل قسم إله شبكة .cards-grid. ضيف id لكل شبكة (cold-grid و hot-grid).
@@ -1117,7 +1136,7 @@ drinks.js:
 <p>اعملوا zip لمجلد <code dir="ltr">All folder</code> زي ما هو، وارفعوه على «ملفات فريقي».</p>
 <p><a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a></p>
 <h4>خطوة 2: الهيكل الجديد</h4>
-<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-technology-27">نسخ</button></div><pre id="d4-technology-27" dir="ltr">noqta-ai/
+<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-technology-33">نسخ</button></div><pre id="d4-technology-33" dir="ltr">noqta-ai/
 ├── index.html
 ├── category.html
 ├── compare.html
@@ -1139,46 +1158,55 @@ drinks.js:
 <p><strong>جرّبوا هلأ:</strong> افتحوا <code dir="ltr">index.html</code> وتنقلوا بين الصفحات الأربع، وجربوا البحث والفلترة بالرئيسية.</p>
 <h4>خطوة 5: طلّعوا الـ CSS المشترك</h4>
 <div class="doc-note"><p>إذا الـ AI وقف بنص الملف، اكتبوا: «كمّل من وين وقفت». وإذا كتب «باقي الكود زي ما هو»، اكتبوا: «اعطيني الملف كامل بدون اختصار».</p></div>
-<p><strong>5أ. من </strong><strong><code dir="ltr">home.css</code></strong><strong>:</strong> انسخوا هاد الـ prompt، والصقوا تحته محتوى <code dir="ltr">css/home.css</code> كامل:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-28">نسخ</button></div><pre id="d4-technology-28" dir="auto">بدي أرتب ملفات CSS لموقعي. الموقع فيه 4 صفحات، وكل صفحة إلها ملف CSS، والـ header والـ footer والخلفية مكررين فيهم.
-تحت ملف home.css تبع الصفحة الرئيسية. قسّمه لملفين:
+<p><strong>5أ. الملف المشترك </strong><strong><code dir="ltr">style.css</code></strong><strong>:</strong> افتحوا شات جديد، وارفقوا ملفات الـ CSS (<code dir="ltr">home.css</code> و <code dir="ltr">category.css</code> و <code dir="ltr">compare.css</code> و <code dir="ltr">about.css</code>)، وانسخوا هاد الـ prompt:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-34">نسخ</button></div><pre id="d4-technology-34" dir="auto">مرفق 4 ملفات CSS من موقعنا «نقطة AI»: home.css و category.css و compare.css و about.css. كل ملف تبع صفحة، وكل واحد فيه :root خاص فيه بأسماء متغيرات متشابهة وألوان قريبة من بعض.
+بهاد الرد بدي ملف style.css بس، وما بدي ملفات الصفحات هلأ.
 
-1. style.css فيه القواعد المشتركة بس، وهي:
-   - :root و * و body و a و ::-webkit-scrollbar
-   - .container و .main-content
-   - الخلفية: .bg-effects وكل قاعدة بتبلش بـ .orb، والـ @keyframes اللي بتستعملها
-   - كل قاعدة الـ selector تبعها بيبلش بـ: .site-header أو .header- أو .logo- أو .main-nav أو .nav-link
-   - كل قاعدة الـ selector تبعها بيبلش بـ: .site-footer أو .footer- أو .legal-links
-2. home.css فيه كل القواعد الباقية.
+1. :root واحد بس:
+   - وحّد المتغيرات المتشابهة: إذا في متغيرين بيعملوا نفس الشغلة (لون أساسي، خلفية، نص، حدود...) حتى لو الاسم أو درجة اللون مختلفة شوي، خليهم متغير واحد باسم واضح، وقيمته من home.css.
+   - الهدف 8 لـ 12 متغير بالكثير.
+2. القواعد المشتركة كلها بـ style.css، مرة وحدة: * و body و a و ::-webkit-scrollbar، و .container و .main-content، والخلفية (.bg-effects و .orb والـ @keyframes تبعها)، والـ header (.site-header و .header- و .logo- و .main-nav و .nav-link)، والـ footer (.site-footer و .footer- و .legal-links)، و @media تبعهم.
+   - إذا القاعدة مختلفة شوي بين الملفات: خد نسخة home.css. الاختلافات البسيطة بتنحذف.
+   - كل var() جوا style.css لازم يستعمل الأسماء الجديدة بس.
+3. بعد الملف اعطيني جدول «خريطة المتغيرات»: كل متغير قديم من كل ملف ← المتغير الجديد اللي صار مكانه. هاد الجدول رح نستعمله بالخطوات الجاية.
 
-قواعد مهمة:
-- انقل كل قاعدة زي ما هي حرف بحرف. لا تعدّل ولا تحذف ولا تضيف أي قيمة.
-- إذا في @media فيها قواعد من النوعين، اعمل نفس الـ @media بالملفين، وكل قاعدة بملفها.
-- اعطيني الملفين كاملين بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه.
-
-home.css:</pre></div>
-<p>حطوا الناتج بـ <code dir="ltr">css/style.css</code> و <code dir="ltr">css/home.css</code>. بعدين بالصفحات الأربع ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة:</p>
-<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-technology-29">نسخ</button></div><pre id="d4-technology-29" dir="ltr">&lt;link rel="stylesheet" href="css/style.css"&gt;</pre></div>
-<p><strong>5ب. لـ </strong><strong><code dir="ltr">category.css</code></strong><strong> و </strong><strong><code dir="ltr">compare.css</code></strong><strong> و </strong><strong><code dir="ltr">about.css</code></strong><strong>:</strong> انسخوا هاد الـ prompt. المثال لـ category، وللباقي غيّروا الاسم بس:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-30">نسخ</button></div><pre id="d4-technology-30" dir="auto">تحت ملفين من موقعي: style.css (المشترك بين كل الصفحات) و category.css (تبع صفحة التصنيفات).
-style.css بينربط بالصفحة قبل category.css.
-احذف من category.css كل قاعدة موجودة بـ style.css بنفس الـ selector وبنفس الخصائص والقيم بالضبط.
-إذا نفس الـ selector بس في أي قيمة مختلفة، خلّي القاعدة بـ category.css زي ما هي.
-لا تعدّل ولا تضيف أي اشي ثاني، ولا تلمس style.css.
-اعطيني category.css كامل بدون اختصار بـ code block واحد، وقلي بسطر كم قاعدة حذفت.
-
-style.css:
-(الصق style.css هون)
-
-category.css:
-(الصق category.css هون)</pre></div>
-<p>بعد كل صفحة: افتحوها وتأكدوا إن شكلها زي قبل.</p>
+اعطيني style.css كامل بدون اختصار بـ code block واحد، وبعده الجدول.</pre></div>
+<p>حطوا الناتج بـ <code dir="ltr">css/style.css</code>. بعدين بالصفحات الأربع ضيفوا هاد السطر <strong>قبل</strong> سطر ملف الصفحة:</p>
+<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-technology-35">نسخ</button></div><pre id="d4-technology-35" dir="ltr">&lt;link rel="stylesheet" href="css/style.css"&gt;</pre></div>
+<p><strong>5ب. ملفات الصفحات، وحدة وحدة (بنفس الشات):</strong> انسخوا هاد الـ prompt لأول ملف:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-36">نسخ</button></div><pre id="d4-technology-36" dir="auto">هلأ home.css. اعمله من home.css الأصلي اللي بعتتلك إياه، بهالشروط:
+- ممنوع يكون فيه :root، ولا * ولا html ولا body ولا a ولا img ولا button ولا scrollbar، ولا أي قاعدة من القواعد المشتركة اللي حطيتها بـ style.css. هدول كلهم بـ style.css وبس، حتى لو القيم هون مختلفة شوي.
+- كل var(--اسم-قديم) بدّله بالاسم الجديد حسب «خريطة المتغيرات».
+- إذا في لون مكتوب مباشرة (مثل #00e5ff) وهو نفس أو قريب من متغير بالـ :root، بدّله بـ var() تبع المتغير.
+- القواعد الخاصة بالصفحة خليها زي ما هي، وما تغيّر غير أسماء المتغيرات.
+اعطيني home.css كامل بدون اختصار بـ code block واحد. وبالآخر سطر: «فحص: ما في :root ولا body ولا header ولا footer بهاد الملف».</pre></div>
+<p>وللملفات الباقية بنفس الشات (<code dir="ltr">category.css</code>، بعدين <code dir="ltr">compare.css</code>، بعدين <code dir="ltr">about.css</code>)، غيّروا الاسم بس:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-37">نسخ</button></div><pre id="d4-technology-37" dir="auto">نفس الشي لـ category.css.</pre></div>
+<p>بعد كل ملف: بدّلوه، وافتحوا الصفحة، وتأكدوا إن شكلها زي قبل (فرق بسيط بدرجة لون عادي). F12 ← Elements ← <code dir="ltr">&lt;html&gt;</code> ← Styles: لازم تشوفوا <code dir="ltr">:root</code> واحد بس، جاي من <code dir="ltr">style.css</code>. إذا اشي خرب، رجّعوا الملف القديم ونادوا حسام.</p>
+<p><strong>5ج. صلّحوا الـ classes بالصفحات (بنفس الشات، صفحة صفحة):</strong> ارفقوا الصفحة وملف الـ JS تبعها، وانسخوا:</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-38">نسخ</button></div><pre id="d4-technology-38" dir="auto">هلأ صار عندنا style.css وملف CSS لكل صفحة (اللي بعتتهم فوق). مرفق صفحة index.html وملف الـ JS تبعها home.js.
+بدي تفحص كل class بالـ HTML:
+- إذا الـ class موجود بـ style.css أو home.css: خليه زي ما هو.
+- إذا مش موجود بولا ملف، وفي class موجود بيعمل نفس الشغلة (مثلاً زر أو بطاقة أو عنوان بنفس الشكل): بدّله بالموجود.
+- إذا مش موجود وما في إشي مناسب: خليه زي ما هو، وحطه بالقائمة تحت.
+- وإذا في style="..." بالـ HTML أو بالـ JS فيه var(--اسم-قديم) أو متغير زي --brand-glow: بدّل الاسم حسب «خريطة المتغيرات».
+ممنوع:
+- تغيّر أي class أو id مستعمل بملف الـ JS (querySelector أو getElementById أو classList)، حتى لو مش موجود بالـ CSS، لأنه الـ JS بيعتمد عليه.
+- تغيّر النصوص أو الصور أو الروابط أو ترتيب العناصر.
+- تعدّل ملفات الـ CSS.
+اعطيني:
+1. جدول: الـ class القديم ← الجديد، وبأي عنصر.
+2. قائمة الـ classes اللي ما لقيتلها بديل.
+3. إذا تغيّر إشي: index.html كامل بدون اختصار بـ code block واحد. وإذا ما تغيّر ولا إشي: لا تبعت الكود، اكتب بس «ما في تغيير على index.html».</pre></div>
+<p>وللصفحات الباقية بنفس الشات (<code dir="ltr">category.html</code>، بعدين <code dir="ltr">compare.html</code>، بعدين <code dir="ltr">about.html</code>):</p>
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-39">نسخ</button></div><pre id="d4-technology-39" dir="auto">نفس الشي لـ category.html، ومرفق category.js.</pre></div>
+<p>إذا الـ AI حكى «ما في تغيير»، الصفحة بتضل زي ما هي. وإذا عطاكم كود: بدّلوا الصفحة، وافتحوها، وجربوا الميزات اللي فيها.</p>
 <p><strong>الـ JS:</strong> كل صفحة إلها ميزات مختلفة، فما بنعمل <code dir="ltr">main.js</code> اليوم.</p>
 <h4>خطوة 6: افحصوا</h4>
 <ul class="checklist"><li><label><input type="checkbox"> <span>القائمة بتودي على الصفحات الأربع، من كل صفحة.</span></label></li><li><label><input type="checkbox"> <span>F12 ← Console: ما في أحمر بولا صفحة.</span></label></li><li><label><input type="checkbox"> <span>البحث والفلترة والمقارنة شغالين.</span></label></li><li><label><input type="checkbox"> <span>ما في ولا مجلد أو ملف فيه حرف كبير.</span></label></li><li><label><input type="checkbox"> <span>zip جديد لمجلد <code dir="ltr">noqta-ai</code> على «ملفات فريقي».</span></label></li></ul>
 <h4>خطوة 7: تحسين: الأدوات من بيانات JS</h4>
 <p>انسخوا هاد الـ prompt:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-31">نسخ</button></div><pre id="d4-technology-31" dir="auto">بدي أحوّل بطاقات الأدوات بالصفحة الرئيسية لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع الشبكة (من &lt;div class="tools-grid" id="tools-grid"&gt; لآخرها)، وملف home.js.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-40">نسخ</button></div><pre id="d4-technology-40" dir="auto">بدي أحوّل بطاقات الأدوات بالصفحة الرئيسية لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع الشبكة (من &lt;div class="tools-grid" id="tools-grid"&gt; لآخرها)، وملف home.js.
 المطلوب:
 1. ملف js/data.js فيه مصفوفة اسمها tools. كل بطاقة = object فيه كل معلوماتها (الاسم، الوصف، التصنيف data-category، لون --brand-glow، الصورة، السعر، الرابط، وأي معلومة ثانية بالبطاقة). خد القيم من البطاقات بالضبط.
 2. بـ home.js: function اسمها renderTools بترسم البطاقات جوا #tools-grid بنفس الـ HTML والـ classes والـ data-* والـ style بالضبط. لازم تنادى قبل سطر document.querySelectorAll('.tool-card')، عشان البحث والفلترة والمقارنة يضلوا شغالين.
@@ -1194,7 +1222,7 @@ home.js:
 <p>بـ <code dir="ltr">index.html</code> الترتيب بآخر الـ body: <code dir="ltr">js/data.js</code> بعدين <code dir="ltr">js/home.js</code>.</p>
 <h4>خطوة 8: صفحة الأداة (آخر شي، إذا ضل وقت)</h4>
 <p><code dir="ltr">tool.html</code> لسا مكتوبة بـ Tailwind، و Tailwind ممنوع. ما تربطوها بالقائمة قبل ما تخلص. انسخوا هاد الـ prompt، وارفقوا صورة شاشة صفحة ChatGPT من Stitch:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-32">نسخ</button></div><pre id="d4-technology-32" dir="auto">هاي صورة تصميم صفحة تفاصيل أداة (ChatGPT) بموقعنا «نقطة AI». ابنيها بـ HTML و CSS عادي، بدون Tailwind وبدون أي مكتبة.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-technology-41">نسخ</button></div><pre id="d4-technology-41" dir="auto">هاي صورة تصميم صفحة تفاصيل أداة (ChatGPT) بموقعنا «نقطة AI». ابنيها بـ HTML و CSS عادي، بدون Tailwind وبدون أي مكتبة.
 هاد ملف style.css المشترك عندنا (فيه الألوان والـ header والـ footer)، وتحته الـ header والـ footer من صفحة compare.html.
 الشروط:
 - استخدم نفس الـ header والـ footer بالضبط، ونفس المتغيرات والـ classes اللي بـ style.css.
@@ -1218,7 +1246,7 @@ style.css:
 <p>اعملوا zip لمجلد <code dir="ltr">reders.1</code> زي ما هو، وارفعوه على «ملفات فريقي».</p>
 <p><a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a></p>
 <h4>خطوة 2: الهيكل الجديد</h4>
-<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-afaq-33">نسخ</button></div><pre id="d4-afaq-33" dir="ltr">afaq/
+<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-afaq-42">نسخ</button></div><pre id="d4-afaq-42" dir="ltr">afaq/
 ├── index.html      ← البداية (hero)
 ├── quiz.html       ← اختبار الذائقة والنتيجة
 ├── library.html    ← المكتبة والفلاتر
@@ -1232,7 +1260,7 @@ style.css:
 └── images/</pre></div>
 <h4>خطوة 3: قسّموا الصفحة مع الـ AI</h4>
 <p>انسخوا هاد الـ prompt، والصقوا تحته محتوى <code dir="ltr">indx.html</code> كامل:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-afaq-34">نسخ</button></div><pre id="d4-afaq-34" dir="auto">هاد ملف indx.html لموقعنا «آفاق». كله بصفحة وحدة، والـ CSS جوا &lt;style&gt; والـ JavaScript جوا &lt;script&gt;.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-afaq-43">نسخ</button></div><pre id="d4-afaq-43" dir="auto">هاد ملف indx.html لموقعنا «آفاق». كله بصفحة وحدة، والـ CSS جوا &lt;style&gt; والـ JavaScript جوا &lt;script&gt;.
 بدي تقسمه لموقع من 4 صفحات، بنفس الشكل والوظائف بالضبط:
 - index.html: الـ hero (section class="hero")
 - quiz.html: اختبار الذائقة والنتيجة (section id="quiz")
@@ -1264,7 +1292,7 @@ indx.html:</pre></div>
 <ul class="checklist"><li><label><input type="checkbox"> <span>القائمة بتودي على الصفحات الأربع، من كل صفحة.</span></label></li><li><label><input type="checkbox"> <span>F12 ← Console: ما في أحمر بولا صفحة.</span></label></li><li><label><input type="checkbox"> <span>الاختبار بيطلّع نتيجة، والمكتبة بتفلتر، والاقتراح بينحفظ بعد الـ refresh.</span></label></li><li><label><input type="checkbox"> <span>الشكل زي ما كان بالصفحة الوحدة.</span></label></li><li><label><input type="checkbox"> <span>zip جديد لمجلد <code dir="ltr">afaq</code> على «ملفات فريقي».</span></label></li></ul>
 <h4>خطوة 6: تحسين</h4>
 <p><strong>افهموا الـ loop اللي عندكم:</strong> المكتبة مرسومة من <code dir="ltr">data.js</code> أصلاً، وهاد بالضبط اللي بنشرحه اليوم. اسألوا الـ AI:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-afaq-35">نسخ</button></div><pre id="d4-afaq-35" dir="auto">هاد ملف library.js من موقعنا. اشرحلي function اسمها renderBooks سطر سطر بالعربي البسيط، كأني أول مرة بشوف JavaScript: وين بتمسك العنصر، وكيف الـ loop بيمرق على الكتب، وشو بتغيّر بالصفحة. وبالآخر اسألني سؤال واحد عشان أتأكد إني فهمت.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-afaq-44">نسخ</button></div><pre id="d4-afaq-44" dir="auto">هاد ملف library.js من موقعنا. اشرحلي function اسمها renderBooks سطر سطر بالعربي البسيط، كأني أول مرة بشوف JavaScript: وين بتمسك العنصر، وكيف الـ loop بيمرق على الكتب، وشو بتغيّر بالصفحة. وبالآخر اسألني سؤال واحد عشان أتأكد إني فهمت.
 
 library.js:
 (الصق هون)</pre></div>
@@ -1276,7 +1304,7 @@ library.js:
 <p>الهدف اليوم: موقع «وازن» فيه على الأقل صفحتين شغالين ومربوطين ببعض: <strong>إعداد الميزانية</strong> و<strong>لوحة التحكم</strong>. بالملفات اللي وصلت ما في بناء من اليوم 3.</p>
 <h4>خطوة 1: الهيكل</h4>
 <p>اعملوا مجلد <code dir="ltr">wazen</code> وجواه <code dir="ltr">css</code> و <code dir="ltr">js</code> و <code dir="ltr">images</code>:</p>
-<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-the-sun-36">نسخ</button></div><pre id="d4-the-sun-36" dir="ltr">wazen/
+<div class="code-block tree"><div class="code-head"><span>المجلدات</span><button class="copy-btn" data-target="d4-the-sun-45">نسخ</button></div><pre id="d4-the-sun-45" dir="ltr">wazen/
 ├── index.html       ← البداية (بعدين)
 ├── setup.html       ← إعداد الميزانية (اليوم)
 ├── dashboard.html   ← لوحة التحكم (اليوم)
@@ -1288,11 +1316,11 @@ library.js:
 │   ├── setup.js, dashboard.js
 └── images/</pre></div>
 <p><strong>البيانات عندكم مش بـ </strong><strong><code dir="ltr">data.js</code></strong><strong>:</strong> المستخدم هو اللي بيدخلها، فبتنحفظ بـ <code dir="ltr">localStorage</code>. المهم إن كل الصفحات تستعمل <strong>نفس المفتاح ونفس الشكل</strong>:</p>
-<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-the-sun-37">نسخ</button></div><pre id="d4-the-sun-37" dir="ltr">// المفتاح: wazen
+<div class="code-block"><div class="code-head"><span>كود</span><button class="copy-btn" data-target="d4-the-sun-46">نسخ</button></div><pre id="d4-the-sun-46" dir="ltr">// المفتاح: wazen
 { income: 500, categories: [ { name: "أكل", cap: 150, spent: 40 } ] }</pre></div>
 <h4>خطوة 2: صفحة الإعداد مع الملف المشترك</h4>
 <p>انسخوا هاد الـ prompt، وارفقوا معه صورة شاشة «إعداد الميزانية الشهرية في دقيقة» من Stitch، وملف <code dir="ltr">DESIGN.md</code>:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-the-sun-38">نسخ</button></div><pre id="d4-the-sun-38" dir="auto">احنا فريق the sun، بنبني موقع «وازن» لإدارة الميزانية الشخصية بـ HTML و CSS و JavaScript عادي، بدون Tailwind وبدون أي مكتبة. الموقع عربي RTL.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-the-sun-47">نسخ</button></div><pre id="d4-the-sun-47" dir="auto">احنا فريق the sun، بنبني موقع «وازن» لإدارة الميزانية الشخصية بـ HTML و CSS و JavaScript عادي، بدون Tailwind وبدون أي مكتبة. الموقع عربي RTL.
 مرفق صورة صفحة «إعداد الميزانية» من التصميم، وملف DESIGN.md: خد منه الألوان والخطوط بس.
 بدي 4 ملفات:
 1. css/style.css: المشترك بين كل الصفحات: :root فيه 6 لـ 8 ألوان بس من DESIGN.md، و body، و header فيه اسم الموقع وقائمة روابط (index.html و setup.html و dashboard.html و reports.html و settings.html)، و footer، وأزرار .btn، وبطاقات .card، و @media للجوال.
@@ -1303,7 +1331,7 @@ library.js:
 <p><strong>جرّبوا:</strong> افتحوا <code dir="ltr">setup.html</code>، عبّوا الدخل وبندين، واحفظوا. بعدين F12 ← Application ← Local Storage: لازم تشوفوا المفتاح <code dir="ltr">wazen</code>.</p>
 <h4>خطوة 3: لوحة التحكم</h4>
 <p>انسخوا هاد الـ prompt، وارفقوا صورة شاشة «توزيع أسقف البنود» من Stitch:</p>
-<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-the-sun-39">نسخ</button></div><pre id="d4-the-sun-39" dir="auto">هاي صورة صفحة «لوحة التحكم» بموقعنا «وازن». تحت ملف style.css المشترك، والـ header والـ footer من صفحة setup.html.
+<div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d4-the-sun-48">نسخ</button></div><pre id="d4-the-sun-48" dir="auto">هاي صورة صفحة «لوحة التحكم» بموقعنا «وازن». تحت ملف style.css المشترك، والـ header والـ footer من صفحة setup.html.
 بدي dashboard.html و css/dashboard.css و js/dashboard.js بـ HTML و CSS و JavaScript عادي، بدون Tailwind:
 - الصفحة زي الصورة، بنفس الـ header والـ footer بالضبط، وبتستخدم المتغيرات والـ classes اللي بـ style.css. بتربط css/style.css وبعده css/dashboard.css.
 - dashboard.js بيقرأ البيانات من localStorage (المفتاح wazen، والشكل: { income, categories: [ { name, cap, spent } ] }) وبيرسم بـ loop بطاقة لكل بند: الاسم، والسقف، والمصروف، وشريط تقدم.
