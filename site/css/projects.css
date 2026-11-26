@@ -86,14 +86,15 @@
 .coming-soon p:first-of-type { color: var(--secondary); font-weight: 700; font-size: 24px; }
 .filter-bar[hidden], .coming-soon[hidden] { display: none; }
 
-/* ===== اليوم 5: فريق فريق + بطاقات اليوم 1 ===== */
-.projects-grid { display: block; }
-.team-block { margin-bottom: 36px; }
+/* ===== اليوم 5: فريقين جنب بعض، العنوان فوق البطاقة مباشرة ===== */
+.projects-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; align-items: start; }
+.team-block { display: flex; flex-direction: column; background: var(--card); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
 .team-block.hidden { display: none; }
-.team-block .project-card { max-width: 520px; }
-.member-cards { margin-top: 14px; max-width: 760px; }
-.member-card { margin: 0; background: #fff; border: 1px solid #DDE3E9; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
-.member-card iframe { width: 100%; height: 600px; border: 0; display: block; background: #fff; }
-.member-card figcaption { padding: 10px 14px; border-top: 1px solid #DDE3E9; text-align: center; }
-.member-project { display: inline-block; }
-@media (max-width: 600px) { .member-cards { grid-template-columns: 1fr; } .member-card iframe { height: 480px; } }
+.team-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid #E3E8ED; }
+.team-head h3 { margin: 0; }
+.team-head .project-team { margin: 2px 0 0; }
+.team-head .project-link, .team-head .badge-soon { margin: 0; flex: none; }
+.team-frame iframe { display: block; width: 100%; height: 640px; border: 0; background: #fff; }
+.card-soon { height: 640px; display: grid; place-items: center; color: var(--muted, #6b6b6b); background: #F6F8FA; font-weight: 600; }
+@media (max-width: 860px) { .projects-grid { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .team-frame iframe, .card-soon { height: 560px; } .team-head { flex-wrap: wrap; } }

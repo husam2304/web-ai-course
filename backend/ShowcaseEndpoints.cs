@@ -115,10 +115,11 @@ public static class ShowcaseEndpoints
         });
     }
 
-    /// <summary>Team HTML runs in an opaque origin: scripts allowed, no access to this API's origin, links open in new tabs.</summary>
+    /// <summary>The card works fully (scripts, localStorage, forms, alerts, new tabs). It runs on the API origin, never the site's,
+    /// so it cannot reach the admin page; the API uses a header key, not cookies.</summary>
     private static void SetSandboxHeaders(HttpContext http)
     {
-        http.Response.Headers["Content-Security-Policy"] = "sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox";
+        http.Response.Headers["Content-Security-Policy"] = "sandbox allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox";
         http.Response.Headers["X-Content-Type-Options"] = "nosniff";
         http.Response.Headers["Cache-Control"] = "public, max-age=300";
     }

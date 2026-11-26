@@ -38,35 +38,31 @@ function safeUrl(url) {
   return /^https?:\/\//i.test(url || '') ? url : '';
 }
 
+const SANDBOX = 'allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox';
+
+// كل فريق: العنوان فوق، وبطاقته تحته مباشرة
 function renderTeam(team) {
   const project = projectFor(team.name);
   const link = safeUrl(team.projectUrl);
-  const block = document.createElement('section');
+  const block = document.createElement('article');
   block.className = 'team-block';
   block.dataset.type = project.type;
 
-  let bottom = '<span class="badge-soon">قريباً</span>';
-  if (link) bottom = '<a class="project-link" href="' + esc(link) + '" target="_blank" rel="noopener">زيارة الموقع ←</a>';
+  const visit = link
+    ? '<a class="project-link" href="' + esc(link) + '" target="_blank" rel="noopener">زيارة الموقع ←</a>'
+    : '<span class="badge-soon">قريباً</span>';
 
-  let html =
-    '<article class="project-card">' +
-      '<span class="project-type">' + esc(project.typeLabel) + '</span>' +
-      '<h3>' + esc(project.name) + '</h3>' +
-      '<p class="project-team">فريق ' + esc(team.name) + '</p>' +
-      bottom +
-    '</article>';
+  const frame = team.hasCard
+    ? '<iframe src="' + API_URL + '/api/showcase/cards/' + team.id + '?v=' + team.v + '" title="بطاقة فريق ' + esc(team.name) + '" loading="lazy" sandbox="' + SANDBOX + '"></iframe>'
+    : '<div class="card-soon">بطاقة الفريق قريباً</div>';
 
-  // بطاقة الفريق: زي ما هي، جوا إطار معزول (sandbox)
-  if (team.hasCard) {
-    const mine = link
-      ? '<a class="btn member-project" href="' + esc(link) + '" target="_blank" rel="noopener">مشروعنا ←</a>'
-      : '<span class="badge-soon">مشروعنا: قريباً</span>';
-    html += '<div class="member-cards"><figure class="member-card">' +
-      '<iframe src="' + API_URL + '/api/showcase/cards/' + team.id + '?v=' + team.v + '" title="بطاقة فريق ' + esc(team.name) + '" loading="lazy" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>' +
-      '<figcaption>' + mine + '</figcaption>' +
-    '</figure></div>';
-  }
-  block.innerHTML = html;
+  block.innerHTML =
+    '<header class="team-head">' +
+      '<div><h3>' + esc(project.name) + '</h3>' +
+      '<p class="project-team">فريق ' + esc(team.name) + ' · <span class="project-type">' + esc(project.typeLabel) + '</span></p></div>' +
+      visit +
+    '</header>' +
+    '<div class="team-frame">' + frame + '</div>';
   grid.appendChild(block);
 }
 
