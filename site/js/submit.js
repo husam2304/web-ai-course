@@ -67,6 +67,18 @@ const FORMS = {
       { id: 'extra', key: 'شغل إضافي', label: 'شغل إضافي (اختياري)', hint: 'عملت موقع جانبي أو اشتغلت لحالك زيادة عن شغل الفريق؟ احكي شو عملت، وحط رابط إذا في', type: 'textarea', rows: 4, required: false, showIf: { kind: 0 } },
       { id: 'extraFile', label: 'ملف الشغل الإضافي', hint: 'اختياري. ZIP أو صور', type: 'file', required: false, showIf: { kind: 0 } }
     ]
+  },
+  5: {
+    title: 'تسليم اليوم الخامس: النشر',
+    note: 'رابط الموقع للفريق: أي حد من الفريق بيبعته، مرة وحدة بكفي. وكل واحد بيجاوب السؤال باسمه.',
+    fields: [
+      { id: 'teamId', label: 'فريقك', type: 'team', required: true },
+      { id: 'traineeId', label: 'اسمك', type: 'trainee', required: true },
+      { id: 'siteUrl', key: 'رابط الموقع', label: 'رابط الموقع المنشور (للفريق)', hint: 'مثلاً https://caffeon-aqaba.netlify.app. إذا زميلك بعته، اتركه فاضي', type: 'url', required: false },
+      { id: 'answer', key: 'الجواب', label: 'شو أكثر اشي تعلمته بالدورة، وشو رح تبني بعدها؟', type: 'textarea', rows: 8, required: true },
+      { id: 'extra', key: 'شغل إضافي', label: 'شغل إضافي (اختياري)', hint: 'عملت موقع جانبي أو اشتغلت لحالك زيادة عن شغل الفريق؟ احكي شو عملت، وحط رابط إذا في', type: 'textarea', rows: 4, required: false },
+      { id: 'extraFile', label: 'ملف الشغل الإضافي', hint: 'اختياري. ZIP أو صور', type: 'file', required: false }
+    ]
   }
 };
 
@@ -155,6 +167,8 @@ function renderForm(day) {
         input = '<textarea id="' + field.id + '" rows="' + (field.rows || 4) + '" dir="auto"></textarea>';
       } else if (field.type === 'file') {
         input = '<input type="file" id="' + field.id + '" accept="' + ALLOWED + '">';
+      } else if (field.type === 'url') {
+        input = '<input type="url" id="' + field.id + '" dir="ltr" inputmode="url" placeholder="https://">';
       } else {
         input = '<input type="text" id="' + field.id + '"' + (field.inputmode ? ' inputmode="' + field.inputmode + '"' : '') + '>';
       }
@@ -285,6 +299,10 @@ function validate(config) {
       const file = document.querySelector('#' + field.id).files[0];
       if (isRequired(field) && !file) error = 'ارفع الملف.';
       else if (file && file.size > MAX_FILE_MB * 1024 * 1024) error = 'الملف أكبر من ' + MAX_FILE_MB + 'MB.';
+    } else if (field.type === 'url') {
+      const value = document.querySelector('#' + field.id).value.trim();
+      if (field.required && !value) error = 'هاد الحقل مطلوب.';
+      else if (value && !/^https?:\/\/[^\s.]+\.[^\s]+$/i.test(value)) error = 'الرابط لازم يبلش بـ https:// (انسخه من شريط العنوان).';
     } else {
       const value = document.querySelector('#' + field.id).value.trim();
       if (field.required && value.length < 2) error = 'هاد الحقل مطلوب.';
@@ -412,15 +430,27 @@ async function start() {
   }
   // نفتح آخر يوم إله فورم. submit.html#backup بيفتح النسخة الاحتياطية مباشرة
   renderForm(Math.max.apply(null, Object.keys(FORMS).map(Number)));
-  if (location.hash === '#backup') selectBackup();
+  if (location.hash === '#backup') openBackup();
 }
 
 window.addEventListener('hashchange', function () {
-  if (location.hash !== '#backup') return;
-  const last = Math.max.apply(null, Object.keys(FORMS).map(Number));
-  if (currentDay !== last) renderForm(last);
-  selectBackup();
+  if (location.hash === '#backup') openBackup();
 });
+
+// آخر يوم فورمه فيه خيار «نسخة احتياطية»
+function backupDay() {
+  const days = Object.keys(FORMS).map(Number).filter(function (d) {
+    return FORMS[d].fields.some(function (f) { return f.id === 'kind'; });
+  });
+  return days.length ? Math.max.apply(null, days) : null;
+}
+
+function openBackup() {
+  const day = backupDay();
+  if (day === null) return;
+  if (currentDay !== day) renderForm(day);
+  selectBackup();
+}
 
 function selectBackup() {
   const input = form.querySelector('input[name="kind"][value="1"]');
