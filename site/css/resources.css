@@ -233,3 +233,7 @@ ol.steps li { margin: 8px 0; }
 .talk { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; align-items: baseline; }
 .talk b { color: var(--primary); white-space: nowrap; }
 @media (max-width: 600px) { .talk { grid-template-columns: 1fr; } }
+.task-steps { margin: 8px 0 4px; padding-inline-start: 1.4em; }
+.task-steps li { margin: 6px 0; line-height: 1.9; }
+.task-steps code { white-space: normal; overflow-wrap: anywhere; }
+.res-card code.code-line { display: block; width: fit-content; max-width: 100%; margin: 6px 0; white-space: pre-wrap; overflow-wrap: anywhere; text-align: left; }

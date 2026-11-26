@@ -10,12 +10,15 @@ def esc(s):
     return html.escape(s, quote=False)
 
 # Latin "code-ish" tokens inside Arabic sentences get an isolated LTR <code> (same text, no rewording)
-TOKEN = re.compile(r"(?<![\w.#])((?:[#.][A-Za-z][\w-]*|[A-Za-z0-9_'*-]+)(?:[./?=+][A-Za-z0-9_#'*-]+)+|[#.][A-Za-z][\w-]*|\?[A-Za-z]\w*=)")
+TOKEN = re.compile(r"(\.[\w-]+\s*\{[^{}]*\}|</?[A-Za-z][^<>]*>|\b[\w-]+=\"[^\"]*\")|(?<![\w.#])((?:[#.][A-Za-z][\w-]*|[A-Za-z0-9_'*-]+)(?:[./?=+][A-Za-z0-9_#'*-]+)+|[#.][A-Za-z][\w-]*|\?[A-Za-z]\w*=)")
 def iso(text):
     out, pos = [], 0
     for m in TOKEN.finditer(text):
         out.append(esc(text[pos:m.start()]))
-        out.append(f'<code dir="ltr">{esc(m.group(1))}</code>')
+        tok = m.group(1) or m.group(2)
+        # كود طويل (tag أو قاعدة CSS) بسطر لحاله عشان ما يلتف ويتلخبط مع العربي
+        cls = ' class="code-line"' if len(tok) > 28 else ""
+        out.append(f'<code{cls} dir="ltr">{esc(tok)}</code>')
         pos = m.end()
     out.append(esc(text[pos:]))
     return "".join(out)
@@ -74,7 +77,8 @@ def build():
         for i, k in enumerate(t["tasks"]):
             tag = '<span class="must-tag">ضروري</span>' if k.get("must") else ""
             p = prompt_block(k["p"], f"d5-{t['id']}") if k.get("p") else ""
-            tasks.append(f'<div class="task{" must" if k.get("must") else ""}"><h4>{i + 1}. {iso(k["t"])}{tag}</h4><p>{iso(k["d"])}</p>{p}</div>')
+            steps = ('<ol class="task-steps">' + "".join(f"<li>{iso(st)}</li>" for st in k["steps"]) + "</ol>") if k.get("steps") else ""
+            tasks.append(f'<div class="task{" must" if k.get("must") else ""}"><h4>{i + 1}. {iso(k["t"])}{tag}</h4><p>{iso(k["d"])}</p>{steps}{p}</div>')
         body = f'<details class="acc"><summary>افتح المهام</summary><div class="acc-body">\n<p class="state">{iso(t["state"])}</p>\n' + "\n".join(tasks) + "\n</div></details>"
         cards.append(locked(f"d5-team-{t['id']}", f"مهام فريق {t['name']}", "مهام فريقكم", body, "res-card team-sheet"))
     return f'''

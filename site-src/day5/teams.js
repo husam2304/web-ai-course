@@ -14,12 +14,61 @@ const OVER=(page,css)=>`صفحة ${page} بموقعي، على عرض جوال 3
 ${css}:
 (الصق هون)`;
 const teams=[
-{id:"ai",name:"AI",state:"موقعكم شغال: 4 صفحات، والفلترة والسلة بالمنيو. اليوم: البيانات بـ JS، وتصليحات صغيرة.",tasks:[
- {must:1,t:"المنيو من بيانات JS",d:"البطاقات الـ 14 بـ menu.html مكتوبة بالـ HTML. بدنا ياها من مصفوفة بـ data.js.",p:DATA("بطاقات المنيو","menuItems","title, price, category, badge, description, meta, image","menu.js","#menu-grid",".menu-card وأزرار الإضافة","\n   وبـ menu.html: <script src=\"js/data.js\"><\/script> قبل js/menu.js.")},
+{id:"ai",name:"AI",state:"موقعكم شغال: 4 صفحات، والفلترة بالمنيو، والطلب على واتساب. بس السلة مخبّاية بآخر المنيو وبتفضى لما تطلعوا من الصفحة، وأزرار الرئيسية مش مربوطة فيها. اليوم: صفحة سلة حقيقية بتتذكر الطلب بكل الصفحات.",tasks:[
+ {must:1,t:"صفحة السلة cart.html",d:"بننقل قسم السلة من menu.html لصفحة لحالها. انسخوا الـ prompt، والصقوا menu.html و menu.css.",p:`بدي أعمل صفحة سلة لموقعنا CAFFEON. تحت ملفين: menu.html كامل، و menu.css.
+المطلوب:
+1. cart.html جديدة: نفس الـ head (بس بتربط css/style.css وبعده css/cart.css)، ونفس الـ header والـ footer بالضبط، وبالنص قسم السلة اللي بـ menu.html (من <section id="cart-section"> لآخره) زي ما هو، مع عنوان صغير فوقه «Your Cart».
+2. css/cart.css: كل قواعد الـ CSS اللي بـ menu.css تبع قسم السلة (أي selector فيه cart أو checkout أو order-notes أو subtotal أو total أو summary)، منقولة زي ما هي، ومع الـ @media تبعها. وإذا في عنصر toast بالصفحة، قواعده كمان.
+3. بآخر الـ body تبع cart.html: <script src="js/cart.js"><\/script> بس (رح نكتبه بالخطوة الجاية).
+لا تغيّر ولا قاعدة ولا class ولا id. اعطيني cart.html و cart.css كاملين بدون اختصار، كل واحد بـ code block وفوقه اسمه.
+
+menu.html:
+(الصق هون)
+
+menu.css:
+(الصق هون)`},
+ {must:1,t:"شيلوا السلة من المنيو، ووحّدوا زر السلة فوق",d:"يدوي، بالمحرر. هيك زر السلة بيصير رابط لصفحة السلة بكل الصفحات، والعدد إله نفس الـ id بكل مكان.",steps:[
+   "بـ menu.html: احذفوا من <section id=\"cart-section\"> لحد </section> تبعه (صار بـ cart.html).",
+   "بـ menu.html: بدّلوا <button type=\"button\" id=\"nav-cart-btn\" class=\"cart-btn\" aria-label=\"Cart\"> بـ <a href=\"cart.html\" id=\"cart-btn\" class=\"cart-btn\" aria-label=\"Cart\">، و </button> اللي بعده بسطرين بـ </a>، و id=\"nav-cart-badge\" بـ id=\"cart-count\".",
+   "بـ index.html و workspace.html و about.html: بدّلوا <button type=\"button\" id=\"cart-btn\" class=\"cart-btn\" aria-label=\"Cart\"> بـ <a href=\"cart.html\" id=\"cart-btn\" class=\"cart-btn\" aria-label=\"Cart\">، و </button> اللي بعده بسطرين بـ </a>.",
+   "بالصفحات الأربع: ضيفوا <script src=\"js/cart.js\"><\/script> آخر الـ body، قبل سطر ملف الصفحة.",
+   "إذا طلع خط تحت أيقونة السلة أو تغيّر لونها: بـ css/style.css ضيفوا .cart-btn { text-decoration: none; color: inherit; }",
+   "ضيفوا cart.html للقائمة (nav) إذا بدكم، أو خلّوها بزر السلة بس."
+ ]},
+ {must:1,t:"cart.js: سلة مشتركة بتتذكر",d:"هون بتطبقوا localStorage و JSON من شرح اليوم. انسخوا الـ prompt، والصقوا menu.js.",p:`تحت ملف menu.js من موقعنا CAFFEON. فيه سلة بالذاكرة (const cart = []) مع addToCart و changeQuantity و removeFromCart و renderCart و checkoutWhatsApp.
+بدي أنقل السلة لملف مشترك js/cart.js مربوط بكل صفحات الموقع (قبل ملف الصفحة)، والسلة تنحفظ بـ localStorage تحت مفتاح اسمه caffeon-cart، بنفس شكل العناصر الحالي ({ title, price, category, quantity }).
+cart.js لازم فيه:
+1. getCart() و saveCart(cart) بـ JSON.parse و JSON.stringify.
+2. addToCart(title, price, categoryName): إذا المنتج موجود بتزيد الكمية، وإلا بتضيفه. بتحفظ، وبتحدّث العدد، وبتطلّع إشعار.
+3. updateCartBadge(): بتحط مجموع الكميات بالعنصر #cart-count بأي صفحة.
+4. للإشعار: function اسمها showCartToast بتعمل إشعار بسيط لحالها (ما بتعتمد على عناصر الصفحة).
+5. addToCart و updateCartBadge لازم يكونوا global (برا DOMContentLoaded) عشان menu.js و home.js يستعملوهم.
+6. جوا DOMContentLoaded: updateCartBadge() بكل صفحة. وإذا الصفحة فيها #cart-section (يعني cart.html): بترسم السلة بنفس الـ HTML اللي بـ renderCart بالضبط، مع + و − والحذف والمجموع والملاحظات، وزر الطلب على واتساب بنفس checkoutWhatsApp.
+7. كل عنصر بيتأكد إنه موجود قبل الاستخدام (if)، لأن الملف مربوط بكل الصفحات.
+وبعدين menu.js: شيل منه كل كود السلة (المتغيرات والـ functions تبعها)، وخلي أزرار «Add to Cart» تنادي addToCart من cart.js بنفس القيم. الفلترة والـ toast تبع المنيو والباقي ما بيتغيروا ولا سطر.
+اعطيني cart.js و menu.js كاملين بدون اختصار، كل واحد بـ code block وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر كيف السلة بتضل لما أنتقل بين الصفحات.
+
+menu.js:
+(الصق هون)`},
+ {must:1,t:"أزرار الرئيسية بتضيف للسلة",d:"الصقوا home.js، وبطاقات المنتجات الأربعة من الرئيسية (فيها add-cart-btn)، ونفس المنتجات من menu.html (دوّروا عليها بـ Ctrl+F) عشان السعر.",p:`عندنا هلأ ملف مشترك js/cart.js فيه addToCart(title, price, categoryName) و updateCartBadge().
+تحت 3 أشياء: home.js، وبطاقات المنتجات الأربعة من index.html (أزرارها class="add-cart-btn" و data-item)، ونفس المنتجات من menu.html (فيها السعر والقسم).
+بدي:
+1. بالـ HTML: ضيف لكل زر من الأربعة data-price و data-category، والقيم من بطاقات menu.html بالضبط. اعطيني أسطر الأزرار الأربعة بعد التعديل.
+2. home.js: شيل العداد القديم (cartCount و cartCountEl و cartBtn وكود الإضافة تبعه)، وخلي الأزرار تنادي addToCart من cart.js بالاسم والسعر والقسم.
+3. باقي home.js ما بيتغيّر ولا سطر.
+اعطيني home.js كامل بدون اختصار.
+
+home.js:
+(الصق هون)
+
+البطاقات من index.html:
+(الصق هون)
+
+نفس المنتجات من menu.html:
+(الصق هون)`},
+ {must:1,t:"جرّبوا السلة",d:"ضيفوا من الرئيسية ومن المنيو، وتنقلوا بين الصفحات: العدد فوق لازم يضل. افتحوا cart.html: غيّروا الكمية، واحذفوا، واكتبوا ملاحظة، وجربوا الطلب على واتساب. اعملوا refresh: السلة لازم تضل. F12 ← Application ← Local Storage: لازم تشوفوا caffeon-cart."},
  {must:1,t:"عرض about على الجوال",d:"صفحة about أعرض شوي من شاشة الجوال.",p:OVER("about.html","about.css")},
- {t:"زر السلة بالصفحات الثانية",d:"بـ index و workspace و about زر السلة ما بيعمل اشي.",p:`بموقعي زر السلة (id="cart-btn") موجود بكل الصفحات، بس السلة نفسها بصفحة menu.html بس.
-بصفحات index.html و workspace.html و about.html بدي لما ينكبس الزر يوديني على menu.html.
-اعطيني السطرين اللي بضيفهم بآخر كل ملف من home.js و workspace.js و about.js، واشرحلي بسطر.`},
+ {t:"المنيو من بيانات JS (بعد ما تخلص السلة)",d:"البطاقات الـ 14 بـ menu.html مكتوبة بالـ HTML.",p:DATA("بطاقات المنيو","menuItems","title, price, category, badge, description, meta, image","menu.js","#menu-grid",".menu-card وأزرار الإضافة","\n   مهم: لا تلمس الربط مع cart.js (أزرار Add to Cart لازم تضل تنادي addToCart بنفس القيم).\n   وبـ menu.html الترتيب: js/cart.js ثم js/data.js ثم js/menu.js.")},
  {t:"الصور على الجهاز",d:"الصور لسا روابط Stitch. نزّلوها على images وغيّروا الـ src (ابدأوا بالمنيو)."}
 ]},
 {id:"dsa",name:"DSA",state:"موقعكم شغال: 6 صفحات، البحث، والتسجيل والدخول ولوحة التحكم بـ localStorage. اليوم: البيانات بـ JS والصور.",tasks:[
