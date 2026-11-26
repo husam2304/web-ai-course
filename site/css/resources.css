@@ -222,3 +222,14 @@ code {
 .team-sheet .acc { margin-top: 6px; }
 /* كل سطر بالـ prompt بياخد اتجاهه لحاله (سطر عربي RTL، وسطر بيبلش بـ style.css: LTR) */
 .code-block.prompt pre { unicode-bidi: plaintext; text-align: start; }
+
+/* ===== اليوم 5 ===== */
+.task { border: 1px solid #DDE3E9; border-radius: 12px; padding: 12px 16px; margin: 12px 0; background: #fff; }
+.task.must { border-color: #C0472F; background: #FDF1EE; }
+.task h4 { margin: 0 0 6px !important; }
+.must-tag { display: inline-block; font-size: 13px; font-weight: 700; border-radius: 999px; padding: 0 10px; margin-inline-start: 8px; background: #C0472F; color: #fff; vertical-align: middle; }
+.state { color: var(--muted, #555); font-weight: 600; }
+ol.steps li { margin: 8px 0; }
+.talk { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 6px 14px; align-items: baseline; }
+.talk b { color: var(--primary); white-space: nowrap; }
+@media (max-width: 600px) { .talk { grid-template-columns: 1fr; } }

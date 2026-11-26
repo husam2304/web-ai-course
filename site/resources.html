@@ -51,8 +51,8 @@
           <a href="#day1" class="day-tab" data-day="1">اليوم 1</a>
           <a href="#day2" class="day-tab" data-day="2">اليوم 2</a>
           <a href="#day3" class="day-tab" data-day="3">اليوم 3</a>
-          <a href="#day4" class="day-tab active" data-day="4">اليوم 4</a>
-          <span class="day-tab soon">اليوم 5 · قريباً</span>
+          <a href="#day4" class="day-tab" data-day="4">اليوم 4</a>
+          <a href="#day5" class="day-tab active" data-day="5">اليوم 5</a>
         </nav>
 
         <div class="alert">
@@ -1456,6 +1456,289 @@ style.css:
 3. لا تغيّر الشكل، ولا أي ميزة شغالة، ولا أي class أو id مستعمل بالـ JS.
 إذا تغيّر إشي: الملفات اللي تغيّرت بس كاملة. وإذا ما في ولا رابط ميت: لا تبعت كود، اكتب بس «ما في روابط ميتة».</pre></div>
 </div></details>
+</div></article>
+        </div>
+
+        <div class="day-panel" data-day="5">
+        <h2 class="day-title" id="day5">اليوم الخامس: نخلّص وننشر</h2>
+        <p class="block-sub">آخر يوم. الهدف: موقع كل فريق شغال 100%، ومنشور على الإنترنت، وكل فريق بيعرض مشروعه.</p>
+        <ol class="toc">
+          <li><a href="#d5-done">شو يعني «شغال 100%»</a></li>
+          <li><a href="#d5-teams">مهام فريقكم</a></li>
+          <li><a href="#d5-publish">النشر</a></li>
+          <li><a href="#d5-present">العرض</a></li>
+        </ol>
+<article class="res-card is-locked" id="d5-done" data-lock="d5-done" data-lock-title="شو يعني «شغال 100%»؟"><p class="res-when">أول اليوم</p><h3>شو يعني «شغال 100%»؟</h3><div class="lock-body">
+<p>قبل ما تنشروا، كل نقطة لازم تكون صح:</p>
+<ul class="checklist">
+<li><label><input type="checkbox"> <span>كل صفحة بتفتح، والقائمة بتوصل لكل الصفحات من كل صفحة.</span></label></li>
+<li><label><input type="checkbox"> <span>F12 ← Console: ما في ولا خطأ أحمر بولا صفحة.</span></label></li>
+<li><label><input type="checkbox"> <span>كل زر بيعمل اللي مكتوب عليه، أو بيطلّع رسالة واضحة (للميزات اللي بدها Backend).</span></label></li>
+<li><label><input type="checkbox"> <span>على عرض الجوال (F12 ← أيقونة الجوال) ما في سكرول لليمين أو الشمال.</span></label></li>
+<li><label><input type="checkbox"> <span>كل الصور ظاهرة.</span></label></li>
+<li><label><input type="checkbox"> <span>الرابط المنشور بيفتح على جوال حقيقي.</span></label></li>
+</ul>
+<div class="doc-note"><p>قبل أي تعديل: zip للمجلد على «ملفات فريقي». وبعد كل prompt: افتحوا الصفحة وجربوا قبل ما تكمّلوا.</p></div>
+<p><a class="btn btn-light" href="submit.html#backup">ارفع نسخة احتياطية (zip)</a></p>
+</div></article>
+        <h2 class="block-title" id="d5-teams">مهام فريقكم</h2>
+        <p class="block-sub">المهام بالترتيب: <span class="must-tag">ضروري</span> أول، بعدين الباقي. الـ prompts جاهزة: انسخوها، والصقوا ملفاتكم مكان «(الصق هون)».</p>
+<article class="res-card team-sheet is-locked" id="d5-team-ai" data-lock="d5-team-ai" data-lock-title="مهام فريق AI"><p class="res-when">مهام فريقكم</p><h3>مهام فريق AI</h3><div class="lock-body">
+<details class="acc"><summary>افتح المهام</summary><div class="acc-body">
+<p class="state">موقعكم شغال: 4 صفحات، والفلترة والسلة بالمنيو. اليوم: البيانات بـ JS، وتصليحات صغيرة.</p>
+<div class="task must"><h4>1. المنيو من بيانات JS<span class="must-tag">ضروري</span></h4><p>البطاقات الـ 14 بـ <code dir="ltr">menu.html</code> مكتوبة بالـ HTML. بدنا ياها من مصفوفة بـ <code dir="ltr">data.js</code>.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-ai-1">نسخ</button></div><pre id="d5-ai-1" dir="auto">بدي أحوّل بطاقات المنيو لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع #menu-grid، وملف menu.js.
+المطلوب:
+1. ملف js/data.js فيه مصفوفة اسمها menuItems. كل بطاقة = object فيه: title, price, category, badge, description, meta, image. خد القيم من البطاقات الموجودة بالضبط.
+2. بـ menu.js: function اسمها render بترسم البطاقات جوا #menu-grid من menuItems، بنفس الـ HTML والـ classes والـ data-* بالضبط. لازم تنادى قبل السطر اللي بيدوّر على .menu-card وأزرار الإضافة، عشان الميزات الموجودة تضل شغالة.
+3. بالـ HTML: #menu-grid يضل موجود بنفس الـ class، بس فاضي.
+   وبـ menu.html: &lt;script src="js/data.js"&gt;&lt;/script&gt; قبل js/menu.js.
+4. لا تغيّر الفلترة ولا البحث ولا أي ميزة ثانية.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+الـ HTML:
+(الصق هون)
+
+menu.js:
+(الصق هون)</pre></div></div>
+<div class="task must"><h4>2. عرض about على الجوال<span class="must-tag">ضروري</span></h4><p>صفحة about أعرض شوي من شاشة الجوال.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-ai-2">نسخ</button></div><pre id="d5-ai-2" dir="auto">صفحة about.html بموقعي، على عرض جوال 375px، فيها سكرول جانبي (في اشي أعرض من الشاشة).
+هاد ملف about.css. دوّر على العناصر اللي ممكن تطلع أعرض من الشاشة (عرض ثابت بالـ px، صور، جداول، صفوف flex بدون wrap، grid بأعمدة ثابتة) وصلّحها بـ @media (max-width: 600px).
+اعطيني القواعد الجديدة بس، وقلي وين أحطها، وقلي بسطر شو كان السبب.
+
+about.css:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>3. زر السلة بالصفحات الثانية</h4><p>بـ index و workspace و about زر السلة ما بيعمل اشي.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-ai-3">نسخ</button></div><pre id="d5-ai-3" dir="auto">بموقعي زر السلة (id="cart-btn") موجود بكل الصفحات، بس السلة نفسها بصفحة menu.html بس.
+بصفحات index.html و workspace.html و about.html بدي لما ينكبس الزر يوديني على menu.html.
+اعطيني السطرين اللي بضيفهم بآخر كل ملف من home.js و workspace.js و about.js، واشرحلي بسطر.</pre></div></div>
+<div class="task"><h4>4. الصور على الجهاز</h4><p>الصور لسا روابط Stitch. نزّلوها على images وغيّروا الـ src (ابدأوا بالمنيو).</p></div>
+</div></details>
+</div></article>
+<article class="res-card team-sheet is-locked" id="d5-team-dsa" data-lock="d5-team-dsa" data-lock-title="مهام فريق DSA"><p class="res-when">مهام فريقكم</p><h3>مهام فريق DSA</h3><div class="lock-body">
+<details class="acc"><summary>افتح المهام</summary><div class="acc-body">
+<p class="state">موقعكم شغال: 6 صفحات، البحث، والتسجيل والدخول ولوحة التحكم بـ localStorage. اليوم: البيانات بـ JS والصور.</p>
+<div class="task must"><h4>1. صور لوحة التحكم<span class="must-tag">ضروري</span></h4><p>4 صور مش موجودة: <code dir="ltr">images/profile.jpg</code> و <code dir="ltr">images/siq.jpg</code> و <code dir="ltr">images/wadi-rum.jpg</code> و <code dir="ltr">images/weibdeh.jpg</code>. جيبوا صور (Unsplash أو AI) وحطوها بمجلد images بنفس الأسماء بالضبط.</p></div>
+<div class="task must"><h4>2. المبدعين من بيانات JS<span class="must-tag">ضروري</span></h4><p>بطاقات <code dir="ltr">explore.html</code> الـ 11 مكتوبة بالـ HTML.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-dsa-4">نسخ</button></div><pre id="d5-dsa-4" dir="auto">بدي أحوّل بطاقات المبدعين بصفحة الاستكشاف لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع #creativeGrid، وملف explore.js.
+المطلوب:
+1. ملف js/data.js فيه مصفوفة اسمها creatives. كل بطاقة = object فيه: id (رقم من 1)، الاسم، التخصص، المدينة، الصورة، وأي data-* موجودة. خد القيم من البطاقات الموجودة بالضبط.
+2. بـ explore.js: function اسمها render بترسم البطاقات جوا #creativeGrid من creatives، بنفس الـ HTML والـ classes والـ data-* بالضبط. لازم تنادى قبل السطر اللي بيدوّر على const creativeCards، عشان الميزات الموجودة تضل شغالة.
+3. بالـ HTML: #creativeGrid يضل موجود بنفس الـ class، بس فاضي.
+   وزر View Portfolio يوديني على portfolio.html?id= ورقم المبدع.
+   وبـ explore.html الترتيب: js/main.js ثم js/data.js ثم js/explore.js.
+4. لا تغيّر الفلترة ولا البحث ولا أي ميزة ثانية.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+الـ HTML:
+(الصق هون)
+
+explore.js:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>3. صفحة المبدع حسب الرابط</h4><p>لما تفتحوا <code dir="ltr">portfolio.html?id=3</code> تطلع معلومات المبدع رقم 3.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-dsa-5">نسخ</button></div><pre id="d5-dsa-5" dir="auto">صفحة portfolio.html بموقعي بتعرض مبدع واحد مكتوب بالـ HTML. عندي بـ js/data.js مصفوفة creatives (كل عنصر فيه id).
+بدي portfolio.js يقرأ الرقم من الرابط (portfolio.html?id=3) بـ URLSearchParams، ويلاقي المبدع بـ find، ويعبّي الاسم والتخصص والمدينة والصورة بالصفحة. إذا ما في id أو مش موجود: رسالة «المبدع مش موجود» ورابط لـ explore.html.
+وبـ portfolio.html: js/data.js قبل js/portfolio.js.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+portfolio.html:
+(الصق هون)
+
+portfolio.js:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>4. باقي الصور</h4><p>الصور الباقية روابط Stitch. نزّلوها على images وغيّروا الـ src.</p></div>
+</div></details>
+</div></article>
+<article class="res-card team-sheet is-locked" id="d5-team-it" data-lock="d5-team-it" data-lock-title="مهام فريق IT Team"><p class="res-when">مهام فريقكم</p><h3>مهام فريق IT Team</h3><div class="lock-body">
+<details class="acc"><summary>افتح المهام</summary><div class="acc-body">
+<p class="state">الصفحات والقائمة وزر اللغة شغالين. بس ملفات <code dir="ltr">drinks.js</code> و <code dir="ltr">food.js</code> و <code dir="ltr">contact.js</code> فاضية (0 بايت)، فالسلة والأحجام والنجوم ما بتشتغل. اليوم: نرجّع الـ JS.</p>
+<div class="task must"><h4>1. رجّعوا الـ JS من النسخة الاحتياطية<span class="must-tag">ضروري</span></h4><p>من «ملفات فريقي» نزّلوا نسخة اليوم 3 (فيها <code dir="ltr">javasc/mail.js</code> و <code dir="ltr">bbb.js</code>).</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-it-6">نسخ</button></div><pre id="d5-it-6" dir="auto">تحت 3 ملفات من موقعنا: mail.js (سلة المشروبات) و bbb.js (نجوم التقييم) من نسخة قديمة، و main.js الموجود هلأ وفيه كود قائمة الجوال (mobileMenuBtn) وزر اللغة (langToggle).
+بدي:
+1. js/drinks.js = نفس mail.js بالضبط، بس بدون كود قائمة الجوال وزر اللغة (لأنهم بـ main.js).
+2. js/contact.js = نفس bbb.js بالضبط، بس بدون كود قائمة الجوال وزر اللغة.
+ما تغيّر ولا سطر ثاني، ولا تلمس main.js.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+mail.js:
+(الصق هون)
+
+bbb.js:
+(الصق هون)
+
+main.js:
+(الصق هون)</pre></div></div>
+<div class="task must"><h4>2. تأكدوا من ترتيب الـ scripts<span class="must-tag">ضروري</span></h4><p>بـ <code dir="ltr">drinks.html</code> و <code dir="ltr">food.html</code> و <code dir="ltr">contact.html</code>: <code dir="ltr">js/main.js</code> بعدين ملف الصفحة، آخر الـ body.</p></div>
+<div class="task must"><h4>3. <code dir="ltr">food.js</code> من جديد<span class="must-tag">ضروري</span></h4><p>صفحة المأكولات ما إلها JS أبداً.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-it-7">نسخ</button></div><pre id="d5-it-7" dir="auto">هاد ملف food.html (صفحة المأكولات بموقع مطعمنا). فيها عناصر تفاعلية بس ما إلها JavaScript. اكتبلي js/food.js بـ JavaScript عادي بيشغّل:
+1. أزرار الحجم بكل صنف: لما ينكبس زر بيصير active وبيتغيّر سعر نفس الصنف.
+2. صينية الطلب: إضافة أصناف، والعدد، والمجموع، وزر التصفير، وزر التأكيد (رسالة بس، ما في سيرفر).
+3. الإشعار (toast) لما ينضاف صنف.
+4. نجوم التقييم إذا موجودة بالصفحة.
+الشروط:
+- استخدم الـ ids والـ classes والـ data-* الموجودة بالـ HTML بالضبط.
+- إذا في ids مكررة بالصفحة، قلي وين واعطيني الأسطر المصلّحة بس.
+- لا تكتب كود قائمة الجوال ولا زر اللغة (موجودين بـ main.js).
+- الكود جوا DOMContentLoaded، وكل جزء بـ function لحاله فوقها تعليق عربي.
+- إذا اشي مش واضح، اسألني قبل ما تكتب.
+اعطيني food.js كامل.
+
+food.html:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>4. المشروبات من بيانات JS</h4><p>بعد ما ترجع السلة تشتغل.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-it-8">نسخ</button></div><pre id="d5-it-8" dir="auto">بدي أحوّل بطاقات المشروبات (.drink-card) لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع شبكات .cards-grid (ضيف id لكل شبكة: cold-grid و hot-grid)، وملف drinks.js.
+المطلوب:
+1. ملف js/data.js فيه مصفوفة اسمها drinks. كل بطاقة = object فيه: الاسم بالعربي والإنجليزي، الوصف، الأسعار، الصورة، والقسم (بارد أو ساخن). خد القيم من البطاقات الموجودة بالضبط.
+2. بـ drinks.js: function اسمها render بترسم البطاقات جوا شبكات .cards-grid (ضيف id لكل شبكة: cold-grid و hot-grid) من drinks، بنفس الـ HTML والـ classes والـ data-* بالضبط. لازم تنادى قبل السطر اللي بيدوّر على .drink-card، عشان الميزات الموجودة تضل شغالة.
+3. بالـ HTML: شبكات .cards-grid (ضيف id لكل شبكة: cold-grid و hot-grid) يضل موجود بنفس الـ class، بس فاضي.
+   وحافظ على data-ar و data-en عشان زر اللغة.
+   وبـ drinks.html الترتيب: js/main.js ثم js/data.js ثم js/drinks.js.
+4. لا تغيّر الفلترة ولا البحث ولا أي ميزة ثانية.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+الـ HTML:
+(الصق هون)
+
+drinks.js:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>5. الصور على الجهاز</h4><p>الصور روابط Stitch. نزّلوها على images وغيّروا الـ src.</p></div>
+</div></details>
+</div></article>
+<article class="res-card team-sheet is-locked" id="d5-team-tech" data-lock="d5-team-tech" data-lock-title="مهام فريق تكنولوجيا"><p class="res-when">مهام فريقكم</p><h3>مهام فريق تكنولوجيا</h3><div class="lock-body">
+<details class="acc"><summary>افتح المهام</summary><div class="acc-body">
+<p class="state">موقعكم متقدم: 6 صفحات، بحث وفلترة ومقارنة، وصفحة تفاصيل لكل أداة بـ <code dir="ltr">?tool=</code>. اليوم: تنظيف، والبيانات بـ JS، والـ animation.</p>
+<div class="task must"><h4>1. تنظيف المجلد<span class="must-tag">ضروري</span></h4><p>احذفوا <code dir="ltr">tool.html</code> و <code dir="ltr">js/tool.js</code> و <code dir="ltr">css/tool.css</code> (القديمة) و <code dir="ltr">noqta-ai.zip</code> من جوا مجلد الموقع. صفحة التفاصيل الصح هي <code dir="ltr">tool-details.html</code>.</p></div>
+<div class="task must"><h4>2. أسماء ملفات الـ JS بأحرف صغيرة<span class="must-tag">ضروري</span></h4><p>غيّروا <code dir="ltr">home.JS</code> ← <code dir="ltr">home.js</code>، و <code dir="ltr">category.JS</code> ← <code dir="ltr">category.js</code>، و <code dir="ltr">compare.JS</code> ← <code dir="ltr">compare.js</code>، و <code dir="ltr">about.JS</code> ← <code dir="ltr">about.js</code>. وبعدين بكل صفحة غيّروا الـ src لنفس الاسم الجديد. على الإنترنت JS غير js.</p></div>
+<div class="task must"><h4>3. عرض التصنيفات على الجوال<span class="must-tag">ضروري</span></h4><p><code dir="ltr">category.html</code> أعرض من شاشة الجوال.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-tech-9">نسخ</button></div><pre id="d5-tech-9" dir="auto">صفحة category.html بموقعي، على عرض جوال 375px، فيها سكرول جانبي (في اشي أعرض من الشاشة).
+هاد ملف category.css. دوّر على العناصر اللي ممكن تطلع أعرض من الشاشة (عرض ثابت بالـ px، صور، جداول، صفوف flex بدون wrap، grid بأعمدة ثابتة) وصلّحها بـ @media (max-width: 600px).
+اعطيني القواعد الجديدة بس، وقلي وين أحطها، وقلي بسطر شو كان السبب.
+
+category.css:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>4. Animation للـ hero</h4><p>الحركة بالـ CSS: @keyframes بتوصف الحركة، و animation بتشغّلها.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-tech-10">نسخ</button></div><pre id="d5-tech-10" dir="auto">هاد الـ HTML تبع قسم الـ hero بالصفحة الرئيسية (من &lt;section class="container hero-section"&gt; لآخرها)، وهاد ملف home.css.
+بدي animation للـ hero بـ CSS عادي، بدون مكتبات:
+1. العنوان والوصف ومربع البحث يظهروا واحد ورا الثاني (يبهتوا ويطلعوا شوي من تحت) أول ما الصفحة تفتح.
+2. حركة هادية ومستمرة بالخلفية بتناسب ثيم الموقع الداكن (مثلاً توهج بيتحرك ببطء).
+3. اللي مطفّي الحركة على جهازه ما يشوفها (prefers-reduced-motion).
+لا تغيّر الـ HTML إلا إذا لازم class جديد، وقلي وين. اعطيني قواعد الـ CSS الجديدة بس ووين أحطها، واشرحلي @keyframes و animation بالعربي بـ 3 أسطر.
+
+الـ HTML:
+(الصق هون)
+
+home.css:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>5. الأدوات من بيانات JS</h4><p>بطاقات الأدوات الـ 9 بالرئيسية مكتوبة بالـ HTML.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-tech-11">نسخ</button></div><pre id="d5-tech-11" dir="auto">بدي أحوّل بطاقات الأدوات بالصفحة الرئيسية لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع #tools-grid، وملف home.js.
+المطلوب:
+1. ملف js/data.js فيه مصفوفة اسمها tools. كل بطاقة = object فيه: الاسم، الوصف، التصنيف (data-category)، لون --brand-glow، الأيقونة أو الصورة، السعر، رابط التفاصيل (tool-details.html?tool=...)، وأي معلومة ثانية بالبطاقة. خد القيم من البطاقات الموجودة بالضبط.
+2. بـ home.js: function اسمها render بترسم البطاقات جوا #tools-grid من tools، بنفس الـ HTML والـ classes والـ data-* بالضبط. لازم تنادى قبل السطر اللي بيدوّر على '.tool-card'، عشان الميزات الموجودة تضل شغالة.
+3. بالـ HTML: #tools-grid يضل موجود بنفس الـ class، بس فاضي.
+   وبـ index.html: js/data.js قبل js/home.js.
+4. لا تغيّر الفلترة ولا البحث ولا أي ميزة ثانية.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+الـ HTML:
+(الصق هون)
+
+home.js:
+(الصق هون)</pre></div></div>
+</div></details>
+</div></article>
+<article class="res-card team-sheet is-locked" id="d5-team-afaq" data-lock="d5-team-afaq" data-lock-title="مهام فريق آفاق"><p class="res-when">مهام فريقكم</p><h3>مهام فريق آفاق</h3><div class="lock-body">
+<details class="acc"><summary>افتح المهام</summary><div class="acc-body">
+<p class="state">موقعكم شغال 100%: الاختبار والمكتبة والاقتراحات، والبيانات أصلاً بـ <code dir="ltr">data.js</code>. اليوم: صور، وصفحة «عن آفاق».</p>
+<div class="task must"><h4>1. افهموا الكود اللي عندكم<span class="must-tag">ضروري</span></h4><p>عندكم بالضبط اللي رح ينشرح اليوم (<code dir="ltr">data.js</code> و loop و filter و localStorage). كل واحد لازم يقدر يشرحه بالعرض.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-afaq-12">نسخ</button></div><pre id="d5-afaq-12" dir="auto">هاد ملف library.js وملف data.js من موقعنا. اشرحلي سطر سطر بالعربي البسيط، كأني أول مرة بشوف JavaScript:
+- وين بيمسك العناصر من الصفحة؟
+- كيف الـ loop بيرسم بطاقة لكل كتاب؟
+- كيف الفلترة بتشتغل؟
+وبالآخر اسألني 3 أسئلة عشان أتأكد إني فهمت.
+
+library.js:
+(الصق هون)
+
+data.js:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>2. أغلفة للكتب</h4><p>جيبوا صورة لكل كتاب وحطوها بـ images.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-afaq-13">نسخ</button></div><pre id="d5-afaq-13" dir="auto">عندي بـ js/data.js مصفوفة books، وبـ library.js function بترسم بطاقة لكل كتاب.
+بدي أضيف لكل كتاب خاصية cover فيها مسار صورة (مثلاً "images/book-1.jpg")، والبطاقة تعرض الصورة فوق العنوان مع alt فيه اسم الكتاب. وإذا ما في صورة لكتاب، البطاقة تضل زي ما هي.
+اعطيني التعديل على data.js (مثال لكتابين) والتعديل على library.js، وقلي وين بالضبط.
+
+data.js:
+(الصق هون)
+
+library.js:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>3. صفحة «عن آفاق»</h4><p>خطتكم فيها صفحة «تواصل وعن آفاق».</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-afaq-14">نسخ</button></div><pre id="d5-afaq-14" dir="auto">هاد ملف index.html وملف style.css من موقعنا «نادي القراء». بدي صفحة about.html بنفس الـ header والـ footer بالضبط، فيها: مين إحنا (فريق آفاق)، وفكرة الموقع، وطريقة تواصل (فورم بسيط بيطلّع رسالة شكر، ما في سيرفر).
+استخدم الـ classes الموجودة بـ style.css. وضيف رابط about.html بالقائمة، وقلي وين أضيفه بباقي الصفحات.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+index.html:
+(الصق هون)
+
+style.css:
+(الصق هون)</pre></div></div>
+</div></details>
+</div></article>
+<article class="res-card team-sheet is-locked" id="d5-team-sun" data-lock="d5-team-sun" data-lock-title="مهام فريق the sun"><p class="res-when">مهام فريقكم</p><h3>مهام فريق the sun</h3><div class="lock-body">
+<details class="acc"><summary>افتح المهام</summary><div class="acc-body">
+<p class="state">تصميمكم قوي و 6 صفحات مربوطة. بس الأرقام مكتوبة ثابتة بالـ HTML (5,000 وأكتوبر 2025)، وما في حفظ أبداً. اليوم: نخلّي «وازن» أداة حقيقية.</p>
+<div class="task must"><h4>1. العملة<span class="must-tag">ضروري</span></h4><p>بكل الصفحات: <code dir="ltr">Ctrl+H</code> ← بدّلوا ر.س بـ د.أ (Replace All).</p></div>
+<div class="task must"><h4>2. صفحة الإعداد بتحفظ<span class="must-tag">ضروري</span></h4><p><code dir="ltr">manage.html</code>: الدخل والبنود والأسقف بينحفظوا بـ localStorage.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-sun-15">نسخ</button></div><pre id="d5-sun-15" dir="auto">هاد manage.html و manage.js من موقعنا «وازن» (صفحة إعداد الميزانية). هلأ ولا اشي بينحفظ.
+بدي manage.js يحفظ بـ localStorage تحت مفتاح اسمه wazen بهالشكل بالضبط:
+{ income: رقم, categories: [ { name: نص, cap: رقم, spent: رقم } ] }
+- أي تغيير بالدخل، أو بسقف بند، أو إضافة بند، أو حذفه: بينحفظ فوراً.
+- لما الصفحة تفتح: إذا في بيانات محفوظة بتنعرض. وإذا ما في، بتستعمل الأرقام الموجودة هلأ بالصفحة كبداية.
+- أزرار المبالغ السريعة (+500 و +1,000) وزر «استعادة المقترح» لازم يشتغلوا.
+- العملة د.أ.
+استخدم الـ ids والـ classes الموجودة. وأي سطر لازم يتغيّر بالـ HTML، قلي وينه.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+manage.html:
+(الصق هون)
+
+manage.js:
+(الصق هون)</pre></div></div>
+<div class="task must"><h4>3. لوحة التحكم بتقرأ<span class="must-tag">ضروري</span></h4><p><code dir="ltr">dashboard.html</code>: الأرقام والبطاقات من البيانات المحفوظة.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-sun-16">نسخ</button></div><pre id="d5-sun-16" dir="auto">هاد dashboard.html و dashboard.js من موقعنا «وازن». الأرقام بالصفحة مكتوبة ثابتة (5,000 و 3,280 وأكتوبر 2025).
+بدي dashboard.js يقرأ البيانات من localStorage (المفتاح wazen، والشكل: { income, categories: [ { name, cap, spent } ] }) ويعرض منها:
+1. الدخل، والمصروف (مجموع spent)، والمتبقي، والنسبة.
+2. بطاقة لكل بند بـ loop، فيها الاسم والسقف والمصروف وشريط: أخضر تحت 80%، برتقالي من 80%، أحمر إذا تجاوز السقف.
+3. اسم الشهر والأيام المتبقية من تاريخ اليوم بـ new Date.
+4. زر «إضافة» مصروف: بيزيد spent للبند، وبيحفظ، وبترجع البطاقات تنرسم.
+5. إذا ما في بيانات: رسالة «ابدأ من صفحة الإعداد» مع رابط manage.html.
+العملة د.أ. استخدم نفس الـ classes الموجودة عشان الشكل يضل نفسه.
+
+لا تغيّر أي اشي ما طلبته. اعطيني الملفات كاملة بدون اختصار، كل ملف بـ code block لحاله وفوقه اسمه. وبالآخر اشرحلي بالعربي بـ 3 أسطر شو عملت.
+
+dashboard.html:
+(الصق هون)
+
+dashboard.js:
+(الصق هون)</pre></div></div>
+<div class="task"><h4>4. التقارير من نفس البيانات</h4><p><code dir="ltr">report.html</code> نفس الفكرة: يقرأ wazen من localStorage بدل الأرقام الثابتة. استعملوا prompt لوحة التحكم وغيّروا اسم الصفحة والمطلوب.</p></div>
+<div class="task"><h4>5. صور حقيقية</h4><p>صور hero-1 و hero-2 و hero-3 placeholders. بدّلوها بصور حقيقية بنفس الأسماء بمجلد <code dir="ltr">assets/images</code>.</p></div>
+</div></details>
+</div></article>
+<article class="res-card is-locked" id="d5-publish" data-lock="d5-publish" data-lock-title="النشر على Netlify"><p class="res-when">بعد الفحص</p><h3>النشر على Netlify</h3><div class="lock-body">
+<p>بعد ما يخلص الضروري ويصير الفحص كله صح.</p>
+<ol class="steps">
+<li><b>حساب:</b> واحد من الفريق يفتح <code dir="ltr">app.netlify.com/signup</code> ويسجّل (Sign up with Google أسرع).</li>
+<li><b>تأكدوا إنكم مسجلين دخول</b>، وبعدين افتحوا <code dir="ltr">app.netlify.com/drop</code></li>
+<li><b>اسحبوا مجلد موقعكم</b> لجوا المربع. المجلد اللي <b>جواه مباشرة</b> <code dir="ltr">index.html</code>، مش مجلد فوقه.</li>
+<li>استنوا ثواني، بيطلعلكم رابط زي <code dir="ltr">random-name.netlify.app</code>. افتحوه وجربوه.</li>
+<li><b>غيّروا الاسم:</b> Site configuration ← Change site name، مثلاً <code dir="ltr">caffeon-aqaba</code></li>
+<li><b>افتحوا الرابط على جوالاتكم</b> وجربوا كل الصفحات.</li>
+<li><b>تعديل بعد النشر:</b> صلّحوا على الجهاز، وبعدين تبويب Deploys ← اسحبوا المجلد مرة ثانية لنفس الموقع. الرابط ما بيتغيّر.</li>
+<li><b>ابعتوا الرابط</b> بفورم اليوم 5 على موقع الدورة. وكل واحد بيختار بالفورم إذا موافق تنعرض بطاقته (من اليوم 1) باسمه على موقع الدورة.</li>
+</ol>
+<div class="doc-note"><p>إذا نشرتوا وإنتو مش مسجلين دخول، الموقع بينحذف خلال ساعة. سجّلوا أول.</p></div>
+</div></article>
+<article class="res-card is-locked" id="d5-present" data-lock="d5-present" data-lock-title="العرض: 5 دقايق لكل فريق"><p class="res-when">آخر اليوم</p><h3>العرض: 5 دقايق لكل فريق</h3><div class="lock-body">
+<p>من الموقع المنشور، على الشاشة الكبيرة. كل الفريق بيحكي.</p>
+<div class="talk">
+<b>30 ثانية</b><span>الفكرة، ولمين الموقع.</span>
+<b>دقيقتين</b><span>جولة بالموقع وميزتين شغالات قدامنا.</span>
+<b>دقيقة</b><span>أصعب مشكلة واجهتكم، وكيف حليتوها.</span>
+<b>30 ثانية</b><span>شو بتضيفوا لو عندكم أسبوع زيادة.</span>
+<b>دقيقة</b><span>أسئلة.</span>
+</div>
 </div></article>
         </div>
 
