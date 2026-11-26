@@ -243,3 +243,12 @@ button.dup { border: none; cursor: pointer; font-family: var(--font-body); }
 #view-trash h3 { font-size: 18px; margin: 10px 0 8px; }
 .subs-table .sel { white-space: nowrap; }
 .mini.primary { background: var(--primary, #1F4E79); color: #fff; }
+
+/* اليوم 5: المشاريع والبطاقات */
+.project-url-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 8px 0 12px; }
+.project-url-row input { flex: 1 1 260px; min-width: 0; padding: 8px 10px; border: 1px solid #ccd5dd; border-radius: 8px; }
+.card-editor { background: #fff; border: 2px solid var(--primary, #1F4E79); border-radius: 12px; padding: 16px; margin-bottom: 20px; display: grid; gap: 8px; }
+.card-editor[hidden] { display: none; }
+.card-editor textarea { font-family: monospace; font-size: 13px; width: 100%; }
+.ce-frame { width: 100%; height: 520px; border: 1px solid #ccd5dd; border-radius: 10px; }
+.ce-hide { display: flex; gap: 8px; align-items: center; }

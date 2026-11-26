@@ -69,6 +69,9 @@ public class Team
 
     public int SortOrder { get; set; }
 
+    /// <summary>The team's published site (Netlify), filled by the trainer on Day 5. Null = «قريباً».</summary>
+    public string? ProjectUrl { get; set; }
+
     public List<Trainee> Trainees { get; set; } = new();
 }
 
@@ -189,4 +192,19 @@ public class ContentUnlock
     public string Key { get; set; } = string.Empty;
 
     public DateTime UnlockedAtUtc { get; set; }
+}
+
+/// <summary>A trainee's Day 1 profile card, pasted by the trainer as HTML and shown as-is on the projects page.</summary>
+public class TraineeCard
+{
+    public int TraineeId { get; set; }
+
+    public Trainee? Trainee { get; set; }
+
+    public string Html { get; set; } = string.Empty;
+
+    /// <summary>Hidden cards stay saved but are not shown on the public site.</summary>
+    public bool IsHidden { get; set; }
+
+    public DateTime UpdatedAtUtc { get; set; }
 }

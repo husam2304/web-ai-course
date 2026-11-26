@@ -188,5 +188,6 @@ public static class PublicEndpoints
         app.MapPublicFeedback();
         app.MapPublicContact();
         app.MapPublicUnlocks();
+        app.MapPublicShowcase();
     }
 }

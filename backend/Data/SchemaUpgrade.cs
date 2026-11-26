@@ -105,6 +105,18 @@ public static class SchemaUpgrade
                 [Key] nvarchar(64) NOT NULL CONSTRAINT PK_ContentUnlocks PRIMARY KEY,
                 UnlockedAtUtc datetime2 NOT NULL
             );
+
+        IF COL_LENGTH('Teams', 'ProjectUrl') IS NULL
+            ALTER TABLE Teams ADD ProjectUrl nvarchar(300) NULL;
+
+        IF OBJECT_ID('TraineeCards') IS NULL
+            CREATE TABLE TraineeCards (
+                TraineeId int NOT NULL CONSTRAINT PK_TraineeCards PRIMARY KEY
+                    CONSTRAINT FK_TraineeCards_Trainees REFERENCES Trainees(Id) ON DELETE CASCADE,
+                Html nvarchar(max) NOT NULL,
+                IsHidden bit NOT NULL,
+                UpdatedAtUtc datetime2 NOT NULL
+            );
         """;
 
     // Each statement runs on its own (a table must exist before another table's FK points at it).

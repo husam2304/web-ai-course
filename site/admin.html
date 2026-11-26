@@ -63,6 +63,7 @@
               <button type="button" class="view-tab" data-view="roster">الحضور والتقييم</button>
               <button type="button" class="view-tab" data-view="teams">الفرق والمتدربين</button>
               <button type="button" class="view-tab" data-view="messages">الرسائل <span class="tab-badge" id="msg-badge" hidden></span></button>
+              <button type="button" class="view-tab" data-view="showcase">المشاريع والبطاقات</button>
               <button type="button" class="view-tab" data-view="locks">ملفات الدورة 🔒</button>
               <button type="button" class="view-tab" data-view="trash">المحذوفات</button>
             </nav>
@@ -116,6 +117,27 @@
               </select>
             </div>
             <div id="messages"></div>
+          </div>
+
+          <!-- اليوم 5: رابط مشروع كل فريق + بطاقات اليوم 1 لصفحة المشاريع -->
+          <div class="view" id="view-showcase" hidden>
+            <p class="muted">رابط كل فريق بيطلع بصفحة المشاريع بدل «قريباً». البطاقة بتطلع تحت فريق المتدرب زي ما هي بالضبط، مع زر «مشروعي» لرابط فريقه. اللي ما إله بطاقة ما بيطلع.</p>
+            <div class="card-editor" id="card-editor" hidden>
+              <h3 id="ce-title">بطاقة</h3>
+              <label for="ce-file">ملف HTML للبطاقة (أو الصق الكود تحت)</label>
+              <input type="file" id="ce-file" accept=".html,.htm,text/html">
+              <textarea id="ce-html" rows="12" dir="ltr" spellcheck="false" placeholder="<!DOCTYPE html> ..."></textarea>
+              <label class="ce-hide"><input type="checkbox" id="ce-hidden"> مخفية (محفوظة بس ما بتنعرض على الموقع)</label>
+              <div class="admin-actions">
+                <button type="button" class="btn" id="ce-save">حفظ</button>
+                <button type="button" class="btn btn-light" id="ce-preview">معاينة</button>
+                <button type="button" class="btn btn-light" id="ce-delete">حذف البطاقة</button>
+                <button type="button" class="btn btn-light" id="ce-close">سكّر</button>
+              </div>
+              <p class="form-msg" id="ce-msg"></p>
+              <iframe id="ce-frame" class="ce-frame" sandbox="allow-scripts" title="معاينة البطاقة" hidden></iframe>
+            </div>
+            <div id="showcase"></div>
           </div>
 
           <!-- ملفات الدورة: فتح البطاقات وقت الشرح -->

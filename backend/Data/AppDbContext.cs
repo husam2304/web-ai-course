@@ -22,6 +22,8 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     public DbSet<ContentUnlock> ContentUnlocks => Set<ContentUnlock>();
 
+    public DbSet<TraineeCard> TraineeCards => Set<TraineeCard>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Submission>(e =>
@@ -53,6 +55,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         {
             e.ToTable("Teams");
             e.Property(t => t.Name).HasMaxLength(100).IsRequired();
+            e.Property(t => t.ProjectUrl).HasMaxLength(300);
             e.HasMany(t => t.Trainees)
                 .WithOne(x => x.Team)
                 .HasForeignKey(x => x.TeamId)
@@ -125,6 +128,13 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.ToTable("ContentUnlocks");
             e.HasKey(x => x.Key);
             e.Property(x => x.Key).HasMaxLength(64);
+        });
+
+        modelBuilder.Entity<TraineeCard>(e =>
+        {
+            e.ToTable("TraineeCards");
+            e.HasKey(x => x.TraineeId);
+            e.HasOne(x => x.Trainee).WithMany().HasForeignKey(x => x.TraineeId).OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

@@ -104,8 +104,8 @@ $('#view-tabs').addEventListener('click', function (e) {
 function showView(view) {
   currentView = view;
   for (const b of document.querySelectorAll('.view-tab')) b.classList.toggle('active', b.dataset.view === view);
-  for (const v of ['subs', 'roster', 'teams', 'messages', 'trash', 'locks']) $('#view-' + v).hidden = v !== view;
-  dayTabs.hidden = view === 'teams' || view === 'messages' || view === 'trash' || view === 'locks';
+  for (const v of ['subs', 'roster', 'teams', 'messages', 'trash', 'locks', 'showcase']) $('#view-' + v).hidden = v !== view;
+  dayTabs.hidden = view === 'teams' || view === 'messages' || view === 'trash' || view === 'locks' || view === 'showcase';
   refresh();
 }
 
@@ -116,6 +116,7 @@ function refresh() {
   else if (currentView === 'messages') loadMessages();
   else if (currentView === 'trash') loadTrash();
   else if (currentView === 'locks') loadLocks();
+  else if (currentView === 'showcase') loadShowcase();
   else renderTeams();
 }
 
@@ -1192,3 +1193,109 @@ $('#locks').addEventListener('click', async function (e) {
   }
   loadLocks();
 });
+
+
+// ---------- اليوم 5: رابط المشروع + بطاقات اليوم 1 ----------
+let ceTrainee = null;
+
+async function loadShowcase() {
+  const box = $('#showcase');
+  box.innerHTML = '<p class="muted">عم يتحمّل...</p>';
+  try {
+    const teamsList = await apiJson('/api/admin/showcase');
+    box.innerHTML = teamsList.map(function (t) {
+      const rows = t.trainees.map(function (x) {
+        const status = !x.hasCard ? '— ما في بطاقة' : (x.isHidden ? '🙈 مخفية' : '✅ ظاهرة') + ' · ' + Math.ceil(x.size / 1024) + 'KB';
+        return '<tr><td>' + escapeHtml(x.fullName) + '</td><td>' + status + '</td>' +
+          '<td><button type="button" class="mini primary" data-card="' + x.id + '" data-name="' + escapeHtml(x.fullName) + '">' + (x.hasCard ? 'تعديل' : 'ارفع بطاقة') + '</button>' +
+          (x.hasCard ? ' <button type="button" class="mini" data-toggle-hide="' + x.id + '" data-hidden="' + (x.isHidden ? 0 : 1) + '">' + (x.isHidden ? 'أظهر' : 'اخفِ') + '</button>' : '') +
+          '</td></tr>';
+      }).join('');
+      return '<div class="roster-team"><h3>' + escapeHtml(t.name) + '</h3>' +
+        '<div class="project-url-row"><label>رابط المشروع (Netlify)</label>' +
+        '<input type="url" dir="ltr" placeholder="https://....netlify.app" value="' + escapeHtml(t.projectUrl || '') + '" data-url-team="' + t.id + '">' +
+        '<button type="button" class="mini primary" data-save-url="' + t.id + '">حفظ الرابط</button>' +
+        (t.projectUrl ? ' <a href="' + escapeHtml(t.projectUrl) + '" target="_blank" rel="noopener">افتح ↗</a>' : '') + '</div>' +
+        '<div class="table-wrap"><table class="admin-table"><thead><tr><th>المتدرب</th><th>البطاقة</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+    }).join('');
+  } catch (err) {
+    box.innerHTML = '<p class="error-msg">ما قدرنا نحمّل: ' + escapeHtml(err.message) + '</p>';
+  }
+}
+
+$('#showcase').addEventListener('click', async function (e) {
+  const saveUrl = e.target.closest('[data-save-url]');
+  const card = e.target.closest('[data-card]');
+  const hide = e.target.closest('[data-toggle-hide]');
+  try {
+    if (saveUrl) {
+      const id = saveUrl.dataset.saveUrl;
+      const url = $('[data-url-team="' + id + '"]').value.trim();
+      saveUrl.disabled = true;
+      await api('/api/admin/teams/' + id + '/project', 'PUT', { url: url });
+      loadShowcase();
+    } else if (hide) {
+      await api('/api/admin/cards/' + hide.dataset.toggleHide, 'PUT', { isHidden: hide.dataset.hidden === '1' });
+      loadShowcase();
+    } else if (card) {
+      openCardEditor(Number(card.dataset.card), card.dataset.name);
+    }
+  } catch (err) {
+    alert('ما زبط: ' + err.message);
+    loadShowcase();
+  }
+});
+
+async function openCardEditor(traineeId, name) {
+  ceTrainee = traineeId;
+  $('#ce-title').textContent = 'بطاقة: ' + name;
+  $('#ce-html').value = '';
+  $('#ce-hidden').checked = false;
+  $('#ce-file').value = '';
+  $('#ce-msg').textContent = '';
+  $('#ce-frame').hidden = true;
+  $('#card-editor').hidden = false;
+  $('#card-editor').scrollIntoView({ behavior: 'smooth' });
+  try {
+    const existing = await apiJson('/api/admin/cards/' + traineeId);
+    $('#ce-html').value = existing.html;
+    $('#ce-hidden').checked = existing.isHidden;
+  } catch (err) { /* ما في بطاقة لسا */ }
+}
+
+$('#ce-file').addEventListener('change', function () {
+  const file = this.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function () { $('#ce-html').value = reader.result; };
+  reader.readAsText(file, 'utf-8');
+});
+
+$('#ce-preview').addEventListener('click', function () {
+  const frame = $('#ce-frame');
+  frame.srcdoc = $('#ce-html').value;
+  frame.hidden = false;
+});
+
+$('#ce-save').addEventListener('click', async function () {
+  const html = $('#ce-html').value;
+  if (!html.trim()) { $('#ce-msg').textContent = 'الصق كود البطاقة أو اختار ملف.'; return; }
+  this.disabled = true;
+  try {
+    await api('/api/admin/cards/' + ceTrainee, 'PUT', { html: html, isHidden: $('#ce-hidden').checked });
+    $('#ce-msg').textContent = 'انحفظت ✓';
+    loadShowcase();
+  } catch (err) {
+    $('#ce-msg').textContent = 'ما انحفظت: ' + err.message;
+  }
+  this.disabled = false;
+});
+
+$('#ce-delete').addEventListener('click', async function () {
+  if (!confirm('أكيد بدك تحذف البطاقة؟')) return;
+  try { await api('/api/admin/cards/' + ceTrainee, 'DELETE'); } catch (err) { /* مش موجودة */ }
+  $('#card-editor').hidden = true;
+  loadShowcase();
+});
+
+$('#ce-close').addEventListener('click', function () { $('#card-editor').hidden = true; });
