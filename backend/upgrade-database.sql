@@ -119,10 +119,10 @@ IF COL_LENGTH('Teams', 'ProjectUrl') IS NULL
     ALTER TABLE Teams ADD ProjectUrl nvarchar(300) NULL;
 GO
 
-IF OBJECT_ID('TraineeCards') IS NULL
-    CREATE TABLE TraineeCards (
-        TraineeId int NOT NULL CONSTRAINT PK_TraineeCards PRIMARY KEY
-            CONSTRAINT FK_TraineeCards_Trainees REFERENCES Trainees(Id) ON DELETE CASCADE,
+IF OBJECT_ID('TeamCards') IS NULL
+    CREATE TABLE TeamCards (
+        TeamId int NOT NULL CONSTRAINT PK_TeamCards PRIMARY KEY
+            CONSTRAINT FK_TeamCards_Teams REFERENCES Teams(Id) ON DELETE CASCADE,
         Html nvarchar(max) NOT NULL,
         IsHidden bit NOT NULL,
         UpdatedAtUtc datetime2 NOT NULL

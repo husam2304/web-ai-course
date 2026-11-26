@@ -1195,29 +1195,26 @@ $('#locks').addEventListener('click', async function (e) {
 });
 
 
-// ---------- اليوم 5: رابط المشروع + بطاقات اليوم 1 ----------
-let ceTrainee = null;
+// ---------- اليوم 5: رابط المشروع + بطاقة كل فريق ----------
+let ceTeam = null;
 
 async function loadShowcase() {
   const box = $('#showcase');
   box.innerHTML = '<p class="muted">عم يتحمّل...</p>';
   try {
     const teamsList = await apiJson('/api/admin/showcase');
-    box.innerHTML = teamsList.map(function (t) {
-      const rows = t.trainees.map(function (x) {
-        const status = !x.hasCard ? '— ما في بطاقة' : (x.isHidden ? '🙈 مخفية' : '✅ ظاهرة') + ' · ' + Math.ceil(x.size / 1024) + 'KB';
-        return '<tr><td>' + escapeHtml(x.fullName) + '</td><td>' + status + '</td>' +
-          '<td><button type="button" class="mini primary" data-card="' + x.id + '" data-name="' + escapeHtml(x.fullName) + '">' + (x.hasCard ? 'تعديل' : 'ارفع بطاقة') + '</button>' +
-          (x.hasCard ? ' <button type="button" class="mini" data-toggle-hide="' + x.id + '" data-hidden="' + (x.isHidden ? 0 : 1) + '">' + (x.isHidden ? 'أظهر' : 'اخفِ') + '</button>' : '') +
-          '</td></tr>';
-      }).join('');
-      return '<div class="roster-team"><h3>' + escapeHtml(t.name) + '</h3>' +
-        '<div class="project-url-row"><label>رابط المشروع (Netlify)</label>' +
-        '<input type="url" dir="ltr" placeholder="https://....netlify.app" value="' + escapeHtml(t.projectUrl || '') + '" data-url-team="' + t.id + '">' +
-        '<button type="button" class="mini primary" data-save-url="' + t.id + '">حفظ الرابط</button>' +
-        (t.projectUrl ? ' <a href="' + escapeHtml(t.projectUrl) + '" target="_blank" rel="noopener">افتح ↗</a>' : '') + '</div>' +
-        '<div class="table-wrap"><table class="admin-table"><thead><tr><th>المتدرب</th><th>البطاقة</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div></div>';
+    const rows = teamsList.map(function (t) {
+      const status = !t.hasCard ? '— ما في بطاقة' : (t.isHidden ? '🙈 مخفية' : '✅ ظاهرة') + ' · ' + Math.ceil(t.size / 1024) + 'KB';
+      return '<tr><td><strong>' + escapeHtml(t.name) + '</strong></td>' +
+        '<td><div class="project-url-row"><input type="url" dir="ltr" placeholder="https://....netlify.app" value="' + escapeHtml(t.projectUrl || '') + '" data-url-team="' + t.id + '">' +
+        '<button type="button" class="mini primary" data-save-url="' + t.id + '">حفظ</button>' +
+        (t.projectUrl ? ' <a href="' + escapeHtml(t.projectUrl) + '" target="_blank" rel="noopener">افتح ↗</a>' : '') + '</div></td>' +
+        '<td>' + status + '</td>' +
+        '<td><button type="button" class="mini primary" data-card="' + t.id + '" data-name="' + escapeHtml(t.name) + '">' + (t.hasCard ? 'تعديل البطاقة' : 'ارفع بطاقة') + '</button>' +
+        (t.hasCard ? ' <button type="button" class="mini" data-toggle-hide="' + t.id + '" data-hidden="' + (t.isHidden ? 0 : 1) + '">' + (t.isHidden ? 'أظهر' : 'اخفِ') + '</button>' : '') +
+        '</td></tr>';
     }).join('');
+    box.innerHTML = '<div class="table-wrap"><table class="admin-table"><thead><tr><th>الفريق</th><th>رابط المشروع (Netlify)</th><th>البطاقة</th><th></th></tr></thead><tbody>' + rows + '</tbody></table></div>';
   } catch (err) {
     box.innerHTML = '<p class="error-msg">ما قدرنا نحمّل: ' + escapeHtml(err.message) + '</p>';
   }
@@ -1246,9 +1243,9 @@ $('#showcase').addEventListener('click', async function (e) {
   }
 });
 
-async function openCardEditor(traineeId, name) {
-  ceTrainee = traineeId;
-  $('#ce-title').textContent = 'بطاقة: ' + name;
+async function openCardEditor(teamId, name) {
+  ceTeam = teamId;
+  $('#ce-title').textContent = 'بطاقة فريق: ' + name;
   $('#ce-html').value = '';
   $('#ce-hidden').checked = false;
   $('#ce-file').value = '';
@@ -1257,7 +1254,7 @@ async function openCardEditor(traineeId, name) {
   $('#card-editor').hidden = false;
   $('#card-editor').scrollIntoView({ behavior: 'smooth' });
   try {
-    const existing = await apiJson('/api/admin/cards/' + traineeId);
+    const existing = await apiJson('/api/admin/cards/' + teamId);
     $('#ce-html').value = existing.html;
     $('#ce-hidden').checked = existing.isHidden;
   } catch (err) { /* ما في بطاقة لسا */ }
@@ -1282,7 +1279,7 @@ $('#ce-save').addEventListener('click', async function () {
   if (!html.trim()) { $('#ce-msg').textContent = 'الصق كود البطاقة أو اختار ملف.'; return; }
   this.disabled = true;
   try {
-    await api('/api/admin/cards/' + ceTrainee, 'PUT', { html: html, isHidden: $('#ce-hidden').checked });
+    await api('/api/admin/cards/' + ceTeam, 'PUT', { html: html, isHidden: $('#ce-hidden').checked });
     $('#ce-msg').textContent = 'انحفظت ✓';
     loadShowcase();
   } catch (err) {
@@ -1293,7 +1290,7 @@ $('#ce-save').addEventListener('click', async function () {
 
 $('#ce-delete').addEventListener('click', async function () {
   if (!confirm('أكيد بدك تحذف البطاقة؟')) return;
-  try { await api('/api/admin/cards/' + ceTrainee, 'DELETE'); } catch (err) { /* مش موجودة */ }
+  try { await api('/api/admin/cards/' + ceTeam, 'DELETE'); } catch (err) { /* مش موجودة */ }
   $('#card-editor').hidden = true;
   loadShowcase();
 });

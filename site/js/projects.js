@@ -1,5 +1,5 @@
 // ===== المشاريع: فريق فريق، من الباك إند =====
-// الرابط وبطاقات اليوم 1 بيعبّيهم المدرب من لوحة المدرب، وهون بس بنعرضهم.
+// الرابط وبطاقة كل فريق بيعبّيهم المدرب من لوحة المدرب، وهون بس بنعرضهم.
 const API_URL = 'https://web-train.runasp.net';
 
 // اسم المشروع ونوعه لكل فريق (من خطط الفرق)
@@ -56,17 +56,15 @@ function renderTeam(team) {
       bottom +
     '</article>';
 
-  // بطاقات اليوم 1: كل بطاقة زي ما هي، جوا إطار معزول (sandbox)
-  if (team.cards.length > 0) {
-    html += '<div class="member-cards">' + team.cards.map(function (card) {
-      const mine = link
-        ? '<a class="btn member-project" href="' + esc(link) + '" target="_blank" rel="noopener">مشروعي ←</a>'
-        : '<span class="badge-soon">مشروعي: قريباً</span>';
-      return '<figure class="member-card">' +
-        '<iframe src="' + API_URL + '/api/showcase/cards/' + card.traineeId + '?v=' + card.v + '" title="بطاقة ' + esc(card.name) + '" loading="lazy" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>' +
-        '<figcaption>' + mine + '</figcaption>' +
-      '</figure>';
-    }).join('') + '</div>';
+  // بطاقة الفريق: زي ما هي، جوا إطار معزول (sandbox)
+  if (team.hasCard) {
+    const mine = link
+      ? '<a class="btn member-project" href="' + esc(link) + '" target="_blank" rel="noopener">مشروعنا ←</a>'
+      : '<span class="badge-soon">مشروعنا: قريباً</span>';
+    html += '<div class="member-cards"><figure class="member-card">' +
+      '<iframe src="' + API_URL + '/api/showcase/cards/' + team.id + '?v=' + team.v + '" title="بطاقة فريق ' + esc(team.name) + '" loading="lazy" sandbox="allow-scripts allow-popups allow-popups-to-escape-sandbox"></iframe>' +
+      '<figcaption>' + mine + '</figcaption>' +
+    '</figure></div>';
   }
   block.innerHTML = html;
   grid.appendChild(block);

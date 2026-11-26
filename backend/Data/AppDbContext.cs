@@ -22,7 +22,7 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
 
     public DbSet<ContentUnlock> ContentUnlocks => Set<ContentUnlock>();
 
-    public DbSet<TraineeCard> TraineeCards => Set<TraineeCard>();
+    public DbSet<TeamCard> TeamCards => Set<TeamCard>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -130,11 +130,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
             e.Property(x => x.Key).HasMaxLength(64);
         });
 
-        modelBuilder.Entity<TraineeCard>(e =>
+        modelBuilder.Entity<TeamCard>(e =>
         {
-            e.ToTable("TraineeCards");
-            e.HasKey(x => x.TraineeId);
-            e.HasOne(x => x.Trainee).WithMany().HasForeignKey(x => x.TraineeId).OnDelete(DeleteBehavior.Cascade);
+            e.ToTable("TeamCards");
+            e.HasKey(x => x.TeamId);
+            e.HasOne(x => x.Team).WithMany().HasForeignKey(x => x.TeamId).OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

@@ -91,9 +91,9 @@
 .team-block { margin-bottom: 36px; }
 .team-block.hidden { display: none; }
 .team-block .project-card { max-width: 520px; }
-.member-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 18px; margin-top: 16px; }
+.member-cards { margin-top: 14px; max-width: 760px; }
 .member-card { margin: 0; background: #fff; border: 1px solid #DDE3E9; border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
-.member-card iframe { width: 100%; height: 520px; border: 0; display: block; background: #fff; }
+.member-card iframe { width: 100%; height: 600px; border: 0; display: block; background: #fff; }
 .member-card figcaption { padding: 10px 14px; border-top: 1px solid #DDE3E9; text-align: center; }
 .member-project { display: inline-block; }
 @media (max-width: 600px) { .member-cards { grid-template-columns: 1fr; } .member-card iframe { height: 480px; } }

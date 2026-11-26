@@ -8,7 +8,7 @@ public record ProjectUrlInput(string? Url);
 public record CardInput(string? Html, bool? IsHidden);
 
 /// <summary>
-/// Day 5 projects page: each team's published link + the Day 1 profile cards the trainer chose to show.
+/// Day 5 projects page: each team's published link + the team card the trainer pasted.
 /// Cards are trainee HTML, so they are served with a CSP sandbox (no access to this origin) and framed in a sandboxed iframe.
 /// </summary>
 public static class ShowcaseEndpoints
@@ -19,28 +19,24 @@ public static class ShowcaseEndpoints
     {
         app.MapGet("/api/showcase", async (AppDbContext db) =>
         {
-            var cards = await db.TraineeCards.AsNoTracking()
-                .Where(c => !c.IsHidden && c.Trainee!.IsActive)
-                .Select(c => new { c.TraineeId, c.Trainee!.FullName, c.Trainee.TeamId, c.UpdatedAtUtc })
+            var cards = await db.TeamCards.AsNoTracking()
+                .Where(c => !c.IsHidden)
+                .Select(c => new { c.TeamId, c.UpdatedAtUtc })
                 .ToListAsync();
             var teams = await db.Teams.AsNoTracking()
                 .OrderBy(t => t.SortOrder).ThenBy(t => t.Name)
                 .Select(t => new { t.Id, t.Name, t.ProjectUrl })
                 .ToListAsync();
-            return Results.Ok(teams.Select(t => new
+            return Results.Ok(teams.Select(t =>
             {
-                t.Id,
-                t.Name,
-                t.ProjectUrl,
-                cards = cards.Where(c => c.TeamId == t.Id).OrderBy(c => c.FullName)
-                    .Select(c => new { traineeId = c.TraineeId, name = c.FullName, v = c.UpdatedAtUtc.Ticks }),
+                var c = cards.FirstOrDefault(k => k.TeamId == t.Id);
+                return new { t.Id, t.Name, t.ProjectUrl, hasCard = c is not null, v = c?.UpdatedAtUtc.Ticks ?? 0 };
             }));
         });
 
-        app.MapGet("/api/showcase/cards/{traineeId:int}", async (int traineeId, HttpContext http, AppDbContext db) =>
+        app.MapGet("/api/showcase/cards/{teamId:int}", async (int teamId, HttpContext http, AppDbContext db) =>
         {
-            var card = await db.TraineeCards.AsNoTracking()
-                .FirstOrDefaultAsync(c => c.TraineeId == traineeId && !c.IsHidden && c.Trainee!.IsActive);
+            var card = await db.TeamCards.AsNoTracking().FirstOrDefaultAsync(c => c.TeamId == teamId && !c.IsHidden);
             if (card is null) return Results.NotFound();
             SetSandboxHeaders(http);
             return Results.Content(card.Html, "text/html; charset=utf-8", Encoding.UTF8);
@@ -51,29 +47,17 @@ public static class ShowcaseEndpoints
     {
         admin.MapGet("/showcase", async (AppDbContext db) =>
         {
-            var cards = await db.TraineeCards.AsNoTracking()
-                .Select(c => new { c.TraineeId, c.IsHidden, c.UpdatedAtUtc, size = c.Html.Length })
+            var cards = await db.TeamCards.AsNoTracking()
+                .Select(c => new { c.TeamId, c.IsHidden, size = c.Html.Length })
                 .ToListAsync();
             var teams = await db.Teams.AsNoTracking()
                 .OrderBy(t => t.SortOrder).ThenBy(t => t.Name)
-                .Select(t => new
-                {
-                    t.Id,
-                    t.Name,
-                    t.ProjectUrl,
-                    trainees = t.Trainees.Where(x => x.IsActive).OrderBy(x => x.FullName).Select(x => new { x.Id, x.FullName }).ToList(),
-                })
+                .Select(t => new { t.Id, t.Name, t.ProjectUrl })
                 .ToListAsync();
-            return Results.Ok(teams.Select(t => new
+            return Results.Ok(teams.Select(t =>
             {
-                t.Id,
-                t.Name,
-                t.ProjectUrl,
-                trainees = t.trainees.Select(x =>
-                {
-                    var c = cards.FirstOrDefault(k => k.TraineeId == x.Id);
-                    return new { x.Id, x.FullName, hasCard = c is not null, isHidden = c?.IsHidden ?? false, size = c?.size ?? 0 };
-                }),
+                var c = cards.FirstOrDefault(k => k.TeamId == t.Id);
+                return new { t.Id, t.Name, t.ProjectUrl, hasCard = c is not null, isHidden = c?.IsHidden ?? false, size = c?.size ?? 0 };
             }));
         });
 
@@ -93,16 +77,16 @@ public static class ShowcaseEndpoints
             return Results.Ok(new { team.ProjectUrl });
         });
 
-        admin.MapGet("/cards/{traineeId:int}", async (int traineeId, AppDbContext db) =>
+        admin.MapGet("/cards/{teamId:int}", async (int teamId, AppDbContext db) =>
         {
-            var card = await db.TraineeCards.AsNoTracking().FirstOrDefaultAsync(c => c.TraineeId == traineeId);
+            var card = await db.TeamCards.AsNoTracking().FirstOrDefaultAsync(c => c.TeamId == teamId);
             return card is null ? Results.NotFound() : Results.Ok(new { card.Html, card.IsHidden });
         });
 
-        admin.MapPut("/cards/{traineeId:int}", async (int traineeId, CardInput input, AppDbContext db) =>
+        admin.MapPut("/cards/{teamId:int}", async (int teamId, CardInput input, AppDbContext db) =>
         {
-            if (!await db.Trainees.AnyAsync(t => t.Id == traineeId)) return Results.NotFound();
-            var card = await db.TraineeCards.FindAsync(traineeId);
+            if (!await db.Teams.AnyAsync(t => t.Id == teamId)) return Results.NotFound();
+            var card = await db.TeamCards.FindAsync(teamId);
             if (input.Html is not null)
             {
                 if (string.IsNullOrWhiteSpace(input.Html)) return Uploads.Error("الصق كود البطاقة.");
@@ -111,8 +95,8 @@ public static class ShowcaseEndpoints
             if (card is null)
             {
                 if (input.Html is null) return Uploads.Error("الصق كود البطاقة.");
-                card = new TraineeCard { TraineeId = traineeId };
-                db.TraineeCards.Add(card);
+                card = new TeamCard { TeamId = teamId };
+                db.TeamCards.Add(card);
             }
             if (input.Html is not null) card.Html = input.Html;
             if (input.IsHidden is not null) card.IsHidden = input.IsHidden.Value;
@@ -121,17 +105,17 @@ public static class ShowcaseEndpoints
             return Results.Ok();
         });
 
-        admin.MapDelete("/cards/{traineeId:int}", async (int traineeId, AppDbContext db) =>
+        admin.MapDelete("/cards/{teamId:int}", async (int teamId, AppDbContext db) =>
         {
-            var card = await db.TraineeCards.FindAsync(traineeId);
+            var card = await db.TeamCards.FindAsync(teamId);
             if (card is null) return Results.NotFound();
-            db.TraineeCards.Remove(card);
+            db.TeamCards.Remove(card);
             await db.SaveChangesAsync();
             return Results.Ok();
         });
     }
 
-    /// <summary>Trainee HTML runs in an opaque origin: scripts allowed, no cookies/storage of this API, links open in new tabs.</summary>
+    /// <summary>Team HTML runs in an opaque origin: scripts allowed, no access to this API's origin, links open in new tabs.</summary>
     private static void SetSandboxHeaders(HttpContext http)
     {
         http.Response.Headers["Content-Security-Policy"] = "sandbox allow-scripts allow-popups allow-popups-to-escape-sandbox";

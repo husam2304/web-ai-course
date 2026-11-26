@@ -194,12 +194,12 @@ public class ContentUnlock
     public DateTime UnlockedAtUtc { get; set; }
 }
 
-/// <summary>A trainee's Day 1 profile card, pasted by the trainer as HTML and shown as-is on the projects page.</summary>
-public class TraineeCard
+/// <summary>A team's card (HTML pasted by the trainer), shown as-is under the team's project on the projects page.</summary>
+public class TeamCard
 {
-    public int TraineeId { get; set; }
+    public int TeamId { get; set; }
 
-    public Trainee? Trainee { get; set; }
+    public Team? Team { get; set; }
 
     public string Html { get; set; } = string.Empty;
 
