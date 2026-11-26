@@ -1612,17 +1612,38 @@ drinks.js:
 
 category.css:
 (الصق هون)</pre></div></div>
-<div class="task"><h4>4. Animation للـ hero</h4><p>الحركة بالـ CSS: @keyframes بتوصف الحركة، و animation بتشغّلها.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-tech-10">نسخ</button></div><pre id="d5-tech-10" dir="auto">هاد الـ HTML تبع قسم الـ hero بالصفحة الرئيسية (من &lt;section class="container hero-section"&gt; لآخرها)، وهاد ملف home.css.
-بدي animation للـ hero بـ CSS عادي، بدون مكتبات:
-1. العنوان والوصف ومربع البحث يظهروا واحد ورا الثاني (يبهتوا ويطلعوا شوي من تحت) أول ما الصفحة تفتح.
-2. حركة هادية ومستمرة بالخلفية بتناسب ثيم الموقع الداكن (مثلاً توهج بيتحرك ببطء).
-3. اللي مطفّي الحركة على جهازه ما يشوفها (prefers-reduced-motion).
-لا تغيّر الـ HTML إلا إذا لازم class جديد، وقلي وين. اعطيني قواعد الـ CSS الجديدة بس ووين أحطها، واشرحلي @keyframes و animation بالعربي بـ 3 أسطر.
+<div class="task"><h4>4. Animation للـ hero يتفاعل مع الماوس</h4><p>إنتو بتختاروا الفكرة. الـ prompt بيطلب من الـ AI 3 أفكار، وإنتو بتختاروا وحدة، وبعدين بينفذها. مسموح مكتبة من الإنترنت (CDN). الصقوا: قسم الـ hero من <code dir="ltr">index.html</code>، والـ head، وآخر الـ body (أسطر الـ script)، و <code dir="ltr">home.css</code>، و <code dir="ltr">home.js</code>.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-tech-10">نسخ</button></div><pre id="d5-tech-10" dir="auto">بدي animation للـ hero بالصفحة الرئيسية بموقعنا «نقطة AI» (دليل أدوات الذكاء الاصطناعي، ثيم داكن، عربي RTL)، **بيتفاعل مع حركة الماوس**.
 
-الـ HTML:
+أول شي: اقترحلي 3 أفكار مختلفة تناسب موقع عن الذكاء الاصطناعي، مثلاً:
+- خلفية جزيئات أو نقاط متصلة بتتحرك وبتنجذب للماوس.
+- توهج أو ضوء بيلحق الماوس.
+- عناصر بتميل أو بتتحرك بعمق (parallax) مع الماوس.
+لكل فكرة: وصف بجملتين، وهل بدها مكتبة (مثلاً tsParticles أو GSAP أو Vanta.js) ولا CSS و JS عادي، وقديش ثقيلة على الجهاز.
+**استنى أنا أختار** قبل ما تكتب كود.
+
+بعد ما أختار، نفّذها بهالشروط:
+1. إذا في مكتبة: من CDN (رابط script بنسخة محددة)، وقلي بالضبط وين أحط السطر (بالـ head ولا آخر الـ body، وقبل أي ملف).
+2. الـ CSS الجديد بـ home.css، والـ JS الجديد بـ home.js (أو ملف js/hero.js جديد إذا أرتب، وقلي وين أربطه).
+3. الـ animation ورا محتوى الـ hero: العنوان ومربع البحث لازم يضلوا واضحين وقابلين للكبس.
+4. على الجوال (ما في ماوس) يضل في حركة هادية لحالها، أو يكون أخف.
+5. اللي مطفّي الحركة على جهازه (prefers-reduced-motion) ما يشوف حركة.
+6. ما يخرب البحث ولا الفلترة ولا المقارنة اللي موجودين بـ home.js.
+7. إذا لازم تعدّل بالـ HTML (class أو عنصر جديد)، قلي السطر بالضبط ووين.
+اعطيني كل ملف بيتغيّر كامل بدون اختصار، كل واحد بـ code block وفوقه اسمه، واشرحلي بالعربي بـ 3 أسطر كيف الـ animation بيعرف وين الماوس.
+
+قسم الـ hero من index.html:
+(الصق هون، من &lt;section class="container hero-section"&gt; لآخرها)
+
+الـ head من index.html:
+(الصق هون)
+
+آخر الـ body من index.html (أسطر الـ script):
 (الصق هون)
 
 home.css:
+(الصق هون)
+
+home.js:
 (الصق هون)</pre></div></div>
 <div class="task"><h4>5. الأدوات من بيانات JS</h4><p>بطاقات الأدوات الـ 9 بالرئيسية مكتوبة بالـ HTML.</p><div class="code-block prompt"><div class="code-head"><span>Prompt</span><button class="copy-btn" data-target="d5-tech-11">نسخ</button></div><pre id="d5-tech-11" dir="auto">بدي أحوّل بطاقات الأدوات بالصفحة الرئيسية لبيانات بـ JavaScript. تحت شغلتين: الـ HTML تبع #tools-grid، وملف home.js.
 المطلوب:
