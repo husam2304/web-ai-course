@@ -1,0 +1,24 @@
+:root {
+  --bg: #f8f5f0;
+  --primary: #1e3c5a;
+  --accent: #e2711d;
+  --radius: 12px;
+}
+body { margin: 0; background: var(--bg); color: #222; font-family: "Cairo", Tahoma, sans-serif; }
+header { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: var(--primary); color: white; }
+header a { color: white; }
+main { max-width: 900px; margin: 0 auto; padding: 24px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.card { background: white; border-radius: var(--radius); padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.card img { width: 100%; border-radius: 8px; }
+.card h3 { margin: 8px 0 4px; }
+button, .btn { font: inherit; border: 0; border-radius: 8px; padding: 6px 14px; background: var(--accent); color: white; cursor: pointer; text-decoration: none; display: inline-block; }
+.filters { display: flex; gap: 8px; margin-bottom: 16px; }
+.filter { background: var(--primary); }
+.total { font-size: 22px; font-weight: 700; margin-top: 20px; }
+/* الحركة */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.show { animation: fadeUp 0.6s ease; }

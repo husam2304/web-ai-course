@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>المنيو</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header><h1>مقهى الدورة</h1><a href="index.html">المنيو</a></header>
+  <main>
+    <div class="filters">
+      <button class="filter" data-cat="all">الكل</button>
+      <button class="filter" data-cat="coffee">قهوة</button>
+      <button class="filter" data-cat="sweets">حلويات</button>
+    </div>
+    <div id="list" class="cards"></div>
+    <p class="total">المجموع: <span id="total">0 دينار</span></p>
+    <button id="clearBtn">فضّي السلة</button>
+  </main>
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

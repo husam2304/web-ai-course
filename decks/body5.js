@@ -1,7 +1,7 @@
 
-// one step of the growing example: code (left), reading + who needs it (right)
-async function stepSlide(sec, n, title, codes, reading, teams, tip, notes) {
-  const s = newSlide("CONTENT", `JavaScript · الخطوة ${n} من 7`, title, sec);
+// one slide: code (left), reading + a box (right)
+async function stepSlide(sec, kicker, title, codes, reading, boxLabel, boxText, tip, notes) {
+  const s = newSlide("CONTENT", `JavaScript · ${kicker}`, title, sec);
   const cw = 7.0;
   let y = 1.75;
   for (const [label, text, h, fs] of codes) {
@@ -11,10 +11,10 @@ async function stepSlide(sec, n, title, codes, reading, teams, tip, notes) {
   const x = M + cw + 0.35, w = W - M - x;
   box(s, x, 1.75, w, 2.75, C.background2);
   s.addText("بتنقرأ", R({ x: x + 0.25, y: 1.85, w: w - 0.5, h: 0.4, fontSize: 16, bold: true, color: C.accent1 }));
-  s.addText(reading, R({ x: x + 0.25, y: 2.3, w: w - 0.5, h: 2.1, fontSize: 15, color: C.text2 }));
+  s.addText(reading, R({ x: x + 0.25, y: 2.3, w: w - 0.5, h: 2.1, fontSize: 14, color: C.text2 }));
   box(s, x, 4.65, w, 0.95, C.text2);
-  s.addText("مين بحاجتها", R({ x: x + 0.25, y: 4.7, w: w - 0.5, h: 0.35, fontSize: 13, bold: true, color: HEX.accent6 }));
-  s.addText(teams, R({ x: x + 0.25, y: 5.05, w: w - 0.5, h: 0.45, fontSize: 16, bold: true, color: C.background1 }));
+  s.addText(boxLabel, R({ x: x + 0.25, y: 4.7, w: w - 0.5, h: 0.35, fontSize: 13, bold: true, color: HEX.accent6 }));
+  s.addText(boxText, R({ x: x + 0.25, y: 5.05, w: w - 0.5, h: 0.45, fontSize: 15, bold: true, color: C.background1 }));
   if (tip) callout(s, x, 5.75, w, 0.8, tip, { size: 13, bold: false });
   if (notes) s.addNotes(notes);
   return s;
@@ -40,7 +40,7 @@ async function build() {
   s = newSlide("CONTENT", "أجندة اليوم", "240 دقيقة", S0);
   table(s, ["الوقت", "الجزء", "شو بيصير"], [
     ["0:00", "الافتتاح", "وين وصلنا، وشو اليوم"],
-    ["0:05", "JavaScript بمثال واحد", "7 خطوات، مثال بيكبر"],
+    ["0:05", "JavaScript", "الأساس (15) وبعدين الميزات (25)"],
     ["0:45", "تطبيق", "مهام فريقكم بصفحة «اليوم 5» (الضروري أول)"],
     ["2:00", "استراحة", "15 دقيقة"],
     ["2:15", "النشر", "Netlify: حساب، وسحب المجلد، واسم"],
@@ -51,75 +51,116 @@ async function build() {
   ], { y: 1.8, colW: [1.5, 3.0, 7.633], rowH: 0.5, fs: 15 });
 
   // ===== JS =====
-  const S1 = "JavaScript بمثال واحد";
+  const S1 = "JavaScript";
   pres.addSection({ title: S1 });
-  divider("0:05 · شرح 40 دقيقة", "JavaScript بمثال واحد", "منيو مقهى صغير بيكبر خطوة خطوة: من زر لموقع كامل", S1, "قاعدة الشرح: كل خطوة بتكتبها بـ demo وبتشغّلها قدامهم، وبتقرأ السطر بالعربي بصوت عالي. بعدين بتسأل: «مين عنده هاد بموقعه؟»");
+  divider("0:05 · شرح 40 دقيقة", "JavaScript: الأساس أول، وبعدين الميزات", "الأساس: 7 أفكار بالـ Console (15 دقيقة) · الميزات: منيو مقهى بيكبر (25 دقيقة)", S1, "الأمثلة بمجلد demo/day5-js: 01-asas للأساس، وبعدين مجلد لكل ميزة (كل مجلد = اللي قبله + ميزة). افتح كل واحد بـ Live Server، و F12 ← Console مفتوح.");
 
-  s = newSlide("CONTENT", "JavaScript · الخريطة", "مثال واحد، 7 خطوات، وكل خطوة بتبني على اللي قبلها", S1);
-  table(s, ["#", "الخطوة", "الأوامر", "مين بحاجتها"], [
-    ["1", "زر بيغيّر نص", "getElementById · addEventListener · textContent", "الكل"],
-    ["2", "البيانات", "data.js · [ ] · { } · <script>", "AI · DSA · IT · تكنولوجيا"],
-    ["3", "الرسم", "function · forEach · ${ }", "AI · DSA · IT · تكنولوجيا"],
-    ["4", "الفلترة", "filter · if / else · data-cat", "AI · DSA · تكنولوجيا · آفاق"],
-    ["5", "صفحة التفاصيل", "?id= · URLSearchParams · find", "DSA · تكنولوجيا"],
-    ["6", "الحفظ واللون", "localStorage · JSON · if / else if", "the sun"],
-    ["7", "الحركة", "@keyframes · animation · classList.add", "تكنولوجيا"],
-  ], { ltr: [2], y: 1.75, colW: [0.6, 2.2, 6.0, 3.333], rowH: 0.5, fs: 13 });
-  callout(s, M, 6.05, CW, 0.55, "الخطوة 1 للكل. بعدها كل فريق بيركّز على خطواته، وكلها بتنفع لما تقرأوا كود الـ AI", { size: 14, bold: false });
-  s.addNotes("دقيقة. الخطوة 1 هي أساس كل الباقي: امسك، استنى، غيّر.");
+  s = newSlide("CONTENT", "JavaScript · الخريطة", "الأساس أول، وبعدين كيف كل ميزة بتشتغل", S1);
+  {
+    const { xs, cw } = colsX(2, 0.4);
+    box(s, xs[0], 1.75, cw, 4.7, C.background2);
+    s.addText("الأساس (15 دقيقة) · مجلد 01-asas", R({ x: xs[0] + 0.3, y: 1.9, w: cw - 0.6, h: 0.45, fontSize: 18, bold: true, color: C.accent1 }));
+    numList(s, ["المتغيرات وأنواع القيم", "الشرط: if / else", "المصفوفة", "الـ loop: forEach", "الـ object", "الـ function", "JS والصفحة: امسك ← استنى ← غيّر"], xs[0] + 0.3, 2.45, cw - 0.6, 3.9, 16);
+    box(s, xs[1], 1.75, cw, 4.7, C.text2);
+    s.addText("الميزات (25 دقيقة) · منيو مقهى بيكبر", R({ x: xs[1] + 0.3, y: 1.9, w: cw - 0.6, h: 0.45, fontSize: 18, bold: true, color: C.accent6 }));
+    s.addText([
+      { text: "1. البيانات والرسم (02-data-render)", options: { breakLine: true, paraSpaceAfter: 8, rtlMode: true } },
+      { text: "2. الفلترة (03-filter)", options: { breakLine: true, paraSpaceAfter: 8, rtlMode: true } },
+      { text: "3. صفحة التفاصيل (04-details)", options: { breakLine: true, paraSpaceAfter: 8, rtlMode: true } },
+      { text: "4. الحفظ واللون (05-save)", options: { breakLine: true, paraSpaceAfter: 8, rtlMode: true } },
+      { text: "5. الحركة (06-animation)", options: { rtlMode: true } },
+    ], R({ x: xs[1] + 0.3, y: 2.45, w: cw - 0.6, h: 3.9, fontSize: 16, color: C.background1 }));
+  }
+  s.addNotes("دقيقة. «الأساس هو الحروف، والميزات هي الجمل. أي كود بيكتبه الـ AI مركّب من هالسبع أفكار».");
 
-  await stepSlide(S1, 1, "امسك ← استنى ← غيّر: زر بيغيّر نص", [
-    ["HTML", '<button id="addBtn">أضف</button>', 0.95, 15],
-    ["js/menu.js", 'const btn = document.getElementById("addBtn");\n\nbtn.addEventListener("click", () => {\n  btn.textContent = "تمت الإضافة";\n});', 2.6, 15],
-  ], "«امسك العنصر اللي الـ id تبعه addBtn وسميه btn. لما حدا يكبس عليه، غيّر النص المكتوب عليه».\nجرس الباب: الجرس (امسك)، حدا كبس (استنى)، الضو اشتغل (غيّر).", "الكل", "addBtn بالـ JS لازم يكون نفسه حرف بحرف اللي بالـ HTML",
-    "6 دقائق. 1. امسك: getElementById بيدوّر بالصفحة على id. 2. استنى: addEventListener + click. 3. غيّر: textContent. اغلط قدامهم: اكتب addbtn بحرف صغير، وورّيهم الخطأ بالـ Console (Cannot read properties of null). كل ميزة بمواقعهم هيك.");
+  // ---- Basics ----
+  await stepSlide(S1, "الأساس · 1 من 7", "المتغيرات: علبة عليها اسم", [
+    ["js/basics.js", 'let name = "سارة";     // نص\nconst price = 2.5;     // رقم\nlet isOpen = true;     // صح أو غلط\n\nconsole.log(name, price, isOpen);', 2.6, 15],
+    ["Console", "سارة 2.5 true", 0.95, 15],
+  ], "«حط سارة بعلبة اسمها name، وحط 2.5 بعلبة اسمها price، واطبعهم بالـ Console».\nconst للي ما بيتغير، و let للي بيتغير. النص بين علامتين \"\"، والرقم بدونهم.", "جرّب بالـ Console", "اكتب name = \"علي\" وبعدين name", "غيّر price = 3: «شو رح يصير؟» (خطأ: const ما بيتغير)",
+    "2 دقيقة. افتح 01-asas بـ Live Server، و F12 ← Console. console.log هو «اطبع لأشوف»: أهم أداة لفهم أي كود.");
 
-  await stepSlide(S1, 2, "البيانات بـ data.js: مصفوفة، وكل منتج object", [
+  await stepSlide(S1, "الأساس · 2 من 7", "الشرط: if / else", [
+    ["js/basics.js", 'if (price > 2) {\n  console.log("غالي شوي");\n} else {\n  console.log("سعره منيح");\n}', 2.4, 15],
+    ["مقارنات", ">   <   >=   <=   ===   !==", 0.95, 16],
+  ], "«إذا السعر أكبر من 2، اطبع غالي شوي. وإلا، اطبع سعره منيح».\nإشارة المرور: إذا هيك اعمل هيك، وإلا اعمل غيره. === يعني بيساوي بالضبط.", "بموقعكم", "الفلترة، والتنبيه اللوني، وصفحة «مش موجود»", "غيّر price لـ 1.5: «شو رح يطبع؟»",
+    "2 دقيقة.");
+
+  await stepSlide(S1, "الأساس · 3 من 7", "المصفوفة: قائمة بالترتيب", [
+    ["js/basics.js", 'const drinks = ["لاتيه", "موكا", "شاي"];\n\nconsole.log(drinks[0]);       // لاتيه\nconsole.log(drinks.length);   // 3', 2.4, 15],
+  ], "«drinks قائمة فيها 3 مشروبات. أول واحد رقمه 0، وطولها 3».\nالعد بيبلش من 0: [0] الأول، و [1] الثاني.", "بموقعكم", "كل البيانات: المنيو، والأدوات، والكتب، والمبدعين", "«شو بيطبع drinks[2]؟»",
+    "2 دقيقة.");
+
+  await stepSlide(S1, "الأساس · 4 من 7", "الـ loop: لكل عنصر اعمل هالشي", [
+    ["js/basics.js", 'drinks.forEach(d => {\n  console.log("عنا " + d);\n});', 1.9, 16],
+    ["Console", "عنا لاتيه\nعنا موكا\nعنا شاي", 1.6, 15],
+  ], "«لكل مشروب بالقائمة (سمّيه d)، اطبع عنا وبعدها اسمه».\nالموظف اللي بيمرق عالطابور واحد واحد. بدل ما نكتب 3 أسطر، سطر واحد بيتكرر.", "بموقعكم", "رسم البطاقات من data.js", "ضيف «عصير» للقائمة: الـ loop بيطبعه لحاله",
+    "2 دقيقة. بتلاقوا كمان for (let i = 0; i < drinks.length; i++): نفس الفكرة، كتابة أقدم.");
+
+  await stepSlide(S1, "الأساس · 5 من 7", "الـ object: بطاقة معلومات", [
+    ["js/basics.js", 'const latte = { name: "لاتيه", price: 2.5 };\n\nconsole.log(latte.name + " بـ " + latte.price + " دينار");', 2.0, 14],
+    ["Console", "لاتيه بـ 2.5 دينار", 0.95, 15],
+  ], "«latte بطاقة فيها اسم وسعر. اطبع اسمه، وبـ، وسعره، ودينار».\nمفتاح: قيمة. والنقطة بتجيب القيمة: latte.name.\nمصفوفة objects = جدول Excel.", "بموقعكم", "كل منتج بـ data.js هو object", "ضيف category: \"coffee\" للبطاقة",
+    "2 دقيقة.");
+
+  await stepSlide(S1, "الأساس · 6 من 7", "الـ function: وصفة باسم", [
+    ["js/basics.js", 'function withTax(p) {\n  return p * 1.16;\n}\n\nconsole.log(withTax(10));     // 11.6', 2.6, 15],
+  ], "«withTax وصفة: بتاخد سعر (p)، وبترجّعه مع ضريبة 16%. وناديناها على 10 فطلعت 11.6».\nبنكتبها مرة، وبنناديها كل ما بدنا.", "بموقعكم", "render و addToCart و showCart", "«شو بيطبع withTax(20)؟»",
+    "2 دقيقة. IT Team عندهم ضريبة 16% بالمنيو.");
+
+  await stepSlide(S1, "الأساس · 7 من 7", "JS والصفحة: امسك ← استنى ← غيّر", [
+    ["index.html", '<button id="addBtn">أضف</button>\n<p id="msg"></p>', 1.2, 15],
+    ["js/basics.js", 'const btn = document.getElementById("addBtn");\nconst msg = document.getElementById("msg");\n\nbtn.addEventListener("click", () => {\n  btn.textContent = "تمت الإضافة";\n  msg.textContent = "لاتيه انضاف للسلة";\n  msg.style.color = "green";\n});', 3.4, 13],
+  ], "«امسك الزر والفقرة. لما حدا يكبس على الزر: غيّر نص الزر، واكتب بالفقرة، ولوّنها أخضر».\nجرس الباب: الجرس (امسك)، حدا كبس (استنى)، الضو اشتغل (غيّر).", "للكل", "كل ميزة بمواقعكم هيك", "اكتب addbtn بحرف صغير: Cannot read properties of null",
+    "3 دقائق. هاي القاعدة: كل الميزات الجاية هي نفس الخطوات الثلاث، والأساس من 1 لـ 6 جواها.");
+
+  // ---- Features ----
+  await stepSlide(S1, "الميزات · 1 من 5 · 02-data-render", "البيانات بـ data.js: مصفوفة objects", [
     ["js/data.js", 'const items = [\n  { id: 1, name: "لاتيه", category: "coffee",\n    price: 2.5, image: "images/latte.jpg" },\n  { id: 2, name: "موكا", category: "coffee",\n    price: 3, image: "images/mocha.jpg" },\n  { id: 3, name: "تشيز كيك", category: "sweets",\n    price: 3.5, image: "images/cake.jpg" }\n];', 3.15, 13],
-    ["menu.html · آخر الـ body", '<script src="js/main.js"></script>\n<script src="js/data.js"></script>\n<script src="js/menu.js"></script>', 1.5, 14],
-  ], "«items مصفوفة فيها 3 منتجات. كل منتج بطاقة معلومات: رقمه، واسمه، وتصنيفه، وسعره، وصورته».\n[ ] = المصفوفة، و { } = المنتج. الترتيب: data.js قبل ملف الصفحة، عشان البيانات تكون جاهزة قبل ما ينرسموا.", "AI · DSA · IT · تكنولوجيا", "منتج جديد = سطر جديد بـ data.js. ما بنلمس الـ HTML",
-    "6 دقائق. التشبيه: جدول Excel. كل سطر منتج، وكل عمود معلومة. المكونات عالطاولة قبل ما الطباخ يبلّش: data.js قبل menu.js.");
+    ["index.html · آخر الـ body", '<script src="js/data.js"></script>\n<script src="js/main.js"></script>', 1.2, 14],
+  ], "«items مصفوفة (الأساس 3) فيها 3 objects (الأساس 5): كل منتج رقمه واسمه وتصنيفه وسعره وصورته».\nجدول Excel: كل سطر منتج. والترتيب: data.js قبل main.js، عشان البيانات تكون جاهزة.", "مين بحاجتها", "AI · DSA · IT · تكنولوجيا", "«لو حطينا data.js بعد main.js؟» ← items is not defined",
+    "3 دقائق. افتح 02-data-render.");
 
-  await stepSlide(S1, 3, "الرسم: بطاقة لكل منتج بـ forEach", [
-    ["menu.html", '<div id="list" class="cards"></div>', 0.95, 15],
-    ["js/menu.js", 'const list = document.getElementById("list");\n\nfunction render(arr) {\n  list.innerHTML = "";\n  arr.forEach(item => {\n    list.innerHTML += `\n      <div class="card">\n        <img src="${item.image}" alt="${item.name}">\n        <h3>${item.name}</h3>\n        <p>${item.price} دينار</p>\n      </div>`;\n  });\n}\n\nrender(items);', 3.85, 12],
-  ], "«render وصفة: فضّي list، وبعدين لكل منتج بالمصفوفة ضيف بطاقة فيها صورته واسمه وسعره».\n${item.name} = حط اسم المنتج هون. والوصفة بنناديها بـ render(items).", "AI · DSA · IT · تكنولوجيا", "جرّب قدامهم: سطر رابع بـ data.js، احفظ، بطاقة جديدة طلعت",
-    "7 دقائق. function = وصفة بإسم، بنكتبها مرة وبنناديها كل ما بدنا (رح نناديها كمان بالفلترة). forEach = الموظف اللي بيمرق عالطابور واحد واحد. الـ backticks بتسمح نحط ${ } جوا النص. ليش list.innerHTML = \"\" بالأول؟ عشان لما نرسم من جديد ما تتكرر البطاقات.");
+  await stepSlide(S1, "الميزات · 1 من 5 · 02-data-render", "الرسم: render بـ forEach", [
+    ["index.html", '<div id="list" class="cards"></div>', 0.95, 15],
+    ["js/main.js", 'const list = document.getElementById("list");\n\nfunction render(arr) {\n  list.innerHTML = "";\n  arr.forEach(item => {\n    list.innerHTML += `\n      <div class="card">\n        <img src="${item.image}" alt="${item.name}">\n        <h3>${item.name}</h3>\n        <p>${item.price} دينار</p>\n      </div>`;\n  });\n}\nrender(items);', 3.85, 12],
+  ], "«امسك list (الأساس 7). render وصفة (6): فضّي list، ولكل منتج (4) ضيف بطاقة فيها صورته واسمه وسعره».\n${item.name} = حط اسم المنتج هون، جوا الـ backticks.", "مين بحاجتها", "AI · DSA · IT · تكنولوجيا", "سطر رابع بـ data.js = بطاقة جديدة، بدون ما نلمس الـ HTML",
+    "4 دقائق. أهم لحظة: ضيف منتج رابع بـ data.js واحفظ.");
 
-  await stepSlide(S1, 4, "الفلترة: filter و if", [
-    ["menu.html", '<button class="filter" data-cat="all">الكل</button>\n<button class="filter" data-cat="coffee">قهوة</button>\n<button class="filter" data-cat="sweets">حلويات</button>', 1.35, 13],
-    ["js/menu.js", 'document.querySelectorAll(".filter").forEach(btn => {\n  btn.addEventListener("click", () => {\n    const cat = btn.dataset.cat;\n    if (cat === "all") {\n      render(items);\n    } else {\n      render(items.filter(item => item.category === cat));\n    }\n  });\n});', 3.45, 12],
-  ], "«لكل زر فلترة: لما ينكبس، اقرأ تصنيفه. إذا الكل، ارسم كل المنتجات. وإلا، ارسم بس المنتجات اللي تصنيفها نفس تصنيف الزر».\nfilter = مصفاة القهوة. و === = بيساوي بالضبط.", "AI · DSA · تكنولوجيا · آفاق", "نفس الخطوات الثلاث، بس «غيّر» صار: ارسم من جديد",
-    "6 دقائق. data-cat معلومة مخبّاة على الزر، و JS بيقرأها بـ dataset.cat. لاحظوا: render نفسها من الخطوة 3، بس بنعطيها مصفوفة أصغر.");
+  await stepSlide(S1, "الميزات · 2 من 5 · 03-filter", "الفلترة: filter و if", [
+    ["index.html", '<button class="filter" data-cat="all">الكل</button>\n<button class="filter" data-cat="coffee">قهوة</button>\n<button class="filter" data-cat="sweets">حلويات</button>', 1.35, 12.5],
+    ["js/main.js", 'document.querySelectorAll(".filter").forEach(btn => {\n  btn.addEventListener("click", () => {\n    const cat = btn.dataset.cat;\n    if (cat === "all") {\n      render(items);\n    } else {\n      render(items.filter(item => item.category === cat));\n    }\n  });\n});', 3.4, 12],
+  ], "«امسك كل أزرار الفلترة. لما ينكبس زر: اقرأ تصنيفه. إذا الكل، ارسم الكل. وإلا، ارسم بس اللي تصنيفهم نفسه».\nامسك، استنى، و«غيّر» صارت: ارسم من جديد. filter = مصفاة القهوة.", "مين بحاجتها", "AI · DSA · تكنولوجيا · آفاق", "render نفسها، بس بمصفوفة أصغر",
+    "5 دقائق. data-cat معلومة مخبّاة على الزر، و JS بيقرأها بـ dataset.cat.");
 
-  await stepSlide(S1, 5, "صفحة التفاصيل: ?id= و find", [
-    ["بالبطاقة (الخطوة 3)", '<a href="details.html?id=${item.id}">التفاصيل</a>', 0.95, 14],
-    ["js/details.js", 'const id = Number(new URLSearchParams(location.search).get("id"));\nconst item = items.find(i => i.id === id);\nconst box = document.getElementById("details");\n\nif (item) {\n  box.innerHTML = `<h1>${item.name}</h1><p>${item.price} دينار</p>`;\n} else {\n  box.textContent = "المنتج مش موجود";\n}', 3.1, 11.5],
-  ], "«اقرأ الرقم من الرابط (details.html?id=2)، ودوّر بالمصفوفة على المنتج اللي رقمه نفسه. إذا لقيته، اعرض اسمه وسعره. وإلا: المنتج مش موجود».\nصفحة وحدة لكل المنتجات، بدل صفحة لكل منتج.", "DSA · تكنولوجيا", "find بترجّع أول عنصر الشرط صح عليه. filter بترجّع كلهم",
-    "5 دقائق. DSA: portfolio.html?id=3. تكنولوجيا عندهم tool-details.html?tool= أصلاً: «هاد اللي عندكم». details.html لازم تربط data.js قبل details.js.");
+  await stepSlide(S1, "الميزات · 3 من 5 · 04-details", "صفحة التفاصيل: ?id= و find", [
+    ["js/main.js · بالبطاقة", '<a class="btn" href="details.html?id=${item.id}">التفاصيل</a>', 0.95, 12.5],
+    ["js/details.js", 'const id = Number(new URLSearchParams(location.search).get("id"));\nconst item = items.find(i => i.id === id);\nconst box = document.getElementById("details");\n\nif (item) {\n  box.innerHTML = `<h1>${item.name}</h1> ...`;\n} else {\n  box.textContent = "المنتج مش موجود";\n}', 3.2, 11.5],
+  ], "«اقرأ الرقم من الرابط، ودوّر بالمصفوفة على المنتج اللي رقمه نفسه. إذا لقيته اعرضه، وإلا: المنتج مش موجود».\nصفحة وحدة لكل المنتجات. find بترجّع واحد، و filter بترجّع كلهم.", "مين بحاجتها", "DSA · تكنولوجيا", "جرّب بالرابط: ?id=2 بعدين ?id=9",
+    "4 دقائق. DSA: portfolio.html?id=3. تكنولوجيا: tool-details.html?tool= عندهم أصلاً.");
 
-  await stepSlide(S1, 6, "الحفظ بـ localStorage، واللون حسب السقف", [
-    ["js/menu.js", 'let cart = JSON.parse(localStorage.getItem("cart")) || [];\n\nfunction addToCart(item) {\n  cart.push(item);\n  localStorage.setItem("cart", JSON.stringify(cart));\n  showTotal();\n}\n\nfunction showTotal() {\n  let total = 0;\n  cart.forEach(i => { total += i.price; });\n  const bar = document.getElementById("total");\n  bar.textContent = total + " دينار";\n  if (total > 10) bar.style.color = "red";\n  else if (total >= 8) bar.style.color = "orange";\n  else bar.style.color = "green";\n}', 4.85, 11.5],
-  ], "«السلة من ذاكرة المتصفح، وإذا فاضية مصفوفة فاضية. كل إضافة بتنحفظ. المجموع: فوق 10 أحمر، من 8 (80%) برتقالي، غير هيك أخضر».\nJSON بيحوّل المصفوفة لنص عشان تنحفظ، وبيرجّعها مصفوفة.", "the sun بالأساس", "بتضل بعد الـ refresh، بس على نفس الجهاز ونفس المتصفح",
-    "6 دقائق. the sun: نفس الفكرة بالضبط، بس المفتاح اسمه wazen، والسقف لكل بند (أخضر تحت 80%، برتقالي من 80%، أحمر فوق السقف). جرّب: ضيف، refresh، المجموع ضل. F12 ← Application ← Local Storage وورّيهم البيانات.");
+  await stepSlide(S1, "الميزات · 4 من 5 · 05-save", "الحفظ بـ localStorage، واللون حسب السقف", [
+    ["js/main.js", 'let cart = JSON.parse(localStorage.getItem("cart")) || [];\n\nfunction addToCart(item) {\n  cart.push(item);\n  localStorage.setItem("cart", JSON.stringify(cart));\n  showTotal();\n}\n\nfunction showTotal() {\n  let total = 0;\n  cart.forEach(i => { total += i.price; });\n  const bar = document.getElementById("total");\n  bar.textContent = total + " دينار";\n  if (total > 10) bar.style.color = "red";\n  else if (total >= 8) bar.style.color = "orange";\n  else bar.style.color = "green";\n}', 4.85, 11.5],
+  ], "«السلة من ذاكرة المتصفح، وإذا فاضية مصفوفة فاضية. كل إضافة بتنحفظ. المجموع: فوق 10 أحمر، من 8 (80%) برتقالي، غير هيك أخضر».\nJSON بيحوّل المصفوفة لنص عشان تنحفظ، وبيرجّعها.", "مين بحاجتها", "the sun بالأساس", "أضف، refresh، المجموع ضل. وبس على نفس الجهاز",
+    "5 دقائق. F12 ← Application ← Local Storage. زر «فضّي السلة» للتجربة من جديد. the sun: نفس الفكرة، المفتاح wazen، والسقف لكل بند.");
 
-  await stepSlide(S1, 7, "الحركة: @keyframes و animation", [
-    ["css/style.css", "@keyframes fadeUp {\n  from { opacity: 0; transform: translateY(20px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n\n.show { animation: fadeUp 0.6s ease; }", 2.4, 13],
-    ["js/menu.js · آخر render", 'document.querySelectorAll(".card").forEach(card => {\n  card.classList.add("show");\n});', 1.4, 13],
-  ], "«@keyframes بتوصف الحركة: من شفاف ونازل 20 بكسل، لظاهر بمكانه. animation بتشغّلها نص ثانية. و JS بيضيف class اسمه show لكل بطاقة، فبتتحرك».\nالحركة بالـ CSS، و JS بس بيحط الـ class.", "تكنولوجيا", "زي الـ hamburger: الـ CSS بيحضّر الشكل، و JS بيحط الـ class",
-    "4 دقائق. تكنولوجيا: الـ hero بالرئيسية، والـ prompt بصفحة اليوم 5 بيطلب prefers-reduced-motion للي مطفّي الحركة.");
+  await stepSlide(S1, "الميزات · 5 من 5 · 06-animation", "الحركة: @keyframes و animation", [
+    ["css/style.css", "@keyframes fadeUp {\n  from { opacity: 0; transform: translateY(20px); }\n  to   { opacity: 1; transform: translateY(0); }\n}\n.show { animation: fadeUp 0.6s ease; }", 2.3, 13],
+    ["js/main.js · آخر render", 'document.querySelectorAll(".card").forEach(card => {\n  card.classList.add("show");\n});', 1.4, 13],
+  ], "«@keyframes بتوصف الحركة: من شفاف ونازل لظاهر بمكانه. animation بتشغّلها نص ثانية. و JS بيضيف class اسمه show لكل بطاقة».\nالحركة بالـ CSS، و JS بس بيحط الـ class.", "مين بحاجتها", "تكنولوجيا", "كبسة فلترة = البطاقات بتتحرك من جديد",
+    "3 دقائق. زي الـ hamburger: CSS بيحضّر الشكل، و JS بيحط الـ class.");
 
-  s = newSlide("CONTENT", "JavaScript · وين هاد بموقعكم؟", "نفس الخطوات، بأسماء موقعكم", S1);
-  table(s, ["الفريق", "الخطوات", "بموقعكم"], [
-    ["AI", "2 · 3 · 4", "menuItems بـ data.js و render بـ menu.js، والفلترة موجودة"],
-    ["DSA", "2 · 3 · 5", "creatives بـ data.js، و portfolio.html?id="],
-    ["IT Team", "1 · 2 · 3", "السلة والأحجام والنجوم (food.js و drinks.js)، و drinks بـ data.js"],
-    ["تكنولوجيا", "2 · 3 · 5 · 7", "tools بـ data.js، و tool-details.html?tool=، و animation للـ hero"],
-    ["آفاق", "3 · 4", "عندكم أصلاً: books بـ data.js، وloop، وفلترة. افهموه واشرحوه"],
-    ["the sun", "6", "المفتاح wazen بـ localStorage، والشريط أخضر وبرتقالي وأحمر"],
+  s = newSlide("CONTENT", "JavaScript · وين هاد بموقعكم؟", "نفس الأفكار، بأسماء موقعكم", S1);
+  table(s, ["الفريق", "الميزات", "بموقعكم"], [
+    ["AI", "1 · 2", "menuItems بـ data.js و render بـ menu.js، والفلترة موجودة"],
+    ["DSA", "1 · 3", "creatives بـ data.js، و portfolio.html?id="],
+    ["IT Team", "الأساس 7 · 1", "السلة والأحجام والنجوم (food.js و drinks.js)، و drinks بـ data.js"],
+    ["تكنولوجيا", "1 · 3 · 5", "tools بـ data.js، و tool-details.html?tool=، و animation للـ hero"],
+    ["آفاق", "1 · 2", "عندكم أصلاً: books بـ data.js، و loop، وفلترة. افهموه واشرحوه"],
+    ["the sun", "4", "المفتاح wazen بـ localStorage، والشريط أخضر وبرتقالي وأحمر"],
   ], { y: 1.75, colW: [1.8, 2.2, 8.133], rowH: 0.62, fs: 14 });
   callout(s, M, 6.05, CW, 0.55, "الـ prompts جاهزة بصفحة «اليوم 5» بـ«ملفات الدورة»، تبويب فريقكم", { size: 14 });
-  s.addNotes("دقيقة. اربط كل خطوة بمهمة بتبويب الفريق.");
+  s.addNotes("دقيقتين. اربط كل ميزة بمهمة بتبويب الفريق.");
 
   s = newSlide("CONTENT", "0:45 · تطبيق 75 دقيقة", "مهام فريقكم بصفحة «اليوم 5»", S1);
   practice(s, "الخطوات", [
